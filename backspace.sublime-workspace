@@ -4,66 +4,6 @@
 		"selected_items":
 		[
 			[
-				"user",
-				"usersetup\tfunction"
-			],
-			[
-				"sl",
-				"splitlines\tfunction"
-			],
-			[
-				"rea",
-				"readlines\tfunction"
-			],
-			[
-				"cont",
-				"content"
-			],
-			[
-				"sc",
-				"scripts_path\tstatement"
-			],
-			[
-				"read",
-				"readline\tfunction"
-			],
-			[
-				"re",
-				"readlines\tfunction"
-			],
-			[
-				"u",
-				"usersetup_path\tstatement"
-			],
-			[
-				"scr",
-				"script_path\tstatement"
-			],
-			[
-				"scrip",
-				"script_path"
-			],
-			[
-				"wri",
-				"write\tfunction"
-			],
-			[
-				"e",
-				"expanduser\tfunction"
-			],
-			[
-				"pa",
-				"path\tmodule"
-			],
-			[
-				"ec",
-				"except"
-			],
-			[
-				"slack",
-				"slack_token"
-			],
-			[
 				"file",
 				"file_path\tstatement"
 			],
@@ -116,6 +56,10 @@
 				"toolbox_func"
 			],
 			[
+				"re",
+				"return\tkeyword"
+			],
+			[
 				"Si",
 				"SIGNAL\tfunction"
 			],
@@ -134,6 +78,10 @@
 			[
 				"new",
 				"new_incr_str"
+			],
+			[
+				"pa",
+				"padding"
 			],
 			[
 				"curr",
@@ -254,6 +202,10 @@
 			[
 				"lo",
 				"logger"
+			],
+			[
+				"e",
+				"e_ref\tstatement"
 			],
 			[
 				"reference",
@@ -448,6 +400,10 @@
 				"__neg__\tfunction"
 			],
 			[
+				"u",
+				"uDiff\tstatement"
+			],
+			[
 				"v",
 				"v2016\tstatement"
 			],
@@ -514,27 +470,61 @@
 			[
 				"QSty",
 				"QStyleFactory\tclass"
+			],
+			[
+				"sv",
+				"svgData\tstatement"
+			],
+			[
+				"svg",
+				"svgWidget\tstatement"
+			],
+			[
+				"QtS",
+				"QSvgWidget\tclass"
+			],
+			[
+				"wi",
+				"QtWidgets"
+			],
+			[
+				"QAp",
+				"QApplication"
+			],
+			[
+				"sg",
+				"sgShapes\tstatement"
+			],
+			[
+				"scrSha",
+				"srcShapeFaces\tstatement"
+			],
+			[
+				"scr",
+				"srcShapeName"
+			],
+			[
+				"abs",
+				"absPath\tstatement"
+			],
+			[
+				"exc",
+				"exc_info\tfunction"
+			],
+			[
+				"debu",
+				"debugList\tstatement"
 			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "backspace_pipe/toolbox_func.py",
+			"file": "backspace.sublime-project",
 			"settings":
 			{
-				"buffer_size": 10417,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "pipe_installer.py",
-			"settings":
-			{
-				"buffer_size": 1165,
-				"encoding": "UTF-8",
-				"line_ending": "Windows"
+				"buffer_size": 833,
+				"line_ending": "Unix"
 			}
 		}
 	],
@@ -566,16 +556,16 @@
 		"selected_items":
 		[
 			[
-				"pip",
-				"Package Control: Install Package"
-			],
-			[
 				"py",
 				"Set Syntax: Python"
 			],
 			[
 				"side bar",
 				"Side Bar: Refresh"
+			],
+			[
+				"pip",
+				"Package Control: Install Package"
 			],
 			[
 				"p",
@@ -756,20 +746,10 @@
 	},
 	"expanded_folders":
 	[
-		"/E/backspace_pipe",
 		"/E/backspace_pipe/backspace_pipe"
 	],
 	"file_history":
 	[
-		"/E/backspace_pipe/pipe_installer.bat",
-		"/C/Users/Jason/Documents/maya/2018/scripts/usersetup.py",
-		"/C/Users/Jason/Documents/maya/2018/scripts/userSetup.py",
-		"/E/backspace_pipe/backspace_venv/__init__.py",
-		"/E/backspace_pipe/toolbox_gui.py",
-		"/E/backspace_pipe/toolbox_func.py",
-		"/E/backspace_pipe/slack_tools.py",
-		"/E/backspace_pipe/backspace.sublime-project",
-		"/E/backspace_pipe/backspace.sublime-workspace",
 		"/E/backspace_pipe/levio.sublime-project",
 		"/E/backspace_pipe/learning/sending_value_with_qt_signal.py",
 		"/E/captain/core/db.py",
@@ -777,6 +757,7 @@
 		"/E/Levio/06_Scripts/levio/backspace_pipe/toolbox_func.py",
 		"/E/Levio/06_Scripts/userSetup.py",
 		"/E/Levio/06_Scripts/deploy_install/userSetup.py",
+		"/C/Users/Jason/Documents/maya/2018/scripts/userSetup.py",
 		"/E/Levio/06_Scripts/levio/slack/testSlackApi.py",
 		"/E/Levio/06_Scripts/levio/backspace_pipe/toolbox_wrapper.py",
 		"/C/Users/Jason/NTUSER.DAT",
@@ -888,11 +869,19 @@
 		"/E/Documents/Aftereffects/Showreel_Sep17/Copy of Showreel_Sep17.aepx",
 		"/C/Users/js313/Desktop/transferShadingGroups_BAK.py",
 		"/C/Users/js313/Documents/maya/mayaRenderLog.txt",
-		"/C/Users/js313/Desktop/shot02_samples.txt"
+		"/C/Users/js313/Desktop/shot02_samples.txt",
+		"/C/Users/js313/Desktop/trailer_missing_ranges.txt",
+		"/M/Levio/06_Scripts/levio/transferShadingSets.py",
+		"/M/Levio/06_Scripts/levio/refReplaceUtil.py",
+		"/M/Levio/06_Scripts/levio/takeScreenshot.py",
+		"/M/Levio/06_Scripts/levio/slack/sendToSlack.py",
+		"/M/Levio/06_Scripts/levio_maya_setup.py",
+		"/C/Users/js313/Documents/maya/2018/scripts/userSetup.py",
+		"/M/Levio/06_Scripts/groupSetup.py"
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 25.0
 	},
 	"find_in_files":
 	{
@@ -906,8 +895,6 @@
 		"case_sensitive": false,
 		"find_history":
 		[
-			"content",
-			"levio"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -925,84 +912,33 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 0,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "backspace_pipe/toolbox_func.py",
+					"file": "backspace.sublime-project",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10417,
+						"buffer_size": 833,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								8984,
-								8984
+								0,
+								0
 							]
 						],
 						"settings":
 						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 5232.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "pipe_installer.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1165,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								744,
-								744
-							]
-						],
-						"settings":
-						{
-							"auto_complete_triggers":
-							[
-								{
-									"characters": ".",
-									"selector": "source.python - string - comment - constant.numeric"
-								},
-								{
-									"characters": ".",
-									"selector": "source.python - string - constant.numeric"
-								}
-							],
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 48.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
