@@ -4,6 +4,8 @@ import os
 import logging
 import maya.OpenMaya as api
 import maya.OpenMayaUI as apiUI
+import getpass
+import time
 from sets import Set
 
 import backspace_pipe.slack_tools as slack_tools
@@ -206,23 +208,23 @@ def incremental_save():
     curr_path = pmc.sceneName()
     curr_name, curr_ext = curr_path.name.splitext()
 
-    re_incr = re.compile(r"\d+$")
+    re_incr = re.compile(r"_\d+")
     match = re_incr.search(curr_name)
 
 
     if match is None:
-        logger.warning("Please check filename format: 'your_asset_name_XX' with XX being an integer (padding can vary)!")
+        logger.warning("Please check filename format: 'your_asset_name_XX_optional_comment' with XX being an integer (padding can vary)!")
         return False
 
     curr_asset = re_incr.split(curr_name)[0]
 
-    curr_incr_str = match.group(0)
+    curr_incr_str = match.group(0).replace("_", "")
 
     new_incr_int = int(curr_incr_str) + 1
 
     incr_padding = len(curr_incr_str)
 
-    new_incr_str = "{num:0{width}d}".format(num=new_incr_int, width=incr_padding)
+    new_incr_str = "_{num:0{width}d}".format(num=new_incr_int, width=incr_padding)
 
     new_path = pmc.Path(curr_path.parent + "/" + curr_asset + new_incr_str + curr_ext)
 
@@ -300,7 +302,7 @@ def del_delOnPub_set():
     maya_set_ls = pmc.ls("deleteOnPublish")
 
     if len(maya_set_ls) == 0:
-        logger.info("deleteOnPublish Set is nonexistent") 
+        logger.info("deleteOnPublish Set is nonexistent")
         return True
 
     maya_set = maya_set_ls[0]
@@ -326,7 +328,7 @@ def publish():
     curr_path = pmc.sceneName()
     curr_name, curr_ext = curr_path.name.splitext()
 
-    re_incr = re.compile(r"_\d+$")
+    re_incr = re.compile(r"_\d+")
     curr_asset = re_incr.split(curr_name)[0]
 
     new_path = pmc.Path(curr_path.parent.parent + "/" + curr_asset + "_REF" + curr_ext)
@@ -362,7 +364,17 @@ def slack_publish_notification():
         logger.exception(e)
         return False
 
-    slack_tools.send_file(channels="publish", file_path=file_path, file_name="untitled", file_type="png", title="untitled")
+
+    re_incr = re.compile(r"_\d+")
+
+    curr_asset = re_incr.split(scene_path.name)[0]
+    user = getpass.getuser()
+    date_str = time.strftime("%Y_%m_%d")
+
+    initial_comment = "*{asset}* has been published by _{user}_".format(asset=curr_asset, user=user)
+    file_name = "{date}_{asset}".format(date=date_str, asset=curr_asset)
+
+    slack_tools.send_file(channels="publish", file_path=file_path, file_name=file_name, file_type="png", title=file_name, initial_comment=initial_comment)
 
     os.remove(file_path)
 

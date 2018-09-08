@@ -4,12 +4,32 @@
 		"selected_items":
 		[
 			[
-				"she",
-				"shelf_path\tstatement"
+				"get",
+				"getpass\tmodule"
+			],
+			[
+				"f",
+				"file_name\tstatement"
 			],
 			[
 				"file",
-				"file_path\tstatement"
+				"file_name"
+			],
+			[
+				"date",
+				"datetime\tclass"
+			],
+			[
+				"getlo",
+				"getlogin\tfunction"
+			],
+			[
+				"re",
+				"replace\tfunction"
+			],
+			[
+				"she",
+				"shelf_path\tstatement"
 			],
 			[
 				"fi",
@@ -58,10 +78,6 @@
 			[
 				"fun",
 				"toolbox_func"
-			],
-			[
-				"re",
-				"return\tkeyword"
 			],
 			[
 				"Si",
@@ -498,27 +514,29 @@
 			[
 				"sg",
 				"sgShapes\tstatement"
-			],
-			[
-				"scrSha",
-				"srcShapeFaces\tstatement"
-			],
-			[
-				"scr",
-				"srcShapeName"
-			],
-			[
-				"abs",
-				"absPath\tstatement"
-			],
-			[
-				"exc",
-				"exc_info\tfunction"
 			]
 		]
 	},
 	"buffers":
 	[
+		{
+			"file": "backspace_pipe/toolbox_func.py",
+			"settings":
+			{
+				"buffer_size": 10855,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Jason/Documents/maya/2018/scripts/usersetup.py",
+			"settings":
+			{
+				"buffer_size": 135,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -743,6 +761,7 @@
 	"expanded_folders":
 	[
 		"/E/backspace_pipe",
+		"/E/backspace_pipe/backspace_pipe",
 		"/E/backspace_pipe/shelves"
 	],
 	"file_history":
@@ -878,7 +897,7 @@
 	],
 	"find":
 	{
-		"height": 25.0
+		"height": 40.0
 	},
 	"find_in_files":
 	{
@@ -892,6 +911,8 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"(r\"_\\d+$\")",
+			"curr_asset = re_incr.split(curr_name)[0]",
 			"scripts_path"
 		],
 		"highlight": true,
@@ -910,8 +931,78 @@
 	"groups":
 	[
 		{
+			"selected": 1,
 			"sheets":
 			[
+				{
+					"buffer": 0,
+					"file": "backspace_pipe/toolbox_func.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 10855,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								10855
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5488.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/Jason/Documents/maya/2018/scripts/usersetup.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 135,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								135,
+								135
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
 			]
 		}
 	],

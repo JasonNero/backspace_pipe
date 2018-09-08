@@ -15,7 +15,7 @@ def send_text(channel, text, attachments=[]):
 	)
 	return ret
 
-def send_file(channels, file_path, file_name, file_type, title):
+def send_file(channels, file_path, file_name, file_type, title, initial_comment):
     sc = SlackClient(slack_token)
 
     my_file = (file_path, open(file_path, 'rb'), file_type)
@@ -26,6 +26,7 @@ def send_file(channels, file_path, file_name, file_type, title):
         filename=file_name,
         file=my_file,
         filetype=file_type,
-        title=title
+        title=title,
+        initial_comment=initial_comment
     )
     return ret
