@@ -3,7 +3,7 @@ from shiboken2 import wrapInstance
 from PySide2 import QtCore, QtWidgets
 from functools import partial
 
-import levio.backspace_pipe.toolbox_func as toolbox_func
+import backspace_pipe.toolbox_func as toolbox_func
 
 
 class GUI(QtWidgets.QWidget):

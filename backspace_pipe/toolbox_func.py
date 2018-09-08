@@ -4,10 +4,9 @@ import os
 import logging
 import maya.OpenMaya as api
 import maya.OpenMayaUI as apiUI
-from PySide2 import QtCore, QtWidgets
 from sets import Set
 
-import levio.backspace_pipe.slack_tools as slack_tools
+import backspace_pipe.slack_tools as slack_tools
 
 
 ### Logging
@@ -355,7 +354,13 @@ def slack_publish_notification():
 
     scene_path = pmc.sceneName()
     file_path = scene_path.splitext()[0] + ".png"
-    image.writeToFile(file_path, 'png')
+
+    try:
+        image.writeToFile(file_path, 'png')
+    except Exception as e:
+        logger.error("An Exception occured, please contact Jason to fix this!")
+        logger.exception(e)
+        return False
 
     slack_tools.send_file(channels="publish", file_path=file_path, file_name="untitled", file_type="png", title="untitled")
 

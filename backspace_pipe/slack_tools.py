@@ -1,7 +1,7 @@
 from slackclient import SlackClient
-import os
 
-slack_token = os.environ(['SLACK_TOKEN'])
+# slack_token = os.environ(['SLACK_TOKEN'])
+slack_token = "xoxb-376585360678-431673777458-zLAijjpZHSphL75CocBQln35"
 
 
 def send_text(channel, text, attachments=[]):

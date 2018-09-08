@@ -1,0 +1,1036 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"file",
+				"file_path\tstatement"
+			],
+			[
+				"fi",
+				"file_type\tparam"
+			],
+			[
+				"spli",
+				"splitext"
+			],
+			[
+				"fil",
+				"file_content"
+			],
+			[
+				"to",
+				"toolbox"
+			],
+			[
+				"delete",
+				"del_delOnPub_set\tfunction"
+			],
+			[
+				"import",
+				"import_refs_set\tfunction"
+			],
+			[
+				"too",
+				"toolbox_func\tmodule"
+			],
+			[
+				"tool",
+				"toolbox_array\tstatement"
+			],
+			[
+				"toolbox",
+				"toolbox_array\tstatement"
+			],
+			[
+				"curre",
+				"current_shape_name\tstatement"
+			],
+			[
+				"curs",
+				"toggle_wait_cursor\tfunction"
+			],
+			[
+				"fun",
+				"toolbox_func"
+			],
+			[
+				"re",
+				"return\tkeyword"
+			],
+			[
+				"Si",
+				"SIGNAL\tfunction"
+			],
+			[
+				"Qt",
+				"QtCore"
+			],
+			[
+				"chec",
+				"check_results\tstatement"
+			],
+			[
+				"exce",
+				"except"
+			],
+			[
+				"new",
+				"new_incr_str"
+			],
+			[
+				"pa",
+				"padding"
+			],
+			[
+				"curr",
+				"curr_incr\tstatement"
+			],
+			[
+				"war",
+				"warning\tfunction"
+			],
+			[
+				"current",
+				"current_name\tstatement"
+			],
+			[
+				"crea",
+				"create_refsToImport_set"
+			],
+			[
+				"exe",
+				"execute_all\tfunction"
+			],
+			[
+				"exec",
+				"execute_all_btn\tstatement"
+			],
+			[
+				"row",
+				"rowCount\tfunction"
+			],
+			[
+				"setMin",
+				"setMinimumWidth\tfunction"
+			],
+			[
+				"cl",
+				"clicked\tstatement"
+			],
+			[
+				"setSty",
+				"setStyleSheet\tfunction"
+			],
+			[
+				"QBu",
+				"QPushButton"
+			],
+			[
+				"add",
+				"addWidget\tfunction"
+			],
+			[
+				"t",
+				"toolbox_array"
+			],
+			[
+				"ref",
+				"create_refsToImport_set\tfunction"
+			],
+			[
+				"ass",
+				"assure_shape_names\tfunction"
+			],
+			[
+				"hist",
+				"del_all_history\tfunction"
+			],
+			[
+				"del",
+				"del_displaylayers\tfunction"
+			],
+			[
+				"cer",
+				"create_delOnPub_set\tfunction"
+			],
+			[
+				"QCheck",
+				"QCheckBox\tPyQt Classes"
+			],
+			[
+				"setsize",
+				"setFixedSize\tfunction"
+			],
+			[
+				"setSize",
+				"setBaseSize\tfunction"
+			],
+			[
+				"QFo",
+				"QFormLayout\tclass"
+			],
+			[
+				"QTex",
+				"QTextEdit\tclass"
+			],
+			[
+				"Set",
+				"Setup_GUI\tclass"
+			],
+			[
+				"for",
+				"format\tfunction"
+			],
+			[
+				"pat",
+				"Path\tclass"
+			],
+			[
+				"cera",
+				"create_refs_to_import_set\tfunction"
+			],
+			[
+				"maya",
+				"maya_set\tstatement"
+			],
+			[
+				"in",
+				"info\tfunction"
+			],
+			[
+				"lo",
+				"logger"
+			],
+			[
+				"e",
+				"e_ref\tstatement"
+			],
+			[
+				"reference",
+				"referenceQuery\tfunction"
+			],
+			[
+				"c",
+				"create_refs_to_import_set\tfunction"
+			],
+			[
+				"cre",
+				"create_delOnPub_set\tfunction"
+			],
+			[
+				"view",
+				"viewFit\tfunction"
+			],
+			[
+				"non",
+				"nonmanifold_verts\tstatement"
+			],
+			[
+				"error",
+				"error_list\tstatement"
+			],
+			[
+				"inval",
+				"invalid_verts\tstatement"
+			],
+			[
+				"inv",
+				"invalid_verts\tstatement"
+			],
+			[
+				"lam",
+				"lamina_faces\tstatement"
+			],
+			[
+				"invalid_",
+				"invalid_vertices"
+			],
+			[
+				"all",
+				"all_shapes\tstatement"
+			],
+			[
+				"node",
+				"nodeType"
+			],
+			[
+				"trans",
+				"transform"
+			],
+			[
+				"ex",
+				"extend\tfunction"
+			],
+			[
+				"assure",
+				"assure_shape_names\tfunction"
+			],
+			[
+				"p",
+				"propagate\tstatement"
+			],
+			[
+				"hand",
+				"_handlers\tstatement"
+			],
+			[
+				"handler",
+				"removeHandler\tfunction"
+			],
+			[
+				"set",
+				"setFormatter"
+			],
+			[
+				"remo",
+				"removeHandler\tfunction"
+			],
+			[
+				"g",
+				"getLogger\tfunction"
+			],
+			[
+				"base",
+				"base_name\tstatement"
+			],
+			[
+				"bas",
+				"base_name_matches\tstatement"
+			],
+			[
+				"logg",
+				"logging\tmodule"
+			],
+			[
+				"no",
+				"non_unique_nodes\tstatement"
+			],
+			[
+				"fix",
+				"fix_wait_cursor\tfunction"
+			],
+			[
+				"eval",
+				"evalContinue\tfunction"
+			],
+			[
+				"unk",
+				"unknown_nodes\tstatement"
+			],
+			[
+				"dele",
+				"delete\tfunction"
+			],
+			[
+				"try",
+				"try\tTry/Except"
+			],
+			[
+				"sta",
+				"status\tstatement"
+			],
+			[
+				"print",
+				"print\tkeyword"
+			],
+			[
+				"sa",
+				"save_on_setup\tfunction"
+			],
+			[
+				"save",
+				"saveFile\tfunction"
+			],
+			[
+				"vrs",
+				"vrscene_on\tstatement"
+			],
+			[
+				"ren",
+				"render_on\tstatement"
+			],
+			[
+				"vrscene_",
+				"vrscene_export\tfunction"
+			],
+			[
+				"vr",
+				"vrscene"
+			],
+			[
+				"off",
+				"offset_value\tstatement"
+			],
+			[
+				"grid",
+				"grid_y_align\tfunction"
+			],
+			[
+				"cam",
+				"cam_pos_optimal\tstatement"
+			],
+			[
+				"grid_",
+				"grid_pos\tstatement"
+			],
+			[
+				"gird",
+				"grid_pos\tstatement"
+			],
+			[
+				"setkey",
+				"setKeyframe\tfunction"
+			],
+			[
+				"gr",
+				"grid_size\tstatement"
+			],
+			[
+				"ls",
+				"ls\tfunction"
+			],
+			[
+				"polyEdi",
+				"polyEditUVShell\tfunction"
+			],
+			[
+				"__ne",
+				"__neg__\tfunction"
+			],
+			[
+				"u",
+				"uDiff\tstatement"
+			],
+			[
+				"v",
+				"v2016\tstatement"
+			],
+			[
+				"Widget",
+				"QtWidgets"
+			],
+			[
+				"Q",
+				"QWidget"
+			],
+			[
+				"scene",
+				"sceneName\tfunction"
+			],
+			[
+				"sele",
+				"selected_mod_list\tstatement"
+			],
+			[
+				"work",
+				"workspace_dir\tstatement"
+			],
+			[
+				"se",
+				"selected_lgt_list"
+			],
+			[
+				"sel",
+				"selected_mod_list\tstatement"
+			],
+			[
+				"max",
+				"max_count\tstatement"
+			],
+			[
+				"a",
+				"append\tfunction"
+			],
+			[
+				"rel",
+				"rel_mod_dir\tstatement"
+			],
+			[
+				"loa",
+				"Load"
+			],
+			[
+				"parent",
+				"parentConstraint\tfunction"
+			],
+			[
+				"sorted",
+				"sorted_sel\tstatement"
+			],
+			[
+				"so",
+				"sorted_sel\tstatement"
+			],
+			[
+				"w",
+				"workspace_dir\tstatement"
+			],
+			[
+				"QSty",
+				"QStyleFactory\tclass"
+			],
+			[
+				"sv",
+				"svgData\tstatement"
+			],
+			[
+				"svg",
+				"svgWidget\tstatement"
+			],
+			[
+				"QtS",
+				"QSvgWidget\tclass"
+			],
+			[
+				"wi",
+				"QtWidgets"
+			],
+			[
+				"QAp",
+				"QApplication"
+			],
+			[
+				"sg",
+				"sgShapes\tstatement"
+			],
+			[
+				"scrSha",
+				"srcShapeFaces\tstatement"
+			],
+			[
+				"scr",
+				"srcShapeName"
+			],
+			[
+				"abs",
+				"absPath\tstatement"
+			],
+			[
+				"exc",
+				"exc_info\tfunction"
+			],
+			[
+				"debu",
+				"debugList\tstatement"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "backspace.sublime-project",
+			"settings":
+			{
+				"buffer_size": 833,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "",
+	"build_system_choices":
+	[
+		[
+			[
+				[
+					"Packages/Python/Python.sublime-build",
+					""
+				],
+				[
+					"Packages/Python/Python.sublime-build",
+					"Syntax Check"
+				]
+			],
+			[
+				"Packages/Python/Python.sublime-build",
+				""
+			]
+		]
+	],
+	"build_varint": "",
+	"command_palette":
+	{
+		"height": 203.0,
+		"last_filter": "",
+		"selected_items":
+		[
+			[
+				"py",
+				"Set Syntax: Python"
+			],
+			[
+				"side bar",
+				"Side Bar: Refresh"
+			],
+			[
+				"pip",
+				"Package Control: Install Package"
+			],
+			[
+				"p",
+				"Package Control: Remove Package"
+			],
+			[
+				"pi",
+				"Package Control: Install Package"
+			],
+			[
+				"spaces",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"space",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"tabs",
+				"Indentation: Convert to Tabs"
+			],
+			[
+				"maya",
+				"Maya: Enable ScriptEditor Output"
+			],
+			[
+				"convert",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"anaconda",
+				"Anaconda: Vagrant Enable"
+			],
+			[
+				"packa",
+				"Package Control: Remove Package"
+			],
+			[
+				"bui",
+				"Build With: Python + Virtualenv"
+			],
+			[
+				"pyt",
+				"Set Syntax: Python"
+			],
+			[
+				"virtua",
+				"Virtualenv: Activate"
+			],
+			[
+				"buil",
+				"Build With: Python + Virtualenv"
+			],
+			[
+				"ana",
+				"Anaconda: Set Python interpreter"
+			],
+			[
+				"build",
+				"Build: Cancel"
+			],
+			[
+				"py2",
+				"Build With: Python2"
+			],
+			[
+				"py3",
+				"Build With: Python3"
+			],
+			[
+				"conver",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"instal",
+				"Package Control: Install Package"
+			],
+			[
+				"ic",
+				"Indentation: Convert to Spaces"
+			],
+			[
+				"settings",
+				"Preferences: Settings"
+			],
+			[
+				"",
+				"Anaconda: Autoformat PEP8 Errors"
+			],
+			[
+				"interpre",
+				"Anaconda: Set Python interpreter"
+			],
+			[
+				"comme",
+				"Toggle Comment"
+			],
+			[
+				"indent",
+				"Indentation: Convert to Tabs"
+			],
+			[
+				"setpyt",
+				"Set Syntax: Python"
+			],
+			[
+				"setpyth",
+				"Set Syntax: Python"
+			],
+			[
+				"package",
+				"Package Control: Remove Package"
+			],
+			[
+				"pacl",
+				"Package Control: List Packages"
+			],
+			[
+				"set pyth",
+				"Set Syntax: Python"
+			],
+			[
+				"PACKAGE",
+				"Package Control: Remove Package"
+			],
+			[
+				"PIP",
+				"Package Control: Install Package"
+			],
+			[
+				"set pytho",
+				"Set Syntax: Python"
+			],
+			[
+				"deinstall",
+				"Package Control: Advanced Install Package"
+			],
+			[
+				"REMOVE",
+				"Package Control: Remove Package"
+			],
+			[
+				"set PYth",
+				"Set Syntax: Python"
+			],
+			[
+				"setpy",
+				"Preferences: Settings – Syntax Specific"
+			],
+			[
+				"pin",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 412.0
+	},
+	"console":
+	{
+		"height": 272.0,
+		"history":
+		[
+			"import socket; socket.socket(socket.AF_INET, socket.SOCK_STREAM).connect((\"localhost\", 49211))",
+			"import urllib.request,os,hashlib; h = 'df21e130d211cfc94d9b0905775a7c0f' + '1e3d39e33b79698005270310898eea76'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://packagecontrol.io/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by) "
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"expanded_folders":
+	[
+		"/E/backspace_pipe"
+	],
+	"file_history":
+	[
+		"/E/backspace_pipe/levio.sublime-project",
+		"/E/backspace_pipe/learning/sending_value_with_qt_signal.py",
+		"/E/captain/core/db.py",
+		"/E/Levio/06_Scripts/levio/backspace_pipe/toolbox_gui.py",
+		"/E/Levio/06_Scripts/levio/backspace_pipe/toolbox_func.py",
+		"/E/Levio/06_Scripts/userSetup.py",
+		"/E/Levio/06_Scripts/deploy_install/userSetup.py",
+		"/C/Users/Jason/Documents/maya/2018/scripts/userSetup.py",
+		"/E/Levio/06_Scripts/levio/slack/testSlackApi.py",
+		"/E/Levio/06_Scripts/levio/backspace_pipe/toolbox_wrapper.py",
+		"/C/Users/Jason/NTUSER.DAT",
+		"/C/Users/Jason/Documents/maya/2018/Maya.env",
+		"/E/Levio/06_Scripts/levio/inhouse/prod/acmaya/acmaya/tools/step_tool/step_tool_ui_v2017.py",
+		"/E/Levio/06_Scripts/levio/LicGui.py",
+		"/C/Users/Jason/Documents/maya/2018/prefs/scripts/userSetup.mel",
+		"/C/Users/Jason/Documents/maya/2018/prefs/scripts/userSetup.py",
+		"/E/Levio/06_Scripts/levio_maya_setup.py",
+		"/E/Levio/06_Scripts/levio/levio.sublime-project",
+		"/C/Users/Jason/Documents/maya/2018/scripts/userSetup.mel",
+		"/C/Program Files/Autodesk/Maya2018/devkit/other/PyQtScripts/pythonScripts.py",
+		"/C/Program Files/Autodesk/Maya2018/devkit/other/PyQtScripts/qt/myMakeStuff.py",
+		"/C/Program Files/Autodesk/Maya2018/devkit/other/PyQtScripts/userSetup.py",
+		"/E/Levio/06_Scripts/levio/learning/pyside2_dynamiclayouts.py",
+		"/E/Levio/06_Scripts/levio/learning/pyside2_basiclayouts.py",
+		"/E/Levio/06_Scripts/levio/inhouse/prod/acmaya/acmaya/tools/step_tool/step_tool_ui.py",
+		"/C/Users/Jason/Documents/maya/2018/prefs/shelves/shelf_Arnold.mel",
+		"/C/Users/Jason/Documents/maya/2018/prefs/shelves/shelf_Custom.mel",
+		"/C/Users/Jason/Documents/maya/2018/prefs/shelves/shelf_Levio.mel",
+		"/C/Users/Jason/Documents/maya/2018/prefs/shelves/shelf_Bifrost.mel",
+		"/C/Users/Jason/Documents/maya/2018/prefs/shelves/shelf_Polygons.mel",
+		"/C/Users/Jason/Documents/maya/2018/prefs/shelves/shelf_Polygons_User.mel.deleted",
+		"/C/Users/JNero/Desktop/pipfreeze.txt",
+		"/C/Program Files (x86)/Steam/steamapps/appmanifest_513300.acf",
+		"/C/Users/JNero/AppData/Local/Temp/Rar$DIa0.383/license.txt",
+		"/G/Levio/06_Scripts/levio/learning/pyside2_borderlayout.py",
+		"/G/Levio/06_Scripts/levio/learning/pyside2_dynamiclayouts.py",
+		"/G/Levio/06_Scripts/levio/learning/pyside2_flowlayout.py",
+		"/G/Levio/06_Scripts/levio/learning/re_snippets.txt",
+		"/G/Levio/06_Scripts/levio/learning/re_learning.py",
+		"/G/Levio/06_Scripts/levio/levio.sublime-project",
+		"/G/Levio/06_Scripts/levio/LicGui.py",
+		"/G/Levio/06_Scripts/levio/backspace_pipe/__init__.py",
+		"/G/Levio/06_Scripts/levio/mmid_printout.py",
+		"//APICNAS/Produktion/Projekte/1726817K_KTM_Motohall/400_3D/450_settings_scripts/align_wireframe_grid_v2.py",
+		"/G/Levio/06_Scripts/levio/blockingReel.py",
+		"/D/Levio/06_Scripts/levio/vrscene_export.py",
+		"//APICNAS/Transfer/Mitarbeiter/_Jason/jsMaya/makeRefFile.py",
+		"//APICNAS/Produktion/Projekte/18291OTT_Bitburger/400_3D/410_work_scenes/412_models/Flasche_05/Flasche_05_REF.vrscene",
+		"/W/Pipeline/deploy/___maya/userSetup_v2017.py",
+		"//APICNAS/Produktion/Pipeline/deploy/inhouse/prod/acmaya/userSetup.py",
+		"/D/Levio/06_Scripts/levio/step_tool_ui_v2017.py",
+		"//APICNAS/Produktion/Pipeline/deploy/inhouse/prod/acmaya/acmaya/tools/runner_v2017.py",
+		"/D/Levio/06_Scripts/levio/step_tool_fn.py",
+		"//APICNAS/Produktion/Pipeline/deploy/inhouse/prod/acmaya/acmaya/tools/step_tool/__init__.py",
+		"/C/Users/TheApic/Documents/maya/scripts/userSetup.mel",
+		"/C/Users/TheApic/Documents/maya/2017/scripts/userSetup.py",
+		"//APICNAS/Produktion/Pipeline/deploy/inhouse/prod/acmaya/acmaya/tools/runner_dev.py",
+		"//APICNAS/Produktion/Pipeline/deploy/___maya/userSetup.py",
+		"/D/Levio/06_Scripts/levio/render_sequence_rebuild_for_water_particles_with_mem_cache.py",
+		"/D/Levio/06_Scripts/levio/pysidetable.py",
+		"/D/Levio/06_Scripts/levio/parentingSelection.py",
+		"/W/Pipeline/deploy/___maya/userSetup.py",
+		"/E/Levio/06_Scripts/levio/jumpInsideRef.py",
+		"/E/Levio/06_Scripts/levio/batchSceneSetup.py",
+		"//APICNAS/Transfer/Mitarbeiter/_Jason/jsMaya/shelf_Jason.mel",
+		"//APICNAS/Produktion/Projekte/18278LEI_Nobo_Whiteboards/400_3D/450_settings_scripts/nobo_customized_do_my_work_v1_1.py",
+		"//apicnas/Produktion/Projekte/18278LEI_Nobo_Whiteboards/300_Projektmanagement/csv/whiteboards_REF.csv",
+		"//APICNAS/Produktion/Projekte/18278LEI_Nobo_Whiteboards/400_3D/450_settings_scripts/nobo_snap_whiteboard_to_locator.py",
+		"/C/Users/TheApic/Desktop/Neues Textdokument.txt",
+		"/C/Users/TheApic/Desktop/expression.txt",
+		"//apicnas/Produktion/Projekte/18278LEI_Nobo_Whiteboards/400_3D/maya_deadline_info.job",
+		"//apicnas/Produktion/Projekte/18280LEI_Shredder_Visuals/400_3D/460_renderings/18_03_23_s0701_03_render01/s0701_03_render01_config_2018_03_23_14_54_23.txt",
+		"/D/Levio/06_Scripts/levio/levio.sublime-project",
+		"//APICNAS/Produktion/Ressources/Bibliothek_Fex/Maya_Skripte/delete_PASTED__prefix.mel",
+		"/C/Users/TheApic/Documents/maya/2017/prefs/shelves/shelf_Jason.mel.deleted",
+		"/D/Levio/06_Scripts/levio/__init__.py",
+		"/C/Users/JNero/AppData/LocalLow/Ludeon Studios/RimWorld by Ludeon Studios/Config/LastPlayedVersion.txt",
+		"/C/Users/JNero/AppData/LocalLow/Ludeon Studios/RimWorld by Ludeon Studios/Backup/Saves/Gemeinschaft des Zufalls_eye2.rws",
+		"/C/Program Files (x86)/Steam/steamapps/common/RimWorld/Readme.txt",
+		"/G/Levio/06_Scripts/levio/pysideSvgWindow.py",
+		"/G/Levio/06_Scripts/levio/plot_test.py",
+		"/G/Levio/06_Scripts/levio/pygalTest.py",
+		"/G/Levio/06_Scripts/levio/test.svg",
+		"/G/Levio/06_Scripts/venv/levio/Lib/site-packages/easy_install.py",
+		"/G/Levio/06_Scripts/venv/levio/pip-selfcheck.json",
+		"/G/Levio/06_Scripts/venv/levio/Lib/site-packages/idna-2.6.dist-info/top_level.txt",
+		"/G/Levio/06_Scripts/venv/levio/Lib/site-packages/idna-2.6.dist-info/WHEEL",
+		"/C/Users/JNero/Documents/my games/Borderlands The Pre-Sequel/WillowGame/SaveData/76561198032196156/Save0001.sav",
+		"/C/Users/JNero/Documents/my games/Borderlands The Pre-Sequel/WillowGame/SaveData/76561198032196156/profile.bin",
+		"/G/Levio/06_Scripts/venv/levio/Scripts/activate.ps1",
+		"/G/Levio/06_Scripts/venv/levio/Scripts/activate_this.py",
+		"/G/Levio/06_Scripts/venv/levio/Scripts/activate",
+		"/C/Users/JNero/.conda/environments.txt",
+		"/G/Levio/06_Scripts/venv_setup.txt",
+		"/G/Levio/06_Scripts/venv/levio/Scripts/activate.bat",
+		"/C/Users/JNero/AppData/Roaming/Sublime Text 3/Packages/Anaconda/Anaconda.sublime-settings",
+		"/C/Users/JNero/AppData/Roaming/Sublime Text 3/Packages/User/MayaSublime.sublime-settings",
+		"/C/Users/JNero/Desktop/test.py",
+		"/C/Users/JNero/AppData/Roaming/Sublime Text 3/Packages/User/Anaconda.sublime-settings",
+		"/K/IT/load_ca_taskbar.vbs",
+		"/K/IT/software/speedtree/SpeedTree_Jochen_Bomm.lic",
+		"/K/Studioproduktion_CA/Produktionen/17_18_ws/Levio/meta.json",
+		"/K/Studioproduktion_CA/Produktionen/17_18_ws/Ein_letzter_Tanz/meta.json",
+		"/M/Levio/06_Scripts/levio/transferShadingGroups.py",
+		"/M/Levio/06_Scripts/levio/blockingReel.py",
+		"/M/Levio/06_Scripts/levio/transferShadingGroups_beta.py",
+		"/M/Levio/06_Scripts/levio/ABSPANN.py",
+		"/M/Levio/06_Scripts/levio/replaceRender.py",
+		"//hardcut-nas/DCP-ingest/ingest/ca/CaLevio_TST-8-25_F-178_51_2K_20180126_SMPTE_OV/ASSETMAP.xml",
+		"/M/Levio/06_Scripts/levio/LicUtil.py",
+		"/M/Levio/06_Scripts/levio/importActiveRefs.py",
+		"/M/Levio/11_DCP/shot03_first_test/shot02_first_test_DCP/ASSETMAP.xml",
+		"//hardcut-nas/DCP-ingest/ingest/ca/CA_LEVIO_TEMP_002/ASSETMAP.xml",
+		"/M/Levio/06_Scripts/levio/LicGui.py",
+		"/K/NukeShared/.nuke/menu.py",
+		"/K/NukeShared/submitNukeToRenderPal.py",
+		"/E/Documents/Aftereffects/Showreel_Sep17/Copy of Showreel_Sep17.aepx",
+		"/C/Users/js313/Desktop/transferShadingGroups_BAK.py",
+		"/C/Users/js313/Documents/maya/mayaRenderLog.txt",
+		"/C/Users/js313/Desktop/shot02_samples.txt",
+		"/C/Users/js313/Desktop/trailer_missing_ranges.txt",
+		"/M/Levio/06_Scripts/levio/transferShadingSets.py",
+		"/M/Levio/06_Scripts/levio/refReplaceUtil.py",
+		"/M/Levio/06_Scripts/levio/takeScreenshot.py",
+		"/M/Levio/06_Scripts/levio/slack/sendToSlack.py",
+		"/M/Levio/06_Scripts/levio_maya_setup.py",
+		"/C/Users/js313/Documents/maya/2018/scripts/userSetup.py",
+		"/M/Levio/06_Scripts/groupSetup.py"
+	],
+	"find":
+	{
+		"height": 25.0
+	},
+	"find_in_files":
+	{
+		"height": 616.0,
+		"where_history":
+		[
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": false,
+		"find_history":
+		[
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 0,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "backspace.sublime-project",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 833,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 48.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 25.0
+	},
+	"input":
+	{
+		"height": 208.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 132.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"pinned_build_system": "Anaconda Python Builder",
+	"project": "backspace.sublime-project",
+	"replace":
+	{
+		"height": 46.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"last_filter": "",
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"selected_group": 0,
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": true,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 195.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}
