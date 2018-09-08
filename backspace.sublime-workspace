@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"she",
+				"shelf_path\tstatement"
+			],
+			[
 				"file",
 				"file_path\tstatement"
 			],
@@ -510,41 +514,11 @@
 			[
 				"exc",
 				"exc_info\tfunction"
-			],
-			[
-				"debu",
-				"debugList\tstatement"
 			]
 		]
 	},
 	"buffers":
 	[
-		{
-			"file": "README.md",
-			"settings":
-			{
-				"buffer_size": 219,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "pipe_installer.py",
-			"settings":
-			{
-				"buffer_size": 1165,
-				"line_ending": "Windows"
-			}
-		},
-		{
-			"file": "/C/Users/Jason/Documents/maya/2018/prefs/shelves/shelf_Backspace.mel",
-			"settings":
-			{
-				"buffer_size": 2008,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		}
 	],
 	"build_system": "",
 	"build_system_choices":
@@ -768,10 +742,15 @@
 	},
 	"expanded_folders":
 	[
-		"/E/backspace_pipe"
+		"/E/backspace_pipe",
+		"/E/backspace_pipe/shelves"
 	],
 	"file_history":
 	[
+		"/E/backspace_pipe/pipe_installer.py",
+		"/E/backspace_pipe/README.md",
+		"/C/Users/Jason/Documents/maya/2018/prefs/shelves/shelf_Backspace.mel",
+		"/E/backspace_pipe/shelves/shelf_Backspace.mel",
 		"/C/Users/Jason/Documents/maya/2018/scripts/usersetup.py",
 		"/E/backspace_pipe/backspace.sublime-project",
 		"/E/backspace_pipe/levio.sublime-project",
@@ -895,11 +874,7 @@
 		"/C/Users/js313/Documents/maya/mayaRenderLog.txt",
 		"/C/Users/js313/Desktop/shot02_samples.txt",
 		"/C/Users/js313/Desktop/trailer_missing_ranges.txt",
-		"/M/Levio/06_Scripts/levio/transferShadingSets.py",
-		"/M/Levio/06_Scripts/levio/refReplaceUtil.py",
-		"/M/Levio/06_Scripts/levio/takeScreenshot.py",
-		"/M/Levio/06_Scripts/levio/slack/sendToSlack.py",
-		"/M/Levio/06_Scripts/levio_maya_setup.py"
+		"/M/Levio/06_Scripts/levio/transferShadingSets.py"
 	],
 	"find":
 	{
@@ -917,6 +892,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"scripts_path"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -934,96 +910,8 @@
 	"groups":
 	[
 		{
-			"selected": 2,
 			"sheets":
 			[
-				{
-					"buffer": 0,
-					"file": "README.md",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 219,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								0,
-								219
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 2,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "pipe_installer.py",
-					"semi_transient": true,
-					"settings":
-					{
-						"buffer_size": 1165,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1165,
-								1165
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "/C/Users/Jason/Documents/maya/2018/prefs/shelves/shelf_Backspace.mel",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 2008,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1732,
-								1732
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/MayaSublime/MEL.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 48.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				}
 			]
 		}
 	],
