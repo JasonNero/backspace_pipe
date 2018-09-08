@@ -520,10 +520,28 @@
 	"buffers":
 	[
 		{
-			"file": "backspace.sublime-project",
+			"file": "README.md",
 			"settings":
 			{
-				"buffer_size": 833,
+				"buffer_size": 219,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "pipe_installer.py",
+			"settings":
+			{
+				"buffer_size": 1165,
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "/C/Users/Jason/Documents/maya/2018/prefs/shelves/shelf_Backspace.mel",
+			"settings":
+			{
+				"buffer_size": 2008,
+				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		}
@@ -555,6 +573,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"set syntax md",
+				"Set Syntax: Markdown"
+			],
 			[
 				"py",
 				"Set Syntax: Python"
@@ -746,10 +768,12 @@
 	},
 	"expanded_folders":
 	[
-		"/E/backspace_pipe/backspace_pipe"
+		"/E/backspace_pipe"
 	],
 	"file_history":
 	[
+		"/C/Users/Jason/Documents/maya/2018/scripts/usersetup.py",
+		"/E/backspace_pipe/backspace.sublime-project",
 		"/E/backspace_pipe/levio.sublime-project",
 		"/E/backspace_pipe/learning/sending_value_with_qt_signal.py",
 		"/E/captain/core/db.py",
@@ -875,9 +899,7 @@
 		"/M/Levio/06_Scripts/levio/refReplaceUtil.py",
 		"/M/Levio/06_Scripts/levio/takeScreenshot.py",
 		"/M/Levio/06_Scripts/levio/slack/sendToSlack.py",
-		"/M/Levio/06_Scripts/levio_maya_setup.py",
-		"/C/Users/js313/Documents/maya/2018/scripts/userSetup.py",
-		"/M/Levio/06_Scripts/groupSetup.py"
+		"/M/Levio/06_Scripts/levio_maya_setup.py"
 	],
 	"find":
 	{
@@ -912,16 +934,16 @@
 	"groups":
 	[
 		{
-			"selected": 0,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "backspace.sublime-project",
+					"file": "README.md",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 833,
+						"buffer_size": 219,
 						"regions":
 						{
 						},
@@ -929,13 +951,71 @@
 						[
 							[
 								0,
-								0
+								219
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax",
+							"syntax": "Packages/Markdown/Markdown.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "pipe_installer.py",
+					"semi_transient": true,
+					"settings":
+					{
+						"buffer_size": 1165,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1165,
+								1165
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Python/Python.sublime-syntax",
 							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "/C/Users/Jason/Documents/maya/2018/prefs/shelves/shelf_Backspace.mel",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2008,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1732,
+								1732
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/MayaSublime/MEL.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
 						"translation.y": 48.0,
