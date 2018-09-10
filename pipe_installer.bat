@@ -29,7 +29,7 @@ ECHO ...............................................
 ECHO.
 pip install virtualenv
 virtualenv --python=c:\Python27\python.exe backspace_venv
-backspace_venv\Scripts\activate.bat | pip install -r requirement.txt
+backspace_venv\Scripts\pip install -r requirement.txt
 GOTO REST
 
 
