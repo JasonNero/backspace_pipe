@@ -1,12 +1,25 @@
 import os
 import time
 import shutil
+import ctypes.wintypes
+
+# wintype -> "My Documents"
+CSIDL_PERSONAL = 5
+
+# wintype -> get current, not default
+SHGFP_TYPE_CURRENT = 0
+
 
 pipe_path = os.getcwd().replace("\\", "\\\\")
 venv_path = pipe_path + r"\\backspace_venv\\Lib\\site-packages"
 
-usersetup_path = os.path.expanduser(r"~\\Documents\\maya\\2018\\scripts\\usersetup.py")
-shelf_path = os.path.expanduser(r"~\\Documents\\maya\\2018\\prefs\\shelves\\shelf_Backspace.mel")
+documents_path_buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
+ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_PERSONAL, None, SHGFP_TYPE_CURRENT, documents_path_buf)
+
+documents_path = documents_path_buf.value
+
+usersetup_path = documents_path + "\\maya\\2018\\scripts\\usersetup.py"
+shelf_path = documents_path + "\\Documents\\maya\\2018\\prefs\\shelves\\shelf_Backspace.mel"
 
 usersetup_content = '''
 import sys

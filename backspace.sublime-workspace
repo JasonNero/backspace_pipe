@@ -4,16 +4,24 @@
 		"selected_items":
 		[
 			[
+				"srt",
+				"strptime\tfunction"
+			],
+			[
+				"file",
+				"file_name\tstatement"
+			],
+			[
+				"in",
+				"initial_comment"
+			],
+			[
 				"get",
 				"getpass\tmodule"
 			],
 			[
 				"f",
 				"file_name\tstatement"
-			],
-			[
-				"file",
-				"file_name"
 			],
 			[
 				"date",
@@ -214,10 +222,6 @@
 			[
 				"maya",
 				"maya_set\tstatement"
-			],
-			[
-				"in",
-				"info\tfunction"
 			],
 			[
 				"lo",
@@ -510,10 +514,6 @@
 			[
 				"QAp",
 				"QApplication"
-			],
-			[
-				"sg",
-				"sgShapes\tstatement"
 			]
 		]
 	},
@@ -523,7 +523,7 @@
 			"file": "backspace_pipe/toolbox_func.py",
 			"settings":
 			{
-				"buffer_size": 10855,
+				"buffer_size": 10841,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -532,7 +532,16 @@
 			"file": "/C/Users/Jason/Documents/maya/2018/scripts/usersetup.py",
 			"settings":
 			{
-				"buffer_size": 135,
+				"buffer_size": 176,
+				"encoding": "UTF-8",
+				"line_ending": "Windows"
+			}
+		},
+		{
+			"file": "backspace_pipe/slack_tools.py",
+			"settings":
+			{
+				"buffer_size": 767,
 				"encoding": "UTF-8",
 				"line_ending": "Windows"
 			}
@@ -766,6 +775,7 @@
 	],
 	"file_history":
 	[
+		"/C/Users/Jason/Documents/maya/2018/Maya.env",
 		"/E/backspace_pipe/pipe_installer.py",
 		"/E/backspace_pipe/README.md",
 		"/C/Users/Jason/Documents/maya/2018/prefs/shelves/shelf_Backspace.mel",
@@ -783,7 +793,6 @@
 		"/E/Levio/06_Scripts/levio/slack/testSlackApi.py",
 		"/E/Levio/06_Scripts/levio/backspace_pipe/toolbox_wrapper.py",
 		"/C/Users/Jason/NTUSER.DAT",
-		"/C/Users/Jason/Documents/maya/2018/Maya.env",
 		"/E/Levio/06_Scripts/levio/inhouse/prod/acmaya/acmaya/tools/step_tool/step_tool_ui_v2017.py",
 		"/E/Levio/06_Scripts/levio/LicGui.py",
 		"/C/Users/Jason/Documents/maya/2018/prefs/scripts/userSetup.mel",
@@ -897,7 +906,7 @@
 	],
 	"find":
 	{
-		"height": 40.0
+		"height": 25.0
 	},
 	"find_in_files":
 	{
@@ -940,7 +949,52 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 10855,
+						"buffer_size": 10841,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								10081,
+								10081
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 5317.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/C/Users/Jason/Documents/maya/2018/scripts/usersetup.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 176,
 						"regions":
 						{
 						},
@@ -948,7 +1002,46 @@
 						[
 							[
 								0,
-								10855
+								176
+							]
+						],
+						"settings":
+						{
+							"auto_complete_triggers":
+							[
+								{
+									"characters": ".",
+									"selector": "source.python - string - comment - constant.numeric"
+								},
+								{
+									"characters": ".",
+									"selector": "source.python - string - constant.numeric"
+								}
+							],
+							"syntax": "Packages/Python/Python.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "backspace_pipe/slack_tools.py",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 767,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								767
 							]
 						],
 						"settings":
@@ -969,38 +1062,10 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 5488.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 1,
-					"file": "/C/Users/Jason/Documents/maya/2018/scripts/usersetup.py",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 135,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								135,
-								135
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Python/Python.sublime-syntax"
-						},
-						"translation.x": 0.0,
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 0,
+					"stack_index": 2,
 					"type": "text"
 				}
 			]
