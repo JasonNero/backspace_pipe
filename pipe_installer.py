@@ -11,7 +11,9 @@ SHGFP_TYPE_CURRENT = 0
 
 
 pipe_path = os.getcwd().replace("\\", "\\\\")
-venv_path = pipe_path + r"\\backspace_venv\\Lib\\site-packages"
+venv_path = pipe_path + "\\backspace_venv"
+site_path = venv_path + "\\Lib\\site-packages"
+venv_activate_path = venv_path + "\\Scripts\\activate.bat"
 
 documents_path_buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
 ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_PERSONAL, None, SHGFP_TYPE_CURRENT, documents_path_buf)
@@ -26,8 +28,14 @@ import sys
 import site
 
 sys.path.append('{pipe_path}')
-site.addsitedir('{venv_path}')
-'''.format(pipe_path=pipe_path, venv_path=venv_path)
+site.addsitedir('{site_path}')
+'''.format(pipe_path=pipe_path, site_path=site_path)
+
+def relocate_venv():
+	print("## Virtualenv Setup...")
+	with open(venv_activate_path, "r+") as f:
+		lines = f.readlines()
+		lines[1] = 'set "VIRTUAL_ENV={venv_path}"'.format(venv_path=venv_path)
 
 def usersetup():
 	print("## Checking User Setup...")
