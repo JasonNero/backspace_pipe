@@ -7,8 +7,8 @@ global proc shelf_Backspace () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 34
-        -height 34
+        -width 35
+        -height 35
         -manage 1
         -visible 1
         -preventOverride 0
@@ -32,7 +32,7 @@ global proc shelf_Backspace () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import backspace_pipe.toolbox_gui as toolbox\nreload(toolbox)\ntoolbox.GUI(toolbox=\"setup\")" 
+        -command "import backspace_pipe.toolbox_gui as toolbox\ntoolbox.GUI(toolbox=\"setup\")" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -40,8 +40,8 @@ global proc shelf_Backspace () {
     shelfButton
         -enableCommandRepeat 1
         -enable 1
-        -width 34
-        -height 34
+        -width 35
+        -height 35
         -manage 1
         -visible 1
         -preventOverride 0
@@ -65,7 +65,7 @@ global proc shelf_Backspace () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import backspace_pipe.toolbox_gui as toolbox\nreload(toolbox)\ntoolbox.GUI(toolbox=\"publish\")" 
+        -command "import backspace_pipe.toolbox_gui as toolbox\ntoolbox.GUI(toolbox=\"publish\")" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1

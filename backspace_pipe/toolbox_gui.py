@@ -8,6 +8,8 @@ import backspace_pipe.toolbox_func as toolbox_func
 
 class GUI(QtWidgets.QWidget):
 
+    toolbox_func = toolbox_func.Tools()
+
     # [checkbox_enabled, label_text, button_function, checkbox_obj, button_obj]
     # Maybe use a dict instead?
     toolbox_array_setup = [
@@ -34,13 +36,18 @@ class GUI(QtWidgets.QWidget):
         [True, "Delete deleteOnPublish set", toolbox_func.del_delOnPub_set, None, None],
         [True, "Delete display layers", toolbox_func.del_displaylayers, None, None],
         [True, "Delete ALL history", toolbox_func.del_all_history, None, None],
+        [True, "Assure lambert1 on all geo", toolbox_func.assure_lambert1, None, None],
+        [True, "Delete unused Nodes", toolbox_func.delete_unused_nodes, None, None],
         [True, "PUBLISH", toolbox_func.publish, None, None],
         [True, "Send Slack Publish Notification", toolbox_func.slack_publish_notification, None, None],
-        [True, "Close Scene", toolbox_func.close_scene, None, None]
+        [True, "Close Scene", toolbox_func.close_scene, None, None],
+        [True, "Open last incremental save", toolbox_func.open_last_increment, None, None]
     ]
 
     def __init__(self, toolbox="setup"):
         self.toolbox = toolbox
+
+        
 
         # Get Maya Window Pointer
         ptr = omui.MQtUtil.mainWindow()
@@ -52,7 +59,7 @@ class GUI(QtWidgets.QWidget):
         self.setWindowTitle("Backspace Toolbox")
         self.setMinimumWidth(400)
 
-
+        # Set current Toolbox
         if self.toolbox == "setup":
             self.toolbox_array = self.toolbox_array_setup
         elif self.toolbox == "publish":
@@ -74,6 +81,7 @@ class GUI(QtWidgets.QWidget):
             next_row = grid_layout.rowCount() + 1
 
             checkbox = QtWidgets.QCheckBox(checked=row[0], text=row[1])
+
             button = QtWidgets.QPushButton("execute")
             self.connect(button, QtCore.SIGNAL("clicked()"), partial(self.attach_signal_emitter, row[2]))
 
@@ -87,25 +95,23 @@ class GUI(QtWidgets.QWidget):
         self.connect(execute_all_btn, QtCore.SIGNAL("clicked()"), self.execute_all)
 
         fix_cursor_btn = QtWidgets.QPushButton("CursorFix")
-        self.connect(fix_cursor_btn, QtCore.SIGNAL("clicked()"), toolbox_func.toggle_wait_cursor)
+        self.connect(fix_cursor_btn, QtCore.SIGNAL("clicked()"), self.toolbox_func.toggle_wait_cursor)
 
         next_row = grid_layout.rowCount() + 1
         grid_layout.addWidget(fix_cursor_btn, next_row, 1)
         grid_layout.addWidget(execute_all_btn, next_row, 0, 1, 1)
-        # grid_layout.addWidget(QtWidgets.QLabel("bla"))
 
         grid_layout.setColumnStretch(0, 1)
         grid_layout.setRowStretch(0, 10)
         grid_layout.setSpacing(4)
 
-        # execute_btn_01.clicked.connect(self.hello_world)
-
         self.setLayout(grid_layout)
 
 
     def execute_all(self):
-        for row in self.toolbox_array:
-            if not row[0]:
+        for i, row in enumerate(self.toolbox_array):
+            # print("Row {} checked: {}".format(i, row[3].isChecked()))
+            if not row[3].isChecked():
                 continue
             else:
                 self.attach_signal_emitter(row[2])
