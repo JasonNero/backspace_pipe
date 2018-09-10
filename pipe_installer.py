@@ -10,9 +10,9 @@ CSIDL_PERSONAL = 5
 SHGFP_TYPE_CURRENT = 0
 
 pipe_path = os.getcwd().replace("\\", "\\\\")
-venv_path = pipe_path + "\\backspace_venv"
-site_path = venv_path + "\\Lib\\site-packages"
-venv_activate_path = venv_path + "\\Scripts\\activate.bat"
+venv_path = pipe_path + r"\\backspace_venv"
+site_path = venv_path + r"\\Lib\\site-packages"
+venv_activate_path = venv_path + r"\\Scripts\\activate.bat"
 
 documents_path_buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
 ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_PERSONAL, None, SHGFP_TYPE_CURRENT, documents_path_buf)
