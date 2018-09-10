@@ -1,39 +1,31 @@
 @ECHO OFF
 
 CLS
-:MENU
+COLOR 06
 ECHO.
 ECHO ............... BACKSPACE PIPE ................
-ECHO PLEASE MAKE SURE THAT YOU HAVE PYTHON 2.7 INSTALLED
-ECHO.
-ECHO IS THIS YOUR FIRST INSTALLATION OF BACKSPACE_PIPE?
+ECHO    PLEASE MAKE SURE THAT YOU HAVE PYTHON 2.7
+ECHO     INSTALLED BEFORE CONTINUING THIS SETUP
 ECHO ...............................................
 ECHO.
-ECHO 1 - YES
-ECHO 2 - NOT
-ECHO 3 - EXIT
-ECHO.
-SET /P M=INPUT:
-CLS
-IF %M%==1 GOTO FIRST
-IF %M%==2 GOTO REST
-IF %M%==3 GOTO EOF
+pause
 
-
-:FIRST
 CLS
 ECHO.
 ECHO ............... BACKSPACE PIPE ................
 ECHO             SETTING UP VIRTUALENV
 ECHO ...............................................
 ECHO.
+ECHO CHECK VIRTUALENV:
 pip install virtualenv
-virtualenv --python=c:\Python27\python.exe backspace_venv
+IF NOT EXIST backspace_venv\Scripts\ virtualenv --python=c:\Python27\python.exe backspace_venv
+ECHO.
+ECHO CHECK REQUIREMENTS
 backspace_venv\Scripts\pip install -r requirement.txt
-GOTO REST
+ECHO.
+pause
 
-
-:REST
+CLS
 ECHO.
 ECHO ............... BACKSPACE PIPE ................
 ECHO           INSTALLING BACKSPACE PIPE
@@ -49,4 +41,5 @@ if ERRORLEVEL 0 GOTO EOF
 GOTO EOF
 
 :EOF
+ECHO.
 pause

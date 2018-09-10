@@ -34,7 +34,9 @@ site.addsitedir('{site_path}')
 def usersetup():
     print("## Checking User Setup...")
     if os.path.exists(usersetup_path) and os.stat(usersetup_path).st_size != 0:
-        print("# existing usersetup.py found!")
+        print("# existing usersetup found! Creating backup...")
+        date = time.strftime("%Y_%m_%d")
+        shutil.copy(usersetup_path, usersetup_path + ".{}.bak".format(date))
 
         with open(usersetup_path, "r") as f:
             file_content = f.read()
@@ -63,10 +65,10 @@ def shelves():
 
 
 if __name__ == "__main__":
-    print("##################################")
+    print("###############################################")
     print("### Installing Backspace Pipe... ")
     usersetup()
     shelves()
     print("### Installation Complete! ")
-    print("##################################")
+    print("###############################################")
     time.sleep(1)
