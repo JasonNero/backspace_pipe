@@ -9,7 +9,6 @@ CSIDL_PERSONAL = 5
 # wintype -> get current, not default
 SHGFP_TYPE_CURRENT = 0
 
-
 pipe_path = os.getcwd().replace("\\", "\\\\")
 venv_path = pipe_path + "\\backspace_venv"
 site_path = venv_path + "\\Lib\\site-packages"
@@ -31,48 +30,43 @@ sys.path.append('{pipe_path}')
 site.addsitedir('{site_path}')
 '''.format(pipe_path=pipe_path, site_path=site_path)
 
-def relocate_venv():
-	print("## Virtualenv Setup...")
-	with open(venv_activate_path, "r+") as f:
-		lines = f.readlines()
-		lines[1] = 'set "VIRTUAL_ENV={venv_path}"'.format(venv_path=venv_path)
 
 def usersetup():
-	print("## Checking User Setup...")
-	if os.path.exists(usersetup_path) and os.stat(usersetup_path).st_size != 0:
-		print("# existing usersetup.py found!")
+    print("## Checking User Setup...")
+    if os.path.exists(usersetup_path) and os.stat(usersetup_path).st_size != 0:
+        print("# existing usersetup.py found!")
 
-		with open(usersetup_path, "r") as f:
-			file_content = f.read()
+        with open(usersetup_path, "r") as f:
+            file_content = f.read()
 
-			setup_lines = usersetup_content.splitlines()
+            setup_lines = usersetup_content.splitlines()
 
-			for line in setup_lines:
-				if not line in file_content:
-					file_content += "\n" + line 
+            for line in setup_lines:
+                if line not in file_content:
+                    file_content += "\n" + line
 
-		with open(usersetup_path, "w") as f:
-			f.write(file_content)
-	else:
-		print("# usersetup.py not found or empty.")
-		with open(usersetup_path, "a") as f:
-			f.write(usersetup_content)
+        with open(usersetup_path, "w") as f:
+            f.write(file_content)
+    else:
+        print("# usersetup.py not found or empty.")
+        with open(usersetup_path, "a") as f:
+            f.write(usersetup_content)
 
 def shelves():
-	print("## Installing Backspace Shelf...")
-	if os.path.exists(shelf_path):
-		print("# Replacing Backspace Shelf")
-		shutil.copy(pipe_path + "\\shelves\\shelf_Backspace.mel", shelf_path)
-	else:
-		shutil.copy(pipe_path + "\\shelves\\shelf_Backspace.mel", shelf_path)
+    print("## Installing Backspace Shelf...")
+    if os.path.exists(shelf_path):
+        print("# Replacing Backspace Shelf")
+        shutil.copy(pipe_path + "\\shelves\\shelf_Backspace.mel", shelf_path)
+    else:
+        shutil.copy(pipe_path + "\\shelves\\shelf_Backspace.mel", shelf_path)
 
 
 
 if __name__ == "__main__":
-	print("\n##################################")
-	print("### Installing Backspace Pipe... ")
-	usersetup()
-	shelves()
-	print("### Installation Complete! ")
-	print("##################################")
-	time.sleep(5)
+    print("##################################")
+    print("### Installing Backspace Pipe... ")
+    usersetup()
+    shelves()
+    print("### Installation Complete! ")
+    print("##################################")
+    time.sleep(1)
