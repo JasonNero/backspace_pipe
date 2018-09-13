@@ -11,65 +11,76 @@ from sets import Set
 import backspace_pipe.slack_tools as slack_tools
 
 
-### Logging
-
-logger = logging.getLogger(__name__)
-logger.setLevel(logging.DEBUG)
-# Prevent Call to Maya Logger
-logger.propagate = False
-
-formatter = logging.Formatter('%(levelname)-8s - %(message)s')
-
-# # Create File Handler
-# file_handler = logging.FileHandler('toolbox_func_log.log')
-# file_handler.setFormatter(formatter)
-# logger.addHandler(file_handler)
-
-# Remove old handlers
-for hndl in logger.handlers:
-    logger.removeHandler(hndl)
-
-stream_handler = logging.StreamHandler()
-
-stream_handler.setFormatter(formatter)
-logger.addHandler(stream_handler)
-
 # TODO: References -> Rename, Delete, .. not possible
 
-### ### ### ### ### ### SETUP ### ### ### ### ### ###
+
 
 class Tools():
 
+    ### ### ### ### ### ### COMMON ### ### ### ### ### ###
+
+    # Create Logger
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
+
+    # Prevent Call to Maya Logger
+    logger.propagate = False
+
+    # # Create File Handler
+    # file_handler = logging.FileHandler('toolbox_func_log.log')
+    # file_handler.setFormatter(formatter)
+    # logger.addHandler(file_handler)
+
+    # Remove old handlers
+    for hndl in logger.handlers:
+        logger.removeHandler(hndl)
+
+    formatter = logging.Formatter('%(levelname)-8s - %(message)s')
+    stream_handler = logging.StreamHandler()
+    stream_handler.setFormatter(formatter)
+    logger.addHandler(stream_handler)
+
 
     def toggle_wait_cursor(self):
+        self.logger.debug("Toggle wait cursor")
         current_state = pmc.waitCursor(query=True, state=True)
         pmc.waitCursor(state=not current_state)
         return True
 
 
+    ### ### ### ### ### ### SETUP ### ### ### ### ### ###
+
+
     def save_on_setup(self):
+        self.logger.debug("Save on Setup")
         try:
             pmc.saveFile()
             return True
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False
 
 
     def create_delOnPub_set(self):
+        self.logger.debug("Create delOnPub Set")
+
         if(len(pmc.ls("deleteOnPublish")) == 0):
             pmc.sets(name="deleteOnPublish", empty=True)
         return True
 
 
     def create_refsToImport_set(self):
+        self.logger.debug("Create refsToImport Set")
+
         if(len(pmc.ls("refsToImport")) == 0):
             pmc.sets(name="refsToImport", empty=True)
         return True
 
 
     def del_unknown_dag(self):
+        self.logger.debug("Delete unknown DAG nodes")
+
         unknown_nodes = pmc.ls(type="unknown")
 
         try:
@@ -78,12 +89,14 @@ class Tools():
                 pmc.delete(node)
             return True
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False
 
 
     def del_displaylayers(self):
+        self.logger.debug("Delete displayLayers")
+
         displayLayers = pmc.ls(type="displayLayer")
 
         try:
@@ -96,23 +109,25 @@ class Tools():
                     pmc.delete(layer)
             return True
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False
 
 
     def del_all_history(self):
+        self.logger.debug("Delete ALL history")
+        
         try:
             pmc.mel.eval("DeleteAllHistory;")
             return True
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False
 
 
     def assure_unique_naming(self):
-        logger.debug("Assure Unique Naming")
+        self.logger.debug("Assure Unique Naming")
 
         # Exclude shapes, as they will be renamed automatically if named after the transform
         all_nodes = pmc.ls(shortNames=True, excludeType='shape')
@@ -139,16 +154,16 @@ class Tools():
                 node.rename(new_node_name)
                 new_node_name = node.shortName()
 
-                logger.info("Renamed {} to {}".format(short_node_name, new_node_name))
+                self.logger.info("Renamed {} to {}".format(short_node_name, new_node_name))
             return True
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False
 
 
     def assure_shape_names(self):
-        logger.debug("Assure Shape Names")
+        self.logger.debug("Assure Shape Names")
 
         all_transforms = pmc.ls(type='transform')
 
@@ -163,18 +178,18 @@ class Tools():
                     optimal_shape_name = re_incr.split(transf.shortName())[0] + "Shape" + re_incr.search(transf.shortName()).group(0)
 
                     if(current_shape_name != optimal_shape_name):
-                        logger.info("Renaming shape to match transform: {} to {}".format(current_shape_name, optimal_shape_name))
+                        self.logger.info("Renaming shape to match transform: {} to {}".format(current_shape_name, optimal_shape_name))
                         shape.rename(optimal_shape_name)
 
             return True
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False
 
 
     def mesh_check(self):
-        logger.debug("Mesh Check")
+        self.logger.debug("Mesh Check")
 
         all_shapes = pmc.ls(shapes=True)
 
@@ -199,13 +214,13 @@ class Tools():
 
 
     def fit_view(self):
-        logger.debug("Fit View")
+        self.logger.debug("Fit View")
         pmc.viewFit(all=True)
         return True
 
 
     def incremental_save(self):
-        logger.debug("INCREMETAL SAVE")
+        self.logger.debug("INCREMETAL SAVE")
 
         curr_path = pmc.sceneName()
         curr_name, curr_ext = curr_path.name.splitext()
@@ -215,7 +230,7 @@ class Tools():
 
 
         if match is None:
-            logger.warning("Please check filename format: 'your_asset_name_XX_optional_comment' with XX being an integer (padding can vary)!")
+            self.logger.warning("Please check filename format: 'your_asset_name_XX_optional_comment' with XX being an integer (padding can vary)!")
             return False
 
         curr_asset = re_incr.split(curr_name)[0]
@@ -230,25 +245,25 @@ class Tools():
 
         new_path = pmc.Path(curr_path.parent + "/" + curr_asset + new_incr_str + curr_ext)
 
-        logger.info("Increment: {}".format(new_path))
+        self.logger.info("Increment: {}".format(new_path))
 
         try:
             pmc.saveAs(new_path)
             self.last_incremental_save = new_path
             return True
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False
 
 
     def import_refs_set(self):
-        logger.debug("Import Refs Set")
+        self.logger.debug("Import Refs Set")
 
         maya_set_ls = pmc.ls("refsToImport")
 
         if len(maya_set_ls) == 0:
-            logger.info("refsToImport Set is nonexistent")
+            self.logger.info("refsToImport Set is nonexistent")
             return True
 
         maya_set = maya_set_ls[0]
@@ -274,38 +289,38 @@ class Tools():
         try:
             if len(ref_set) > 0:
                 for ref in ref_set:
-                    logger.info("Importing Reference: {}".format(ref))
+                    self.logger.info("Importing Reference: {}".format(ref))
                     ref.importContents()
 
             self.create_refsToImport_set()
             return True
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False
 
 
     def rem_all_refs(self):
-        logger.debug("Removing all References")
+        self.logger.debug("Removing all References")
 
         try:
             for ref in pmc.iterReferences():
-                logger.info("Removing Reference: {}".format(ref))
+                self.logger.info("Removing Reference: {}".format(ref))
                 ref.remove()
             return True
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False
 
 
     def del_delOnPub_set(self):
-        logger.debug("Delete deleteOnPublish Set")
+        self.logger.debug("Delete deleteOnPublish Set")
 
         maya_set_ls = pmc.ls("deleteOnPublish")
 
         if len(maya_set_ls) == 0:
-            logger.info("deleteOnPublish Set is nonexistent")
+            self.logger.info("deleteOnPublish Set is nonexistent")
             return True
 
         maya_set = maya_set_ls[0]
@@ -313,11 +328,11 @@ class Tools():
 
         try:
             for e in elements:
-                logger.info("Deleting: {}".format(e))
+                self.logger.info("Deleting: {}".format(e))
                 pmc.delete(e)
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False
 
         self.create_delOnPub_set()
@@ -326,7 +341,7 @@ class Tools():
 
 
     def assure_lambert1(self):
-        logger.debug("Assure lambert1")
+        self.logger.debug("Assure lambert1")
         shapes = pmc.ls(geometry=True)
         pmc.sets("initialShadingGroup", forceElement=shapes)
 
@@ -336,13 +351,13 @@ class Tools():
 
 
     def delete_unused_nodes(self):
-        logger.debug("Deleting unused nodes")
+        self.logger.debug("Deleting unused nodes")
         pmc.mel.eval("MLdeleteUnused;")
         return True
 
 
     def publish(self):
-        logger.debug("PUBLISH")
+        self.logger.debug("PUBLISH")
 
         curr_path = pmc.sceneName()
         curr_name, curr_ext = curr_path.name.splitext()
@@ -352,14 +367,14 @@ class Tools():
 
         new_path = pmc.Path(curr_path.parent.parent + "/" + curr_asset + "_REF" + curr_ext)
 
-        logger.info("Publishing File: {}".format(new_path))
+        self.logger.info("Publishing File: {}".format(new_path))
 
         try:
             pmc.saveAs(new_path)
             return True
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False
 
 
@@ -379,8 +394,8 @@ class Tools():
         try:
             image.writeToFile(file_path, 'png')
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False
 
         re_incr = re.compile(r"_\d+")
@@ -404,13 +419,13 @@ class Tools():
             pmc.newFile()
             return True
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False
 
 
     def open_last_increment(self):
-        logger.debug("Open last increment")
+        self.logger.debug("Open last increment")
 
         ######## Programmatical Approach - save for later? 
         # curr_path = pmc.sceneName()
@@ -442,6 +457,6 @@ class Tools():
             pmc.openFile(self.last_incremental_save)
             return True
         except Exception as e:
-            logger.error("An Exception occured, please contact Jason to fix this!")
-            logger.exception(e)
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
             return False

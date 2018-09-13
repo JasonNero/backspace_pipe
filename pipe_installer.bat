@@ -18,6 +18,7 @@ ECHO ...............................................
 ECHO.
 ECHO CHECK VIRTUALENV:
 pip install virtualenv
+if ERRORLEVEL 0 GOTO PIPERR
 IF NOT EXIST backspace_venv\Scripts\ virtualenv --python=c:\Python27\python.exe backspace_venv
 ECHO.
 ECHO CHECK REQUIREMENTS
@@ -39,6 +40,18 @@ python pipe_installer.py
 if ERRORLEVEL 0 GOTO EOF
 
 GOTO EOF
+
+
+:PIPERR
+ECHO.
+ECHO ............... BACKSPACE PIPE ................
+ECHO              COULD NOT REACH PIP
+ECHO             ABORTING INSTALLATION
+ECHO ...............................................
+ECHO.
+GOTO EOF
+
+
 
 :EOF
 ECHO.
