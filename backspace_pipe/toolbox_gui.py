@@ -31,6 +31,7 @@ class GUI(QtWidgets.QWidget):
         [True, "Assure matching shape <-> transf names", toolbox_func.assure_shape_names, None, None],
         [True, "Mesh cleanup check", toolbox_func.mesh_check, None, None],
         [True, "Incremental Save", toolbox_func.incremental_save, None, None],
+        [True, "Delete Student License String", toolbox_func.del_maya_lic_string, None, None],
         [True, "Import refsToImport set", toolbox_func.import_refs_set, None, None],
         [True, "Remove all References", toolbox_func.rem_all_refs, None, None],
         [True, "Delete deleteOnPublish set", toolbox_func.del_delOnPub_set, None, None],
@@ -39,15 +40,15 @@ class GUI(QtWidgets.QWidget):
         [True, "Assure lambert1 on all geo", toolbox_func.assure_lambert1, None, None],
         [True, "Delete unused Nodes", toolbox_func.delete_unused_nodes, None, None],
         [True, "PUBLISH", toolbox_func.publish, None, None],
+        [True, "Delete Student License String", toolbox_func.del_maya_lic_string, None, None],
         [True, "Send Slack Publish Notification", toolbox_func.slack_publish_notification, None, None],
         [True, "Close Scene", toolbox_func.close_scene, None, None],
         [True, "Open last incremental save", toolbox_func.open_last_increment, None, None]
     ]
 
+
     def __init__(self, toolbox="setup"):
         self.toolbox = toolbox
-
-        
 
         # Get Maya Window Pointer
         ptr = omui.MQtUtil.mainWindow()
@@ -67,6 +68,7 @@ class GUI(QtWidgets.QWidget):
 
         self.gui()
         self.show()
+
 
     def gui(self):
         self.connect(self, QtCore.SIGNAL("sendValue(PyObject)"), self.handleReturn)
@@ -114,13 +116,19 @@ class GUI(QtWidgets.QWidget):
             if not row[3].isChecked():
                 continue
             else:
-                self.attach_signal_emitter(row[2])
+                rowSuccessful = self.attach_signal_emitter(row[2])
+
+            if rowSuccessful:
+                continue
+            else:
+                break
 
 
     def attach_signal_emitter(self, orig_func):
         result = orig_func()
         emission = [orig_func, result]
         self.emit(QtCore.SIGNAL("sendValue(PyObject)"), emission)
+        return result
 
 
     def handleReturn(self, value):

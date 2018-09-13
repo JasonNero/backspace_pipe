@@ -6,6 +6,7 @@ import maya.OpenMaya as api
 import maya.OpenMayaUI as apiUI
 import getpass
 import time
+import shutil
 from sets import Set
 
 import backspace_pipe.slack_tools as slack_tools
@@ -379,6 +380,10 @@ class Tools():
 
 
     def slack_publish_notification(self):
+        self.logger.debug("Slack Publish Notification")
+        # Refresh viewport
+        pmc.refresh(force=True)
+
         # Grab the last active 3d viewport
         view = apiUI.M3dView.active3dView()
         # Enable Alpha
@@ -409,12 +414,14 @@ class Tools():
 
         slack_tools.send_file(channels="publish", file_path=file_path, file_name=file_name, file_type="png", title=file_name, initial_comment=initial_comment)
 
-        os.remove(file_path)
+        # Maybe just keep the screenshot?
+        # os.remove(file_path)
 
         return True
 
 
     def close_scene(self):
+        self.logger.debug("Closing Scene")
         try:
             pmc.newFile()
             return True
@@ -422,6 +429,36 @@ class Tools():
             self.logger.error("An Exception occured, please contact Jason to fix this!")
             self.logger.exception(e)
             return False
+
+
+    def del_maya_lic_string(self):
+        self.logger.debug("Deleting Maya License String")
+
+        filePath = pmc.sceneName()
+        bakPath = filePath + ".bak"
+
+        # Closing the file to prevent crashes
+        pmc.newFile()
+
+        # Creating Backup file
+        shutil.copy(filePath, bakPath)
+
+        try:
+            with open(bakPath, "r") as srcFile:
+                with open(filePath, "w") as trgFile:
+                    for line in srcFile:
+                        if 'fileInfo "license" "student";' in line:
+                            self.logger.info("Student License String found")
+                        else:
+                            trgFile.write(line)
+        except Exception as e:
+            self.logger.error("An Exception occured, please contact Jason to fix this!")
+            self.logger.exception(e)
+            return False
+
+        pmc.openFile(filePath)
+
+        return True
 
 
     def open_last_increment(self):
