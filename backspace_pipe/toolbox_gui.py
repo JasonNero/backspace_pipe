@@ -7,11 +7,13 @@ import backspace_pipe.toolbox_func as toolbox_func
 
 
 class GUI(QtWidgets.QWidget):
-
     toolbox_func = toolbox_func.Tools()
 
     # [checkbox_enabled, label_text, button_function, checkbox_obj, button_obj]
     # Maybe use a dict instead?
+
+    # toolbox_dict_test = {'checked': True, 'text': 'this is an example', 'func': toolbox_func.toggle_wait_cursor, 'checkbox': None, 'button': None}
+
     toolbox_array_setup = [
         [True, "Save on setup", toolbox_func.save_on_setup, None, None],
         [True, "Create deleteOnPublish set", toolbox_func.create_delOnPub_set, None, None],

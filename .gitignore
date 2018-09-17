@@ -108,5 +108,5 @@ venv.bak/
 *.sublime-workspace
 *.sublime-workspace
 
-# Local Backup
-backup/
+# My Learning/Testing folder
+dev/
