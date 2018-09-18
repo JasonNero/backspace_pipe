@@ -5,22 +5,23 @@ slack_token = "xoxb-376585360678-431673777458-zLAijjpZHSphL75CocBQln35"
 
 
 def send_text(channel, text, attachments=[]):
-	sc = SlackClient(slack_token)
+    client = SlackClient(slack_token)
 
-	ret = sc.api_call(
-		"chat.postMessage",
-		channel=channel,
-		text=text,
+    response = client.api_call(
+        "chat.postMessage",
+        channel=channel,
+        text=text,
         attachments=attachments
-	)
-	return ret
+    )
+    return response
+
 
 def send_file(channels, file_path, file_name, file_type, title, initial_comment):
-    sc = SlackClient(slack_token)
+    client = SlackClient(slack_token)
 
     my_file = (file_path, open(file_path, 'rb'), file_type)
 
-    ret = sc.api_call(
+    response = client.api_call(
         "files.upload",
         channels=channels,
         filename=file_name,
@@ -29,4 +30,4 @@ def send_file(channels, file_path, file_name, file_type, title, initial_comment)
         title=title,
         initial_comment=initial_comment
     )
-    return ret
+    return response

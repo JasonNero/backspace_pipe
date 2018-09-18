@@ -14,14 +14,15 @@ venv_path = pipe_path + r"\\backspace_venv"
 site_path = venv_path + r"\\Lib\\site-packages"
 venv_activate_path = venv_path + r"\\Scripts\\activate.bat"
 
+# Complicated "something C++ish" to get Documents folder
 documents_path_buf = ctypes.create_unicode_buffer(ctypes.wintypes.MAX_PATH)
 ctypes.windll.shell32.SHGetFolderPathW(None, CSIDL_PERSONAL, None, SHGFP_TYPE_CURRENT, documents_path_buf)
-
 documents_path = documents_path_buf.value
 
 usersetup_path = documents_path + "\\maya\\2018\\scripts\\usersetup.py"
 shelf_path = documents_path + "\\maya\\2018\\prefs\\shelves\\shelf_Backspace.mel"
 
+# Basic Content of usersetup.py
 usersetup_content = '''
 import sys
 import site

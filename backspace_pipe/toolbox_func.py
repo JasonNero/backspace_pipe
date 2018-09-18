@@ -1,8 +1,8 @@
 import pymel.core as pmc
 import re
 import logging
-import maya.OpenMaya as api
-import maya.OpenMayaUI as apiUI
+import maya.OpenMaya as om
+import maya.OpenMayaUI as omui
 import getpass
 import time
 import shutil
@@ -395,12 +395,12 @@ def slack_publish_notification():
     pmc.refresh(force=True)
 
     # Grab the last active 3d viewport
-    view = apiUI.M3dView.active3dView()
+    view = omui.M3dView.active3dView()
     # Enable Alpha
     view.setColorMask(1, 1, 1, 1)
 
     # read the color buffer from the view, and save the MImage to disk
-    image = api.MImage()
+    image = om.MImage()
     view.readColorBuffer(image, True)
 
     scene_path = pmc.sceneName()
