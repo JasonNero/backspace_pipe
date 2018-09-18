@@ -7,7 +7,6 @@ import backspace_pipe.toolbox_func as toolbox_func
 
 
 class GUI(QtWidgets.QWidget):
-    toolbox_func = toolbox_func.Tools()
 
     # [checkbox_enabled, label_text, button_function, checkbox_obj, button_obj]
     # Maybe use a dict instead?
@@ -107,7 +106,7 @@ class GUI(QtWidgets.QWidget):
 
         # Fix Cursor Button
         fix_cursor_btn = QtWidgets.QPushButton("CursorFix")
-        self.connect(fix_cursor_btn, QtCore.SIGNAL("clicked()"), self.toolbox_func.toggle_wait_cursor)
+        self.connect(fix_cursor_btn, QtCore.SIGNAL("clicked()"), toolbox_func.toggle_wait_cursor)
 
         # Add Execute and Cursor Button to layout
         next_row = grid_layout.rowCount() + 1
