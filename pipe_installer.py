@@ -54,6 +54,7 @@ def usersetup():
         with open(usersetup_path, "a") as f:
             f.write(usersetup_content)
 
+
 def shelves():
     print("## Installing Backspace Shelf...")
     if os.path.exists(shelf_path):
@@ -61,7 +62,6 @@ def shelves():
         shutil.copy(pipe_path + "\\shelves\\shelf_Backspace.mel", shelf_path)
     else:
         shutil.copy(pipe_path + "\\shelves\\shelf_Backspace.mel", shelf_path)
-
 
 
 if __name__ == "__main__":

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="32px"
+	 height="32px" viewBox="0 0 32 32" enable-background="new 0 0 32 32" xml:space="preserve">
+<g id="MOD_x5F_setup" display="none">
+	<path display="inline" fill="#87AC8A" d="M32,29.969C32,31.091,31.092,32,29.972,32H2.056c-1.12,0-2.028-0.909-2.028-2.031V2.031
+		C0.027,0.909,0.936,0,2.056,0h27.916C31.092,0,32,0.909,32,2.031V29.969z"/>
+	<rect y="6.198" display="inline" fill="none" width="31.974" height="10.994"/>
+	
+		<text transform="matrix(1 0 0 1 1.1685 15.9443)" display="inline" fill="#FFFFFF" font-family="'MyriadPro-Regular'" font-size="13.7274">MOD</text>
+	<rect x="0.032" y="20.02" display="inline" fill="none" width="31.963" height="9.173"/>
+	<text transform="matrix(1 0 0 1 5.0176 25.54)" fill="#FFFFFF" font-family="'Consolas'" font-size="8">setup</text>
+</g>
+<g id="MOD_x5F_publish">
+	<path fill="#6F8B72" d="M32,29.969C32,31.091,31.092,32,29.972,32H2.056c-1.12,0-2.028-0.909-2.028-2.031V2.031
+		C0.027,0.909,0.936,0,2.056,0h27.916C31.092,0,32,0.909,32,2.031V29.969z"/>
+	<rect y="6.198" fill="none" width="31.974" height="10.994"/>
+	<text transform="matrix(1 0 0 1 1.1685 15.9443)" fill="#FFFFFF" font-family="'MyriadPro-Regular'" font-size="13.7274">MOD</text>
+	<rect x="0.032" y="20.02" fill="none" width="31.963" height="9.173"/>
+	<text transform="matrix(1 0 0 1 0.6191 25.54)" display="none" fill="#FFFFFF" font-family="'Consolas'" font-size="8">publish</text>
+</g>
+</svg>

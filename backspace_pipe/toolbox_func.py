@@ -1,24 +1,20 @@
 import pymel.core as pmc
 import re
-import os
 import logging
 import maya.OpenMaya as api
 import maya.OpenMayaUI as apiUI
 import getpass
 import time
 import shutil
+import sys
 from sets import Set
 
-import backspace_pipe.slack_tools as slack_tools
-
-
-# TODO: References -> Rename, Delete, .. not possible
-
+from backspace_pipe import slack_tools
 
 
 class Tools():
 
-    ### ### ### ### ### ### COMMON ### ### ### ### ### ###
+    # ### ### ### ### ### ### LOGGING ### ### ### ### ### ###
 
     # Create Logger
     logger = logging.getLogger(__name__)
@@ -36,11 +32,25 @@ class Tools():
     for hndl in logger.handlers:
         logger.removeHandler(hndl)
 
-    formatter = logging.Formatter('%(levelname)-8s - %(message)s')
-    stream_handler = logging.StreamHandler()
-    stream_handler.setFormatter(formatter)
-    logger.addHandler(stream_handler)
+    # Formatter for the logging message
+    formatter = logging.Formatter('pipe:\t\t%(levelname)-8s - %(message)s')
 
+    # # Custom Stream Handler
+    # stream_handler = logging.StreamHandler()
+    # stream_handler.setFormatter(formatter)
+    # logger.addHandler(stream_handler)
+
+    # # Maya Stream Handler
+    # maya_handler = maya.utils.MayaGuiLogHandler()
+    # maya_handler.setFormatter(formatter)
+    # logger.addHandler(maya_handler)
+
+    # Output Window Handler
+    out_win_handler = logging.StreamHandler(sys.__stdout__)
+    out_win_handler.setFormatter(formatter)
+    logger.addHandler(out_win_handler)
+
+    # ### ### ### ### ### ### COMMON ### ### ### ### ### ###
 
     def toggle_wait_cursor(self):
         self.logger.debug("Toggle wait cursor")
@@ -48,9 +58,7 @@ class Tools():
         pmc.waitCursor(state=not current_state)
         return True
 
-
-    ### ### ### ### ### ### SETUP ### ### ### ### ### ###
-
+    # ### ### ### ### ### ### SETUP ### ### ### ### ### ###
 
     def save_on_setup(self):
         self.logger.debug("Save on Setup")
@@ -62,14 +70,12 @@ class Tools():
             self.logger.exception(e)
             return False
 
-
     def create_delOnPub_set(self):
         self.logger.debug("Create delOnPub Set")
 
         if(len(pmc.ls("deleteOnPublish")) == 0):
             pmc.sets(name="deleteOnPublish", empty=True)
         return True
-
 
     def create_refsToImport_set(self):
         self.logger.debug("Create refsToImport Set")
@@ -78,7 +84,6 @@ class Tools():
             pmc.sets(name="refsToImport", empty=True)
         return True
 
-
     def del_unknown_dag(self):
         self.logger.debug("Delete unknown DAG nodes")
 
@@ -86,14 +91,13 @@ class Tools():
 
         try:
             for node in unknown_nodes:
-                print("Deleting Node: \t{}".format(node))
+                self.logger.info("Deleting Node: \t{}".format(node))
                 pmc.delete(node)
             return True
         except Exception as e:
             self.logger.error("An Exception occured, please contact Jason to fix this!")
             self.logger.exception(e)
             return False
-
 
     def del_displaylayers(self):
         self.logger.debug("Delete displayLayers")
@@ -106,7 +110,7 @@ class Tools():
                     # Ignore and continue with next layer
                     continue
                 else:
-                    print("Deleting Layer: \t{}".format(layer))
+                    self.logger.info("Deleting Layer: \t{}".format(layer))
                     pmc.delete(layer)
             return True
         except Exception as e:
@@ -114,10 +118,9 @@ class Tools():
             self.logger.exception(e)
             return False
 
-
     def del_all_history(self):
         self.logger.debug("Delete ALL history")
-        
+
         try:
             pmc.mel.eval("DeleteAllHistory;")
             return True
@@ -126,14 +129,13 @@ class Tools():
             self.logger.exception(e)
             return False
 
-
     def assure_unique_naming(self):
         self.logger.debug("Assure Unique Naming")
 
         # Exclude shapes, as they will be renamed automatically if named after the transform
         all_nodes = pmc.ls(shortNames=True, excludeType='shape')
         non_unique_nodes = [node for node in all_nodes if "|" in node.shortName()]
-        
+
         # Regular Expression: 0 or more times no '|' at the end of the string
         re_base_node_name = re.compile(r'[^|]*$')
 
@@ -162,7 +164,6 @@ class Tools():
             self.logger.exception(e)
             return False
 
-
     def assure_shape_names(self):
         self.logger.debug("Assure Shape Names")
 
@@ -188,7 +189,6 @@ class Tools():
             self.logger.exception(e)
             return False
 
-
     def mesh_check(self):
         self.logger.debug("Mesh Check")
 
@@ -210,15 +210,12 @@ class Tools():
 
         return True
 
-
-    ### ### ### ### ### ### PUBLISH ### ### ### ### ### ###
-
+    # ### ### ### ### ### ### PUBLISH ### ### ### ### ### ###
 
     def fit_view(self):
         self.logger.debug("Fit View")
         pmc.viewFit(all=True)
         return True
-
 
     def incremental_save(self):
         self.logger.debug("INCREMETAL SAVE")
@@ -228,7 +225,6 @@ class Tools():
 
         re_incr = re.compile(r"_\d+")
         match = re_incr.search(curr_name)
-
 
         if match is None:
             self.logger.warning("Please check filename format: 'your_asset_name_XX_optional_comment' with XX being an integer (padding can vary)!")
@@ -256,7 +252,6 @@ class Tools():
             self.logger.error("An Exception occured, please contact Jason to fix this!")
             self.logger.exception(e)
             return False
-
 
     def import_refs_set(self):
         self.logger.debug("Import Refs Set")
@@ -300,7 +295,6 @@ class Tools():
             self.logger.exception(e)
             return False
 
-
     def rem_all_refs(self):
         self.logger.debug("Removing all References")
 
@@ -313,7 +307,6 @@ class Tools():
             self.logger.error("An Exception occured, please contact Jason to fix this!")
             self.logger.exception(e)
             return False
-
 
     def del_delOnPub_set(self):
         self.logger.debug("Delete deleteOnPublish Set")
@@ -340,7 +333,6 @@ class Tools():
 
         return True
 
-
     def assure_lambert1(self):
         self.logger.debug("Assure lambert1")
         shapes = pmc.ls(geometry=True)
@@ -350,12 +342,10 @@ class Tools():
         # pmc.delete(materials_with_sg)
         return True
 
-
     def delete_unused_nodes(self):
         self.logger.debug("Deleting unused nodes")
         pmc.mel.eval("MLdeleteUnused;")
         return True
-
 
     def publish(self):
         self.logger.debug("PUBLISH")
@@ -378,7 +368,6 @@ class Tools():
             self.logger.exception(e)
             return False
 
-
     def slack_publish_notification(self):
         self.logger.debug("Slack Publish Notification")
         # Refresh viewport
@@ -389,7 +378,7 @@ class Tools():
         # Enable Alpha
         view.setColorMask(1, 1, 1, 1)
 
-        #read the color buffer from the view, and save the MImage to disk
+        # read the color buffer from the view, and save the MImage to disk
         image = api.MImage()
         view.readColorBuffer(image, True)
 
@@ -419,7 +408,6 @@ class Tools():
 
         return True
 
-
     def close_scene(self):
         self.logger.debug("Closing Scene")
         try:
@@ -429,7 +417,6 @@ class Tools():
             self.logger.error("An Exception occured, please contact Jason to fix this!")
             self.logger.exception(e)
             return False
-
 
     def del_maya_lic_string(self):
         self.logger.debug("Deleting Maya License String")
@@ -460,11 +447,10 @@ class Tools():
 
         return True
 
-
     def open_last_increment(self):
         self.logger.debug("Open last increment")
 
-        ######## Programmatical Approach - save for later? 
+        # ####### Programmatical Approach - save for later?
         # curr_path = pmc.sceneName()
 
         # re_incr = re.compile(r"_\d+")
@@ -479,7 +465,7 @@ class Tools():
         #         if match is None:
         #             continue
 
-        #         print(os.path.join(root, file))
+        #         self.logger.info(os.path.join(root, file))
 
         #         curr_incr_int = int(match.group(0).replace("_", ""))
 
