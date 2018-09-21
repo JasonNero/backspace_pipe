@@ -3,7 +3,7 @@ from shiboken2 import wrapInstance
 from PySide2 import QtCore, QtWidgets
 from functools import partial
 
-from backspace_pipe import toolbox_func
+from backspace_pipe import toolbox_func, logging_control, constants
 
 
 class GUI(QtWidgets.QWidget):
@@ -65,6 +65,8 @@ class GUI(QtWidgets.QWidget):
             self.toolbox_array = self.toolbox_array_mod_setup
         elif self.toolbox == "mod_publish":
             self.toolbox_array = self.toolbox_array_mod_publish
+        else:
+            self.toolbox_array = ""
 
         self.gui()
         self.show()
@@ -72,7 +74,17 @@ class GUI(QtWidgets.QWidget):
     def gui(self):
         self.connect(self, QtCore.SIGNAL("sendValue(PyObject)"), self.handleReturn)
 
-        # Set Layout
+        # Create Top Level Layout
+        top_level_layout = QtWidgets.QVBoxLayout(self)
+
+        # # Create Menu Bar
+        # self.main_menu = QtWidgets.QMenuBar()
+        # test_menu = self.main_menu.addMenu("Test")
+        # asdf_menu = self.main_menu.addMenu("asdf")
+
+        # top_level_layout.addWidget(self.main_menu)
+
+        # Create Grid Layout
         grid_layout = QtWidgets.QGridLayout(self)
 
         # Header Button
@@ -118,8 +130,24 @@ class GUI(QtWidgets.QWidget):
         grid_layout.setRowStretch(0, 10)
         grid_layout.setSpacing(4)
 
-        # Apply Layout to our window
-        self.setLayout(grid_layout)
+        # Apply Layout to our toplevel layout
+        top_level_layout.addLayout(grid_layout)
+
+        groupbox = QtWidgets.QGroupBox(self, title="Logging")
+        groupbox_layout = QtWidgets.QVBoxLayout(self)
+        groupbox_layout.setMargin(5)
+
+        # Create Text Widget
+        textedit = QtWidgets.QPlainTextEdit(self, readOnly=True)
+        textedit.setMaximumSize(800, 100)
+        # Add Widget as Logging Uutput
+        logging_control.add_handler(constants.Log_Mode.QTEXT, textedit)
+
+        # Add Layouts
+        groupbox_layout.addWidget(textedit)
+        groupbox.setLayout(groupbox_layout)
+        top_level_layout.addWidget(groupbox)
+        self.setLayout(top_level_layout)
 
     def execute_all(self):
         for i, row in enumerate(self.toolbox_array):

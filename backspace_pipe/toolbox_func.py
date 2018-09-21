@@ -1,58 +1,23 @@
 import pymel.core as pmc
 import re
-import logging
 import maya.OpenMaya as om
 import maya.OpenMayaUI as omui
 import getpass
 import time
 import shutil
-import sys
 from sets import Set
 
 from backspace_pipe import slack_tools
+from backspace_pipe import logging_control
 
 
 # ### ### ### ### ### # GLOABL VARS # ### ### ### ### ### ###
 
 last_incremental_save = ""
-logging_level = logging.DEBUG
-
-
-# ### ### ### ### ### ### LOGGING ### ### ### ### ### ###
-
-# Create Logger
-logger = logging.getLogger(__name__)
-logger.setLevel(logging_level)
-
-# Prevent Call to Maya Logger
-logger.propagate = False
-
-# Remove old handlers
-for hndl in logger.handlers:
-    logger.removeHandler(hndl)
-
-# # Custom Stream Handler
-# stream_handler = logging.StreamHandler()
-
-# # Maya Stream Handler
-# maya_handler = maya.utils.MayaGuiLogHandler()
-
-# Output Window Handler
-out_win_handler = logging.StreamHandler(sys.__stdout__)
-
-# Create and apply Formatter to Handler
-formatter = logging.Formatter('pipe:\t\t%(levelname)-8s - %(message)s')
-out_win_handler.setFormatter(formatter)
-
-# Add Handler to Logger
-logger.addHandler(out_win_handler)
+logger = logging_control.get_logger()
 
 
 # ### ### ### ### ### ### COMMON ### ### ### ### ### ###
-
-def get_logger():
-    return logger
-
 
 def toggle_wait_cursor():
     logger.debug("Toggle wait cursor")
@@ -68,9 +33,8 @@ def save_on_setup():
     try:
         pmc.saveFile()
         return True
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
+    except RuntimeError as e:
+        logger.error("Could not save file!")
         return False
 
 
@@ -94,15 +58,19 @@ def del_unknown_dag():
     logger.debug("Delete unknown DAG nodes")
 
     unknown_nodes = pmc.ls(type="unknown")
+    error_counter = 0
 
-    try:
-        for node in unknown_nodes:
-            logger.info("Deleting Node: \t{}".format(node))
+    for node in unknown_nodes:
+        logger.info("Deleting Node: \t{}".format(node))
+        try:
             pmc.delete(node)
+        except RuntimeError as e:
+            logger.error("Deletion Error: {}".format(e))
+            error_counter += 1
+
+    if error_counter == 0:
         return True
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
+    else:
         return False
 
 
@@ -110,19 +78,23 @@ def del_displaylayers():
     logger.debug("Delete displayLayers")
 
     displayLayers = pmc.ls(type="displayLayer")
+    error_counter = 0
 
-    try:
-        for layer in displayLayers:
-            if ("defaultLayer" in repr(layer)):
-                # Ignore and continue with next layer
-                continue
-            else:
-                logger.info("Deleting Layer: \t{}".format(layer))
+    for layer in displayLayers:
+        if ("defaultLayer" in repr(layer)):
+            # Ignore and continue with next layer
+            continue
+        else:
+            logger.info("Deleting Layer: \t{}".format(layer))
+            try:
                 pmc.delete(layer)
+            except RuntimeError as e:
+                logger.error("Deletion Error: {}".format(e))
+                error_counter += 1
+
+    if error_counter == 0:
         return True
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
+    else:
         return False
 
 
@@ -132,9 +104,8 @@ def del_all_history():
     try:
         pmc.mel.eval("DeleteAllHistory;")
         return True
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
+    except RuntimeError as e:
+        logger.error(e)
         return False
 
 
@@ -151,26 +122,33 @@ def assure_unique_naming():
     # Regular Expression: 0 or more times a character then no number
     re_suffix = re.compile(r'.*[^0-9]')
 
-    try:
-        for node in non_unique_nodes:
-            short_node_name = node.shortName()
+    error_counter = 0
 
-            base_node_name_matches = re_base_node_name.search(short_node_name)
-            base_node_name = base_node_name_matches.group(0)
+    for node in non_unique_nodes:
+        short_node_name = node.shortName()
 
-            suffix_matches = re_suffix.search(base_node_name)
-            suffix = suffix_matches.group(0) if suffix_matches else base_node_name
+        base_node_name_matches = re_base_node_name.search(short_node_name)
+        base_node_name = base_node_name_matches.group(0)
 
-            # Appending a #, Maya will automatically insert the next free number (pCube# -> pCube1)
-            new_node_name = suffix + '#'
-            node.rename(new_node_name)
+        suffix_matches = re_suffix.search(base_node_name)
+        suffix = suffix_matches.group(0) if suffix_matches else base_node_name
+
+        # Appending a #, Maya will automatically insert the next free number (pCube# -> pCube1)
+        optimal_node_name = suffix + '#'
+
+        try:
+            node.rename(optimal_node_name)
+        except RuntimeError as e:
+            logger.error("Could not rename node {} to {}".format(short_node_name, optimal_node_name))
+            logger.error(e)
+            error_counter += 1
+        else:
             new_node_name = node.shortName()
+            logger.info("Renamed node {} to {}".format(short_node_name, new_node_name))
 
-            logger.info("Renamed {} to {}".format(short_node_name, new_node_name))
+    if error_counter == 0:
         return True
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
+    else:
         return False
 
 
@@ -179,24 +157,30 @@ def assure_shape_names():
 
     all_transforms = pmc.ls(type='transform')
 
-    try:
-        for transf in all_transforms:
-            shapes = transf.listRelatives(shapes=True)
+    error_counter = 0
 
-            for shape in shapes:
-                current_shape_name = shape.shortName()
-                re_incr = re.compile(r"\d*$")
+    for transf in all_transforms:
+        shapes = transf.listRelatives(shapes=True)
 
-                optimal_shape_name = re_incr.split(transf.shortName())[0] + "Shape" + re_incr.search(transf.shortName()).group(0)
+        for shape in shapes:
+            current_shape_name = shape.shortName()
+            re_incr = re.compile(r"\d*$")
 
-                if(current_shape_name != optimal_shape_name):
-                    logger.info("Renaming shape to match transform: {} to {}".format(current_shape_name, optimal_shape_name))
+            optimal_shape_name = re_incr.split(transf.shortName())[0] + "Shape" + re_incr.search(transf.shortName()).group(0)
+
+            if(current_shape_name != optimal_shape_name):
+                try:
                     shape.rename(optimal_shape_name)
+                except RuntimeError:
+                    logger.error("Could not rename node {} to {}".format(current_shape_name, optimal_shape_name))
+                    error_counter += 1
+                else:
+                    new_shape_name = shape.shortName()
+                    logger.info("Renamed shape {} to {}".format(current_shape_name, new_shape_name))
 
+    if error_counter == 0:
         return True
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
+    else:
         return False
 
 
@@ -251,6 +235,7 @@ def incremental_save():
 
     incr_padding = len(curr_incr_str)
 
+    # "_{num:0{width}d}" creates the increment suffix with leading zeroes
     new_incr_str = "_{num:0{width}d}".format(num=new_incr_int, width=incr_padding)
 
     new_path = pmc.Path(curr_path.parent + "/" + curr_asset + new_incr_str + curr_ext)
@@ -259,13 +244,14 @@ def incremental_save():
 
     try:
         pmc.saveAs(new_path)
+    except RuntimeError as e:
+        logger.error("Could not save file!")
+        logger.error(e)
+        return False
+    else:
         global last_incremental_save
         last_incremental_save = new_path
         return True
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
-        return False
 
 
 def import_refs_set():
@@ -297,31 +283,42 @@ def import_refs_set():
         else:
             maya_set.remove(e)
 
-    try:
-        if len(ref_set) > 0:
-            for ref in ref_set:
-                logger.info("Importing Reference: {}".format(ref))
+    if len(ref_set) > 0:
+        error_counter = 0
+        for ref in ref_set:
+            logger.info("Importing Reference: {}".format(ref.refNode))
+            try:
                 ref.importContents()
+            except RuntimeError as e:
+                logger.error("Could not import Reference {}".format(ref.refNode))
+                logger.error(e)
+                error_counter += 1
 
-        create_refsToImport_set()
+    create_refsToImport_set()
+
+    if error_counter == 0:
         return True
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
+    else:
         return False
 
 
 def rem_all_refs():
     logger.debug("Removing all References")
 
-    try:
-        for ref in pmc.iterReferences():
-            logger.info("Removing Reference: {}".format(ref))
+    error_counter = 0
+
+    for ref in pmc.iterReferences():
+        logger.info("Removing Reference: {}".format(ref.refNode))
+        try:
             ref.remove()
+        except RuntimeError as e:
+            logger.error("Could not remove Reference {}".format(ref.refNode))
+            logger.error(e)
+            error_counter += 1
+
+    if error_counter == 0:
         return True
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
+    else:
         return False
 
 
@@ -335,20 +332,26 @@ def del_delOnPub_set():
         return True
 
     maya_set = maya_set_ls[0]
-    elements = maya_set.elements()
+    nodes = maya_set.elements()
 
-    try:
-        for e in elements:
-            logger.info("Deleting: {}".format(e))
-            pmc.delete(e)
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
-        return False
+    error_counter = 0
+
+    for node in nodes:
+        logger.info("Deleting: {}".format(node))
+
+        try:
+            pmc.delete(node)
+        except RuntimeError as e:
+            logger.error("Could not delete Node {}".format(node))
+            logger.error(e)
+            error_counter += 1
 
     create_delOnPub_set()
 
-    return True
+    if error_counter == 0:
+        return True
+    else:
+        return False
 
 
 def assure_lambert1():
@@ -383,9 +386,9 @@ def publish():
     try:
         pmc.saveAs(new_path)
         return True
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
+    except RuntimeError as e:
+        logger.error("Could not save file!")
+        logger.error(e)
         return False
 
 
@@ -408,9 +411,9 @@ def slack_publish_notification():
 
     try:
         image.writeToFile(file_path, 'png')
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
+    except (IOError, RuntimeError) as e:
+        logger.error("Could not save png Thumbnail!")
+        logger.error(e)
         return False
 
     re_incr = re.compile(r"_\d+")
@@ -435,24 +438,42 @@ def close_scene():
     try:
         pmc.newFile()
         return True
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
+    except RuntimeError as e:
+        logger.error("Could not close scene!")
+        logger.error(e)
         return False
 
 
 def del_maya_lic_string():
-    logger.debug("Deleting Maya License String")
+    logger.debug("Maya License String")
 
+    # Get Scene Path
     filePath = pmc.sceneName()
+
+    if filePath.splitext()[-1] == ".mb":
+        logger.warning("Scene needs to be saved as .ma!")
+        return False
+
     bakPath = filePath + ".bak"
 
-    # Closing the file to prevent crashes
-    pmc.newFile()
+    # Closing the scene to prevent crashes
+    try:
+        pmc.newFile()
+    except RuntimeError as e:
+        logger.error("Could not close scene!")
+        logger.error(e)
 
     # Creating Backup file
-    shutil.copy(filePath, bakPath)
+    try:
+        shutil.copy(filePath, bakPath)
+    except IOError as e:
+        logger.error("Could not create backup file!")
+        logger.error(e)
+        return False
+    else:
+        logger.info("Created Backup file")
 
+    # transfering file content, line by line
     try:
         with open(bakPath, "r") as srcFile:
             with open(filePath, "w") as trgFile:
@@ -461,12 +482,21 @@ def del_maya_lic_string():
                         logger.info("Student License String found")
                     else:
                         trgFile.write(line)
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
+    except IOError as e:
+        logger.error("An Error occurred while reading/writing the scene file")
+        logger.error(e)
         return False
 
-    pmc.openFile(filePath)
+    # Reopening current scene
+    try:
+        pmc.openFile(filePath)
+    except IOError as e:
+        logger.error("Could not reopen current scene!")
+        logger.error(e)
+        return False
+    except RuntimeError as e:
+        logger.error(e)
+        return False
 
     return True
 
@@ -503,7 +533,7 @@ def open_last_increment():
     try:
         pmc.openFile(last_incremental_save)
         return True
-    except Exception as e:
-        logger.error("An Exception occured, please contact Jason to fix this!")
-        logger.exception(e)
+    except RuntimeError as e:
+        logger.error("Could not open scene {}".format(last_incremental_save))
+        logger.error(e)
         return False

@@ -10,19 +10,31 @@ ECHO ...............................................
 ECHO.
 pause
 
+IF NOT EXIST c:\\Python27\\python.exe GOTO 
+
+
 CLS
 ECHO.
 ECHO ............... BACKSPACE PIPE ................
 ECHO             SETTING UP VIRTUALENV
 ECHO ...............................................
 ECHO.
-ECHO CHECK VIRTUALENV:
-pip install virtualenv
-if ERRORLEVEL 0 GOTO PIPERR
-IF NOT EXIST backspace_venv\Scripts\ virtualenv --python=c:\Python27\python.exe backspace_venv
+ECHO CHECK VIRTUALENV INSTALLATION:
+
+c:\\Python27\\python.exe -m pip install virtualenv
+if ERRORLEVEL 0 GOTO VENVSETUP ELSE GOTO PIPERR
+
+:VENVSETUP
+IF NOT EXIST backspace_venv\\Scripts\\ 
+(
+	virtualenv --python=c:\\Python27\\python.exe backspace_venv
+) ELSE (
+	ECHO VENV ALREADY SETUP
+)
+
 ECHO.
-ECHO CHECK REQUIREMENTS
-backspace_venv\Scripts\pip install -r requirement.txt
+ECHO CHECK REQUIREMENTS:
+backspace_venv\\Scripts\\pip install -r requirement.txt
 ECHO.
 pause
 
@@ -33,13 +45,20 @@ ECHO           INSTALLING BACKSPACE PIPE
 ECHO ...............................................
 ECHO.
 
-py -2 pipe_installer.py
-if ERRORLEVEL 0 GOTO EOF
 
-python pipe_installer.py
-if ERRORLEVEL 0 GOTO EOF
+c:\\Python27\\python.exe pipe_installer.py
+if ERRORLEVEL 0 GOTO EOF ELSE GOTO PYERR
 
+
+:PYERR
+ECHO.
+ECHO ............... BACKSPACE PIPE ................
+ECHO            COULD NOT FIND PYTHON 2.7
+ECHO          PLEASE INSTALL TO C:\Python27
+ECHO ...............................................
+ECHO.
 GOTO EOF
+
 
 
 :PIPERR
