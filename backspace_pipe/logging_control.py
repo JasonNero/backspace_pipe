@@ -2,10 +2,10 @@ import logging
 import sys
 import os
 
-from backspace_pipe.constants import Log_Mode
+from backspace_pipe.constants import LogMode
 
-standard_logging_level = logging.DEBUG
-standard_logging_mode = Log_Mode.MAYA_WINDOW
+default_logging_level = logging.DEBUG
+default_logging_mode = LogMode.MAYA_STREAM
 
 _initialized = False
 logger = None
@@ -17,16 +17,16 @@ def get_logger():
 
 
 def add_handler(logging_mode, widget=None):
-    if logging_mode == Log_Mode.MAYA_WINDOW:
+    if logging_mode == LogMode.MAYA_WINDOW:
         handler = logging.StreamHandler(sys.__stdout__)
-    elif logging_mode == Log_Mode.MAYA_STREAM:
+    elif logging_mode == LogMode.MAYA_STREAM:
         import maya
         handler = maya.utils.MayaGuiLogHandler()
-    elif logging_mode == Log_Mode.CUSTOM_STREAM:
+    elif logging_mode == LogMode.CUSTOM_STREAM:
         handler = logging.StreamHandler()
-    elif logging_mode == Log_Mode.QTEXT:
+    elif logging_mode == LogMode.QTEXT:
         handler = QTextHandler(widget)
-    elif logging_mode == Log_Mode.FILE:
+    elif logging_mode == LogMode.FILE:
         # Saving Log file to Desktop
         file_path = os.path.abspath(os.path.join(os.environ["HOMEPATH"], "Desktop\\backspace.log"))
         handler = logging.FileHandler(file_path)
@@ -48,14 +48,15 @@ class QTextHandler(logging.StreamHandler):
 
     def emit(self, record):
         msg = self.format(record)
-        print(msg)
+
         # Strip trailing whitespace and make text html conform
         msg = msg.rstrip()
         msg = msg.replace("\t", "&nbsp;&nbsp;&nbsp;&nbsp;")
         msg = msg.replace(" ", "&nbsp;")
-        print(msg)
+
         level = record.levelno
 
+        # Color assignment per log level
         if level == logging.DEBUG:
             color = "gray"
         elif level == logging.INFO:
@@ -68,15 +69,15 @@ class QTextHandler(logging.StreamHandler):
             color = "darkred"
 
         html = "<font color='{color}'>{msg}</font>".format(color=color, msg=msg)
-        print(html)
         self.widget.appendHtml(html)
 
 
 # INIT
 if not _initialized:
+    print("--------------Logger initialising--------------")
     # Create Logger
     logger = logging.getLogger(__name__)
-    logger.setLevel(standard_logging_level)
+    logger.setLevel(default_logging_level)
 
     # Prevent Call to Maya Logger
     logger.propagate = False
@@ -88,6 +89,6 @@ if not _initialized:
     # Create Formatter
     formatter = logging.Formatter('pipe:\t%(levelname)-8s - %(message)s')
 
-    add_handler(standard_logging_mode)
+    add_handler(default_logging_mode)
 
     _initialized = True

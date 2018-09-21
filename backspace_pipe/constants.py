@@ -2,7 +2,7 @@
 
 
 # class Log_Mode(Enum):
-class Log_Mode():
+class LogMode():
     MAYA_WINDOW = 1
     MAYA_STREAM = 2
     CUSTOM_STREAM = 3

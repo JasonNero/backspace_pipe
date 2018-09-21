@@ -10,7 +10,7 @@ ECHO ...............................................
 ECHO.
 pause
 
-IF NOT EXIST c:\\Python27\\python.exe GOTO 
+IF NOT EXIST c:\\Python27\\python.exe GOTO PYERR
 
 
 CLS
@@ -22,11 +22,10 @@ ECHO.
 ECHO CHECK VIRTUALENV INSTALLATION:
 
 c:\\Python27\\python.exe -m pip install virtualenv
-if ERRORLEVEL 0 GOTO VENVSETUP ELSE GOTO PIPERR
+if ERRORLEVEL 0 (GOTO VENVSETUP) ELSE (GOTO PIPERR)
 
 :VENVSETUP
-IF NOT EXIST backspace_venv\\Scripts\\ 
-(
+IF NOT EXIST backspace_venv\\Scripts\\* (
 	virtualenv --python=c:\\Python27\\python.exe backspace_venv
 ) ELSE (
 	ECHO VENV ALREADY SETUP

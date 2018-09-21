@@ -1,10 +1,17 @@
 from maya import OpenMayaUI as omui
 from shiboken2 import wrapInstance
-from PySide2 import QtCore, QtWidgets
+from PySide2 import QtCore, QtWidgets, QtGui
 from functools import partial
+import getpass
 
 from backspace_pipe import toolbox_func, logging_control, constants
 
+start_text = '''########################################################
+Backspace Pipe - Logging
+Current Toolbox: {toolbox}
+Current User:    {user}
+########################################################
+'''
 
 class GUI(QtWidgets.QWidget):
 
@@ -47,8 +54,10 @@ class GUI(QtWidgets.QWidget):
         [True, "Open last incremental save", toolbox_func.open_last_increment, None, None]
     ]
 
+
+
     def __init__(self, toolbox="mod_setup"):
-        self.toolbox = toolbox
+        self.toolbox_str = toolbox.lower()
 
         # Get Maya Window Pointer (py2: long(ptr), py3: ptr)
         ptr = omui.MQtUtil.mainWindow()
@@ -59,11 +68,12 @@ class GUI(QtWidgets.QWidget):
         self.setWindowFlags(QtCore.Qt.Window)
         self.setWindowTitle("Backspace Toolbox")
         self.setMinimumWidth(400)
+        self.setMinimumHeight(200)
 
         # Set current Toolbox
-        if self.toolbox == "mod_setup":
+        if self.toolbox_str == "mod_setup":
             self.toolbox_array = self.toolbox_array_mod_setup
-        elif self.toolbox == "mod_publish":
+        elif self.toolbox_str == "mod_publish":
             self.toolbox_array = self.toolbox_array_mod_publish
         else:
             self.toolbox_array = ""
@@ -88,7 +98,7 @@ class GUI(QtWidgets.QWidget):
         grid_layout = QtWidgets.QGridLayout(self)
 
         # Header Button
-        header_btn = QtWidgets.QPushButton("{} TOOLBOX".format(self.toolbox.upper()))
+        header_btn = QtWidgets.QPushButton("{} TOOLBOX".format(self.toolbox_str.upper()))
         header_btn.setStyleSheet("background-color: rgb(60, 200, 80)")
         grid_layout.addWidget(header_btn, 0, 0, 1, 2)
 
@@ -130,23 +140,34 @@ class GUI(QtWidgets.QWidget):
         grid_layout.setRowStretch(0, 10)
         grid_layout.setSpacing(4)
 
-        # Apply Layout to our toplevel layout
-        top_level_layout.addLayout(grid_layout)
-
+        # Create Groupbox with title Logging
         groupbox = QtWidgets.QGroupBox(self, title="Logging")
         groupbox_layout = QtWidgets.QVBoxLayout(self)
         groupbox_layout.setMargin(5)
 
-        # Create Text Widget
+        # Create and layout Text Widget
         textedit = QtWidgets.QPlainTextEdit(self, readOnly=True)
-        textedit.setMaximumSize(800, 100)
-        # Add Widget as Logging Uutput
-        logging_control.add_handler(constants.Log_Mode.QTEXT, textedit)
+        textedit.setMaximumHeight(100)
 
-        # Add Layouts
+        # Create and Apply monospaced font
+        textedit_font = QtGui.QFont("Consolas")
+        textedit.setFont(textedit_font)
+
+        # Start Text for Log Widget
+        start_text_formatted = start_text.format(toolbox=self.toolbox_str, user=getpass.getuser()).replace(" ", "&nbsp;").replace("\n", "<br>")
+        start_html = "<p><font color='LightSeaGreen'>{}</font></p>".format(start_text_formatted)
+        textedit.appendHtml(start_html)
+
+        # Add Widget as Logging Output
+        logging_control.add_handler(constants.LogMode.QTEXT, textedit)
+
+        # Add Layouts to Window
+        top_level_layout.addLayout(grid_layout)
         groupbox_layout.addWidget(textedit)
         groupbox.setLayout(groupbox_layout)
         top_level_layout.addWidget(groupbox)
+
+        # Add Layout to window
         self.setLayout(top_level_layout)
 
     def execute_all(self):
