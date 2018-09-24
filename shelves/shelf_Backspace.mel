@@ -32,7 +32,7 @@ global proc shelf_Backspace () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import backspace_pipe as pipe\npipe.toolbox_gui.GUI(toolbox=\"mod_setup\")"
+        -command "from backspace_pipe import toolbox_gui\nreload(toolbox_gui)\ntoolbox_gui.GUI(toolbox=\"mod_setup\")"
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -65,7 +65,7 @@ global proc shelf_Backspace () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import backspace_pipe as pipe\npipe.toolbox_gui.GUI(toolbox=\"mod_publish\")"
+        -command "from backspace_pipe import toolbox_gui\nreload(toolbox_gui)\ntoolbox_gui.GUI(toolbox=\"mod_publish\")"
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
