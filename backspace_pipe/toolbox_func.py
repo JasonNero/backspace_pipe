@@ -283,8 +283,8 @@ def import_refs_set():
         else:
             maya_set.remove(e)
 
+    error_counter = 0
     if len(ref_set) > 0:
-        error_counter = 0
         for ref in ref_set:
             logger.info("Importing Reference: {}".format(ref.refNode))
             try:
