@@ -140,10 +140,12 @@ class GUI(QtWidgets.QWidget):
         grid_layout.setRowStretch(0, 10)
         grid_layout.setSpacing(4)
 
-        # Create Groupbox with title Logging
-        groupbox = QtWidgets.QGroupBox(self, title="Logging")
-        groupbox_layout = QtWidgets.QVBoxLayout(self)
-        groupbox_layout.setMargin(5)
+        # ===== LOGGING GUI START =====
+
+        # Create loggerbox with title Logging
+        loggerbox = QtWidgets.QGroupBox(self, title="Logging")
+        loggerbox_layout = QtWidgets.QVBoxLayout(self)
+        loggerbox_layout.setMargin(5)
 
         # Create and layout Text Widget
         textedit = QtWidgets.QPlainTextEdit(self, readOnly=True)
@@ -154,18 +156,21 @@ class GUI(QtWidgets.QWidget):
         textedit.setFont(textedit_font)
 
         # Start Text for Log Widget
-        start_text_formatted = start_text.format(toolbox=self.toolbox_str, user=getpass.getuser()).replace(" ", "&nbsp;").replace("\n", "<br>")
+        start_text_formatted = start_text.format(toolbox="IncrementGUI", user=getpass.getuser()).replace(" ", "&nbsp;").replace("\n", "<br>")
         start_html = "<p><font color='LightSeaGreen'>{}</font></p>".format(start_text_formatted)
         textedit.appendHtml(start_html)
 
         # Add Widget as Logging Output
         logging_control.add_handler(constants.LogMode.QTEXT, textedit)
 
+        loggerbox_layout.addWidget(textedit)
+        loggerbox.setLayout(loggerbox_layout)
+
+        # ===== LOGGING GUI END =====
+
         # Add Layouts to Window
         top_level_layout.addLayout(grid_layout)
-        groupbox_layout.addWidget(textedit)
-        groupbox.setLayout(groupbox_layout)
-        top_level_layout.addWidget(groupbox)
+        top_level_layout.addWidget(loggerbox)
 
         # Add Layout to window
         self.setLayout(top_level_layout)

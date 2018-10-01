@@ -9,6 +9,7 @@ from sets import Set
 
 from backspace_pipe import slack_tools
 from backspace_pipe import logging_control
+from backspace_pipe import core
 
 
 # ### ### ### ### ### # GLOABL VARS # ### ### ### ### ### ###
@@ -31,8 +32,7 @@ def toggle_wait_cursor():
 def save_on_setup():
     logger.debug("Save on Setup")
     try:
-        pmc.saveFile()
-        return True
+        return core.scene_controller.save()
     except RuntimeError as e:
         logger.error("Could not save file!")
         return False
@@ -217,41 +217,12 @@ def fit_view():
 def incremental_save():
     logger.debug("INCREMETAL SAVE")
 
-    curr_path = pmc.sceneName()
-    curr_name, curr_ext = curr_path.name.splitext()
-
-    re_incr = re.compile(r"_\d+")
-    match = re_incr.search(curr_name)
-
-    if match is None:
-        logger.warning("Please check filename format: 'your_asset_name_XX_optional_comment' with XX being an integer (padding can vary)!")
-        return False
-
-    curr_asset = re_incr.split(curr_name)[0]
-
-    curr_incr_str = match.group(0).replace("_", "")
-
-    new_incr_int = int(curr_incr_str) + 1
-
-    incr_padding = len(curr_incr_str)
-
-    # "_{num:0{width}d}" creates the increment suffix with leading zeroes
-    new_incr_str = "_{num:0{width}d}".format(num=new_incr_int, width=incr_padding)
-
-    new_path = pmc.Path(curr_path.parent + "/" + curr_asset + new_incr_str + curr_ext)
-
-    logger.info("Increment: {}".format(new_path))
-
     try:
-        pmc.saveAs(new_path)
+        return core.scene_controller.save_incr()
     except RuntimeError as e:
         logger.error("Could not save file!")
         logger.error(e)
         return False
-    else:
-        global last_incremental_save
-        last_incremental_save = new_path
-        return True
 
 
 def import_refs_set():
@@ -373,19 +344,8 @@ def delete_unused_nodes():
 def publish():
     logger.debug("PUBLISH")
 
-    curr_path = pmc.sceneName()
-    curr_name, curr_ext = curr_path.name.splitext()
-
-    re_incr = re.compile(r"_\d+")
-    curr_asset = re_incr.split(curr_name)[0]
-
-    new_path = pmc.Path(curr_path.parent.parent + "/" + curr_asset + "_REF" + curr_ext)
-
-    logger.info("Publishing File: {}".format(new_path))
-
     try:
-        pmc.saveAs(new_path)
-        return True
+        return core.scene_controller.publish()
     except RuntimeError as e:
         logger.error("Could not save file!")
         logger.error(e)
@@ -504,36 +464,9 @@ def del_maya_lic_string():
 def open_last_increment():
     logger.debug("Open last increment")
 
-    # ####### Programmatical Approach - save for later?
-    # curr_path = pmc.sceneName()
-
-    # re_incr = re.compile(r"_\d+")
-
-    # highest_incr_int = 0
-    # highest_incr_path = ""
-
-    # for root, subdirs, files in os.walk(curr_path.parent):
-    #     for file in files:
-    #         match = re_incr.search(file)
-
-    #         if match is None:
-    #             continue
-
-    #         logger.info(os.path.join(root, file))
-
-    #         curr_incr_int = int(match.group(0).replace("_", ""))
-
-    #         if curr_incr_int > highest_incr_int:
-    #             highest_incr_int = curr_incr_int
-    #             highest_incr_path = os.path.join(root, file)
-
-    # recent_files = pmc.optionVar.get("RecentFilesList")
-    ########
-
     try:
-        pmc.openFile(last_incremental_save)
-        return True
+        return core.scene_controller.load_latest_incr()
     except RuntimeError as e:
-        logger.error("Could not open scene {}".format(last_incremental_save))
+        logger.error("Could not open scene!")
         logger.error(e)
         return False
