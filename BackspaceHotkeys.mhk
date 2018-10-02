@@ -1,0 +1,97 @@
+//Maya Preference 2018 (Release 1)
+//
+//
+
+//
+// The runtime commands referenced by the hotkeys
+//
+runTimeCommand
+	-annotation "Backspace Save As"
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "python"
+	-command ("import backspace_pipe.core as core; core.scene_controller.save_dialogue()")
+	backspace_save_as_runtime;
+
+runTimeCommand
+	-annotation "Backspace Increment"
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "python"
+	-command ("import backspace_pipe.core as core; core.scene_controller.save_incr()")
+	backspace_incr_runtime;
+
+runTimeCommand
+	-annotation "Backspace Save"
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "python"
+	-command ("import backspace_pipe.core as core; core.scene_controller.save()")
+	backspace_save_runtime;
+
+runTimeCommand
+	-annotation "Backspace Open"
+	-category "Custom Scripts"
+	-hotkeyCtx ""
+	-commandLanguage "python"
+	-command ("import backspace_pipe.core as core; core.scene_controller.load_dialogue()")
+	backspace_open_runtime;
+
+//
+// The name commands referenced by the hotkeys
+//
+nameCommand
+	-annotation "backspace_open_runtimeNameCommand"
+	-sourceType "mel"
+	-command ("backspace_open_runtime")
+	backspace_open_runtimeNameCommand;
+
+nameCommand
+	-annotation "backspace_save_runtimeNameCommand"
+	-sourceType "mel"
+	-command ("backspace_save_runtime")
+	backspace_save_runtimeNameCommand;
+
+nameCommand
+	-annotation "backspace_save_as_runtimeNameCommand"
+	-sourceType "mel"
+	-command ("backspace_save_as_runtime")
+	backspace_save_as_runtimeNameCommand;
+
+nameCommand
+	-annotation "backspace_incr_runtimeNameCommand"
+	-sourceType "mel"
+	-command ("backspace_incr_runtime")
+	backspace_incr_runtimeNameCommand;
+
+//
+// The user hotkeys
+//
+//
+// The hotkey set
+//
+hotkeySet -source "Maya_Default" -current BackspaceHotkeys;
+//
+// The hotkey contexts and hotkeys
+//
+hotkey -keyShortcut "s" -ctl -alt -name ("backspace_incr_runtimeNameCommand");
+hotkey -keyShortcut "s" -ctl -name ("backspace_save_runtimeNameCommand");
+hotkey -keyShortcut "s" -ctl -sht -name ("backspace_save_as_runtimeNameCommand");
+hotkey -keyShortcut "o" -ctl -name ("backspace_open_runtimeNameCommand");
+hotkeyCtx -type "Editor" -addClient "nodeEditorPanel";
+hotkeyCtx -type "Editor" -addClient "timeEditorPanel";
+hotkeyCtx -type "Editor" -addClient "profilerPanel";
+hotkeyCtx -type "Editor" -addClient "hyperGraphPanel";
+hotkeyCtx -type "Editor" -addClient "posePanel";
+hotkeyCtx -type "Editor" -addClient "outlinerPanel";
+hotkeyCtx -type "Editor" -addClient "graphEditor";
+hotkeyCtx -type "Editor" -addClient "polyTexturePlacementPanel";
+hotkeyCtx -type "Editor" -addClient "hyperShadePanel";
+hotkeyCtx -type "Editor" -addClient "shapePanel";
+hotkeyCtx -type "Tool" -addClient "sculptMeshCache";
+hotkeyCtx -type "Tool" -addClient "polyCutUV";
+hotkeyCtx -type "Tool" -addClient "xgmIGBrush";
+hotkeyCtx -type "Tool" -addClient "texSculptCacheContext";
+hotkeyCtx -type "Tool" -addClient "texCutContext";
+hotkeyCtx -type "Tool" -addClient "Unfold3DBrush";
+hotkeyCtx -type "Tool" -addClient "SymmetrizeUVBrush";

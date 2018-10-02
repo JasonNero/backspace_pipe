@@ -68,7 +68,9 @@ class SceneControl():
             return True
 
     def load_dialogue(self):
-        selected_file = pmc.fileDialog2(fileMode=1, fileFilter="*.mb *ma", dialogStyle=2, dir=pmc.workspace.getPath())
+        selected_file = pmc.fileDialog2(
+            fileMode=1, fileFilter="*.ma *.mb", dialogStyle=2,
+            dir=pmc.workspace.path / pmc.workspace.fileRules["mayaAscii"])
         if selected_file:
             self.load(file=selected_file[0])
 
@@ -79,7 +81,9 @@ class SceneControl():
             pmc.openFile(file)
         except RuntimeError as e:
             logger.error(e)
-            confirmation = pmc.confirmDialog(title='Confirm', message="{}Force Open?".format(e), button=['Yes', 'No'], defaultButton='Yes', cancelButton='No', dismissString='No')
+            confirmation = pmc.confirmDialog(
+                title='Confirm', message="{}Force Open?".format(e), button=['Yes', 'No'],
+                defaultButton='Yes', cancelButton='No', dismissString='No')
             if confirmation == 'Yes':
                 pmc.openFile(file, force=True)
         self.meta = MetaData(fromFile=True)
@@ -95,7 +99,9 @@ class SceneControl():
     #     pmc.saveAs()
 
     def save_dialogue(self):
-        selected_file = pmc.fileDialog2(fileMode=0, fileFilter="*.mb *.ma", dialogStyle=2, dir=pmc.workspace.getPath())
+        selected_file = pmc.fileDialog2(
+            fileMode=0, fileFilter="*.ma *.mb", dialogStyle=2,
+            dir=pmc.workspace.path / pmc.workspace.fileRules["mayaAscii"])
         if selected_file:
             self.save_as(file=selected_file[0])
 
@@ -103,7 +109,9 @@ class SceneControl():
         ''' Wraps pymel save scene according to pipeline definitions. '''
         # Finalize and save MetaData for current scene
         if not comment:
-            result = pmc.promptDialog(title="Comment", message="Enter Comment:", button=["OK", "Cancel"], defaultButton="OK", cancelButton="Cancel", dismissString="Cancel")
+            result = pmc.promptDialog(
+                title="Comment", message="Enter Comment:", button=["OK", "Cancel"],
+                defaultButton="OK", cancelButton="Cancel", dismissString="Cancel")
             if result == "OK":
                 comment = pmc.promptDialog(query=True, text=True)
 
@@ -125,7 +133,9 @@ class SceneControl():
         # self.meta.save_metafile()
 
         if not comment:
-            result = pmc.promptDialog(title="Comment", message="Enter Comment:", button=["OK", "Cancel"], defaultButton="OK", cancelButton="Cancel", dismissString="Cancel")
+            result = pmc.promptDialog(
+                title="Comment", message="Enter Comment:", button=["OK", "Cancel"],
+                defaultButton="OK", cancelButton="Cancel", dismissString="Cancel")
             if result == "OK":
                 comment = pmc.promptDialog(query=True, text=True)
 

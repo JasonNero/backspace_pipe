@@ -29,6 +29,8 @@ import site
 
 sys.path.append('{pipe_path}')
 site.addsitedir('{site_path}')
+
+import backspace_pipe
 '''.format(pipe_path=pipe_path, site_path=site_path)
 
 
