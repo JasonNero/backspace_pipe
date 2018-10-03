@@ -4,6 +4,8 @@ import json
 import datetime
 import re
 from backspace_pipe import logging_control
+import subprocess
+
 
 logger = logging_control.get_logger()
 time_format = "%Y.%m.%d %H:%M:%S"
@@ -39,15 +41,23 @@ class MetaData():
         If no filepath is given, save next to current scene file.'''
         json_path = pmc.sceneName().splitext()[0] + ".json"
 
-        json_dict = {'Asset': self.asset,
+        json_dict = {
+            'Asset': self.asset,
             'User': self.user,
             'Time': self.time,
             'Comment': self.comment,
             'Recent File': self.recent_file,
-            'Current File': self.current_file}
+            'Current File': self.current_file
+        }
+
+        # Unhide File, otherwise we get an IOError
+        subprocess.check_call(["attrib","-H", json_path], creationflags=0x08000000)
 
         with open(json_path, 'w') as file:
             json.dump(json_dict, file, ensure_ascii=False, indent=4, sort_keys=True)
+
+        # Hide File, "prettier" for artist/user
+        subprocess.check_call(["attrib","+H", json_path], creationflags=0x08000000)
 
     def load_metafile(self, filepath=None):
         ''' Load metadata from json file.

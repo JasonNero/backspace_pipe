@@ -156,7 +156,7 @@ class GUI(QtWidgets.QWidget):
         textedit.setFont(textedit_font)
 
         # Start Text for Log Widget
-        start_text_formatted = start_text.format(toolbox="IncrementGUI", user=getpass.getuser()).replace(" ", "&nbsp;").replace("\n", "<br>")
+        start_text_formatted = start_text.format(toolbox=self.toolbox_str, user=getpass.getuser()).replace(" ", "&nbsp;").replace("\n", "<br>")
         start_html = "<p><font color='LightSeaGreen'>{}</font></p>".format(start_text_formatted)
         textedit.appendHtml(start_html)
 

@@ -32,7 +32,8 @@ def toggle_wait_cursor():
 def save_on_setup():
     logger.debug("Save on Setup")
     try:
-        return core.scene_controller.save()
+        result = core.scene_controller.save()
+        return result
     except RuntimeError as e:
         logger.error("Could not save file!")
         return False
@@ -218,7 +219,7 @@ def incremental_save():
     logger.debug("INCREMETAL SAVE")
 
     try:
-        return core.scene_controller.save_incr()
+        return core.scene_controller.save_incr(comment="INCREMETAL")
     except RuntimeError as e:
         logger.error("Could not save file!")
         logger.error(e)
@@ -345,7 +346,7 @@ def publish():
     logger.debug("PUBLISH")
 
     try:
-        return core.scene_controller.publish()
+        return core.scene_controller.publish(comment="PUBLISH")
     except RuntimeError as e:
         logger.error("Could not save file!")
         logger.error(e)

@@ -108,21 +108,26 @@ class SceneControl():
     def save(self, comment=None):
         ''' Wraps pymel save scene according to pipeline definitions. '''
         # Finalize and save MetaData for current scene
-        if not comment:
-            result = pmc.promptDialog(
-                title="Comment", message="Enter Comment:", button=["OK", "Cancel"],
-                defaultButton="OK", cancelButton="Cancel", dismissString="Cancel")
-            if result == "OK":
-                comment = pmc.promptDialog(query=True, text=True)
+        # if not comment:
+        #     result = pmc.promptDialog(
+        #         title="Comment", message="Enter Comment:", button=["OK", "Cancel"],
+        #         defaultButton="OK", cancelButton="Cancel", dismissString="Cancel")
+        #     if result == "OK":
+        #         comment = pmc.promptDialog(query=True, text=True)
 
         self.meta.update()
-        self.meta.comment = comment
+        # self.meta.comment = comment
         self.meta.save_metafile()
 
         logger.info("Saving file...")
         # self.meta.dump_to_log()
-        pmc.saveFile()
-        return True
+        try:
+            pmc.saveFile()
+            return True
+        except RuntimeError as e:
+            logger.error(e)
+            return False
+
 
     def save_as(self, file, comment=None):
         ''' Wraps pymel saveAs scene according to pipeline definitions. '''
