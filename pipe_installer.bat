@@ -26,7 +26,7 @@ if ERRORLEVEL 0 (GOTO VENVSETUP) ELSE (GOTO PIPERR)
 
 :VENVSETUP
 IF NOT EXIST backspace_venv\\Scripts\\* (
-	virtualenv --python=c:\\Python27\\python.exe backspace_venv
+	c:\\Python27\\scripts\\virtualenv --python=c:\\Python27\\python.exe backspace_venv
 ) ELSE (
 	ECHO VENV ALREADY SETUP
 )
