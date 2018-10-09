@@ -4,7 +4,7 @@ from PySide2 import QtCore, QtWidgets, QtGui
 from functools import partial
 import getpass
 
-from backspace_pipe import logging_control, constants, scene_control
+from backspace_pipe import logging_control, constants
 
 start_text = '''########################################################
 Backspace Pipe - Logging

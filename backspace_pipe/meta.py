@@ -51,13 +51,13 @@ class MetaData():
         }
 
         # Unhide File, otherwise we get an IOError
-        subprocess.check_call(["attrib","-H", json_path], creationflags=0x08000000)
+        subprocess.check_call(["attrib", "-H", json_path], creationflags=0x08000000)
 
         with open(json_path, 'w') as file:
             json.dump(json_dict, file, ensure_ascii=False, indent=4, sort_keys=True)
 
         # Hide File, "prettier" for artist/user
-        subprocess.check_call(["attrib","+H", json_path], creationflags=0x08000000)
+        subprocess.check_call(["attrib", "+H", json_path], creationflags=0x08000000)
 
     def load_metafile(self, filepath=None):
         ''' Load metadata from json file.
@@ -68,6 +68,7 @@ class MetaData():
             with open(json_path, "r") as file:
                 json_dict = json.load(file)
         except IOError as e:
+            logger.error(e)
             logger.error("No MetaData found!")
         else:
             self.asset = json_dict["Asset"]

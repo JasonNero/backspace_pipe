@@ -1,8 +1,10 @@
 from maya import OpenMayaUI as omui
-from shiboken2 import wrapInstance
 from PySide2 import QtCore, QtWidgets, QtGui
 from functools import partial
 import getpass
+
+from shiboken2 import wrapInstance
+import maya.OpenMayaUI as omui
 
 from backspace_pipe import toolbox_func, logging_control, constants
 
@@ -12,6 +14,7 @@ Current Toolbox: {toolbox}
 Current User:    {user}
 ########################################################
 '''
+
 
 class GUI(QtWidgets.QWidget):
 
@@ -39,7 +42,6 @@ class GUI(QtWidgets.QWidget):
         [True, "Assure matching shape <-> transf names", toolbox_func.assure_shape_names, None, None],
         [True, "Mesh cleanup check", toolbox_func.mesh_check, None, None],
         [True, "Incremental Save", toolbox_func.incremental_save, None, None],
-        [True, "Delete Student License String", toolbox_func.del_maya_lic_string, None, None],
         [True, "Import refsToImport set", toolbox_func.import_refs_set, None, None],
         [True, "Remove all References", toolbox_func.rem_all_refs, None, None],
         [True, "Delete deleteOnPublish set", toolbox_func.del_delOnPub_set, None, None],
@@ -48,7 +50,6 @@ class GUI(QtWidgets.QWidget):
         [True, "Assure lambert1 on all geo", toolbox_func.assure_lambert1, None, None],
         [True, "Delete unused Nodes", toolbox_func.delete_unused_nodes, None, None],
         [True, "PUBLISH", toolbox_func.publish, None, None],
-        [True, "Delete Student License String", toolbox_func.del_maya_lic_string, None, None],
         [True, "Send Slack Publish Notification", toolbox_func.slack_publish_notification, None, None],
         [True, "Close Scene", toolbox_func.close_scene, None, None],
         [True, "Open last incremental save", toolbox_func.open_last_increment, None, None]
@@ -59,9 +60,8 @@ class GUI(QtWidgets.QWidget):
     def __init__(self, toolbox="mod_setup"):
         self.toolbox_str = toolbox.lower()
 
-        # Get Maya Window Pointer (py2: long(ptr), py3: ptr)
-        ptr = omui.MQtUtil.mainWindow()
-        parent = wrapInstance(long(ptr), QtWidgets.QWidget)
+        pointer = omui.MQtUtil.mainWindow()
+        parent = wrapInstance(long(pointer), QtWidgets.QWidget)
         QtWidgets.QWidget.__init__(self, parent=parent)
 
         # Set Maya as parent for our widget (which is flagged as window)

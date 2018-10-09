@@ -2,16 +2,16 @@ from maya import OpenMayaUI as omui
 from shiboken2 import wrapInstance
 from PySide2 import QtCore, QtWidgets
 
-from backspace_pipe import core
+from backspace_pipe import scene_control
 
 
 class MetaGUI(QtWidgets.QWidget):
 
     def __init__(self):
-        # Get Maya Window Pointer (py2: long(ptr), py3: ptr)
-        ptr = omui.MQtUtil.mainWindow()
-        parent = wrapInstance(long(ptr), QtWidgets.QWidget)
+        pointer = omui.MQtUtil.mainWindow()
+        parent = wrapInstance(long(pointer), QtWidgets.QWidget)
         QtWidgets.QWidget.__init__(self, parent=parent)
+
 
         # Set Maya as parent for our widget (which is flagged as window)
         self.setWindowFlags(QtCore.Qt.Window)
@@ -39,7 +39,7 @@ class MetaGUI(QtWidgets.QWidget):
 
         # Header Button
         header_btn = QtWidgets.QPushButton("MetaData GUI")
-        # header_btn.clicked.connect(core.scene_controller.meta.load_metafile)
+        # header_btn.clicked.connect(scene_controller.get_instance().meta.load_metafile)
         header_btn.setStyleSheet("background-color: rgb(60, 200, 80)")
         grid_layout.addWidget(header_btn, 0, 0, 1, 3)
 
@@ -50,12 +50,12 @@ class MetaGUI(QtWidgets.QWidget):
         recent_label = QtWidgets.QLabel("Recent:")
         current_label = QtWidgets.QLabel("Current:")
 
-        asset_qtext = QtWidgets.QLineEdit(core.scene_controller.meta.asset)
-        user_qtext = QtWidgets.QLineEdit(core.scene_controller.meta.user)
-        time_qtext = QtWidgets.QLineEdit(core.scene_controller.meta.time)
-        comment_qtext = QtWidgets.QLineEdit(core.scene_controller.meta.comment)
-        recent_qtext = QtWidgets.QLineEdit(core.scene_controller.meta.recent_file)
-        current_qtext = QtWidgets.QLineEdit(core.scene_controller.meta.current_file)
+        asset_qtext = QtWidgets.QLineEdit(scene_control.get_instance().meta.asset)
+        user_qtext = QtWidgets.QLineEdit(scene_control.get_instance().meta.user)
+        time_qtext = QtWidgets.QLineEdit(scene_control.get_instance().meta.time)
+        comment_qtext = QtWidgets.QLineEdit(scene_control.get_instance().meta.comment)
+        recent_qtext = QtWidgets.QLineEdit(scene_control.get_instance().meta.recent_file)
+        current_qtext = QtWidgets.QLineEdit(scene_control.get_instance().meta.current_file)
 
         asset_qtext.setReadOnly(True)
         user_qtext.setReadOnly(True)
@@ -83,7 +83,7 @@ class MetaGUI(QtWidgets.QWidget):
         grid_layout.addWidget(current_qtext, 6, 1, 1, 2)
 
         refresh_btn = QtWidgets.QPushButton("Refresh")
-        refresh_btn.clicked.connect(core.scene_controller.meta.load_metafile)
+        refresh_btn.clicked.connect(scene_control.get_instance().meta.load_metafile)
 
         grid_layout.addWidget(refresh_btn, 7, 1, 1, 2)
 

@@ -1,10 +1,33 @@
 import pymel.core as pmc
 import re
 import os
+import shutil
+
+from shiboken2 import wrapInstance
+import maya.OpenMayaUI as omui
+from PySide2 import QtWidgets
+
 from backspace_pipe.meta import MetaData
 from backspace_pipe import logging_control
 
 logger = logging_control.get_logger()
+
+instance = None
+
+
+def get_maya_window():
+    # Get Maya Window Pointer (py2: long(pointer), py3: pointer)
+    pointer = omui.MQtUtil.mainWindow()
+    return wrapInstance(long(pointer), QtWidgets.QWidget)
+
+
+def get_instance():
+    global instance
+    if not instance:
+        instance = SceneControl()
+        return instance
+    else:
+        return instance
 
 
 class SceneControl():
@@ -13,6 +36,9 @@ class SceneControl():
 
     def __init__(self):
         self.meta = MetaData()
+        global instance
+        if not instance:
+            instance = self
 
     def load_incr(self, incr):
         ''' Load increment of current Asset by number.'''
@@ -42,7 +68,7 @@ class SceneControl():
 
         asset_path = pmc.Path(self.meta.current_file).parent
 
-        logger.error(asset_path)
+        logger.info("Asset Path: {}".format(asset_path))
 
         latest_incr_int = 0
         latest_incr_file = None
@@ -80,7 +106,7 @@ class SceneControl():
         try:
             pmc.openFile(file)
         except RuntimeError as e:
-            logger.error(e)
+            logger.warning(e)
             confirmation = pmc.confirmDialog(
                 title='Confirm', message="{}Force Open?".format(e), button=['Yes', 'No'],
                 defaultButton='Yes', cancelButton='No', dismissString='No')
@@ -107,13 +133,6 @@ class SceneControl():
 
     def save(self, comment=None):
         ''' Wraps pymel save scene according to pipeline definitions. '''
-        # Finalize and save MetaData for current scene
-        # if not comment:
-        #     result = pmc.promptDialog(
-        #         title="Comment", message="Enter Comment:", button=["OK", "Cancel"],
-        #         defaultButton="OK", cancelButton="Cancel", dismissString="Cancel")
-        #     if result == "OK":
-        #         comment = pmc.promptDialog(query=True, text=True)
 
         self.meta.update()
         # self.meta.comment = comment
@@ -123,19 +142,16 @@ class SceneControl():
         # self.meta.dump_to_log()
         try:
             pmc.saveFile()
-            return True
         except RuntimeError as e:
             logger.error(e)
             return False
-
+        
+        if "Student" in get_maya_window().windowTitle():
+            self.del_maya_lic_string()
+        return True
 
     def save_as(self, file, comment=None):
         ''' Wraps pymel saveAs scene according to pipeline definitions. '''
-
-        # # Finalize and save MetaData for current scene
-        # self.meta.update()
-        # self.meta.comment = comment
-        # self.meta.save_metafile()
 
         if not comment:
             result = pmc.promptDialog(
@@ -147,7 +163,14 @@ class SceneControl():
         recent_file = pmc.sceneName()
         logger.info("Saving as {} ...".format(file))
         # self.meta.dump_to_log()
-        pmc.saveAs(file)
+        try:
+            pmc.saveAs(file)
+        except RuntimeError as e:
+            logger.error(e)
+            return False
+
+        if "Student" in get_maya_window().windowTitle():
+            self.del_maya_lic_string()
 
         # Create and save MetaData for new file
         self.meta = MetaData()
@@ -194,3 +217,73 @@ class SceneControl():
 
         self.save_as(new_path, comment)
         return True
+
+    def del_maya_lic_string(self):
+        ''' Deletes the license info in the mayaAscii file. '''
+        logger.debug("Maya License String")
+
+        # Get Scene Path
+        filePath = pmc.sceneName()
+
+        if filePath.splitext()[-1] == ".mb":
+            logger.warning("Scene needs to be saved as .ma!")
+            return False
+
+        bakPath = filePath + ".bak"
+
+        # Closing the scene to prevent crashes
+        try:
+            pmc.newFile()
+        except RuntimeError as e:
+            logger.error("Could not close scene!")
+            logger.error(e)
+            return False
+
+        # Creating Backup file
+        try:
+            shutil.copy(filePath, bakPath)
+        except IOError as e:
+            logger.error("Could not create backup file!")
+            logger.error(e)
+            return False
+        else:
+            logger.info("Created Backup file")
+
+        # transfering file content, line by line
+        try:
+            with open(bakPath, "r") as srcFile:
+                with open(filePath, "w") as trgFile:
+                    for line in srcFile:
+                        if 'fileInfo "license" "student";' in line:
+                            logger.info("Student License String found")
+                            trgFile.write('fileInfo "license" "education";')
+                        else:
+                            trgFile.write(line)
+        except IOError as e:
+            logger.error("An Error occurred while reading/writing the scene file")
+            logger.error(e)
+            return False
+
+        # Reopening current scene
+        try:
+            pmc.openFile(filePath)
+        except IOError as e:
+            logger.error("Could not reopen current scene!")
+            logger.error(e)
+            return False
+        except RuntimeError as e:
+            logger.error(e)
+            return False
+
+        return True
+
+    def close_scene():
+        ''' Closes the scene, without changing any meta '''
+        logger.debug("Closing Scene")
+        try:
+            pmc.newFile()
+            return True
+        except RuntimeError as e:
+            logger.error("Could not close scene!")
+            logger.error(e)
+            return False

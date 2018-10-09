@@ -10,7 +10,7 @@ runTimeCommand
 	-category "Custom Scripts"
 	-hotkeyCtx ""
 	-commandLanguage "python"
-	-command ("import backspace_pipe.core as core; core.scene_controller.save_dialogue()")
+	-command ("import backspace_pipe.scene_control as scene; scene.get_instance().save_dialogue()")
 	backspace_save_as_runtime;
 
 runTimeCommand
@@ -18,7 +18,7 @@ runTimeCommand
 	-category "Custom Scripts"
 	-hotkeyCtx ""
 	-commandLanguage "python"
-	-command ("import backspace_pipe.core as core; core.scene_controller.save_incr()")
+	-command ("import backspace_pipe.scene_control as scene; scene.get_instance().save_incr()")
 	backspace_incr_runtime;
 
 runTimeCommand
@@ -26,7 +26,7 @@ runTimeCommand
 	-category "Custom Scripts"
 	-hotkeyCtx ""
 	-commandLanguage "python"
-	-command ("import backspace_pipe.core as core; core.scene_controller.save()")
+	-command ("import backspace_pipe.scene_control as scene; scene.get_instance().save()")
 	backspace_save_runtime;
 
 runTimeCommand
@@ -34,7 +34,7 @@ runTimeCommand
 	-category "Custom Scripts"
 	-hotkeyCtx ""
 	-commandLanguage "python"
-	-command ("import backspace_pipe.core as core; core.scene_controller.load_dialogue()")
+	-command ("import backspace_pipe.scene_control as scene; scene.get_instance().load_dialogue()")
 	backspace_open_runtime;
 
 //

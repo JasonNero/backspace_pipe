@@ -7,9 +7,7 @@ import time
 import shutil
 from sets import Set
 
-from backspace_pipe import slack_tools
-from backspace_pipe import logging_control
-from backspace_pipe import core
+from backspace_pipe import slack_tools, logging_control, scene_control
 
 
 # ### ### ### ### ### # GLOABL VARS # ### ### ### ### ### ###
@@ -32,7 +30,7 @@ def toggle_wait_cursor():
 def save_on_setup():
     logger.debug("Save on Setup")
     try:
-        result = core.scene_controller.save()
+        result = scene_control.get_instance().save()
         return result
     except RuntimeError as e:
         logger.error("Could not save file!")
@@ -219,7 +217,7 @@ def incremental_save():
     logger.debug("INCREMETAL SAVE")
 
     try:
-        return core.scene_controller.save_incr(comment="INCREMETAL")
+        return scene_control.get_instance().save_incr(comment="INCREMETAL")
     except RuntimeError as e:
         logger.error("Could not save file!")
         logger.error(e)
@@ -346,7 +344,7 @@ def publish():
     logger.debug("PUBLISH")
 
     try:
-        return core.scene_controller.publish(comment="PUBLISH")
+        return scene_control.get_instance().publish(comment="PUBLISH")
     except RuntimeError as e:
         logger.error("Could not save file!")
         logger.error(e)
@@ -395,78 +393,18 @@ def slack_publish_notification():
 
 
 def close_scene():
-    logger.debug("Closing Scene")
-    try:
-        pmc.newFile()
-        return True
-    except RuntimeError as e:
-        logger.error("Could not close scene!")
-        logger.error(e)
-        return False
+    return scene_control.get_instance().close_scene()
 
 
 def del_maya_lic_string():
-    logger.debug("Maya License String")
-
-    # Get Scene Path
-    filePath = pmc.sceneName()
-
-    if filePath.splitext()[-1] == ".mb":
-        logger.warning("Scene needs to be saved as .ma!")
-        return False
-
-    bakPath = filePath + ".bak"
-
-    # Closing the scene to prevent crashes
-    try:
-        pmc.newFile()
-    except RuntimeError as e:
-        logger.error("Could not close scene!")
-        logger.error(e)
-
-    # Creating Backup file
-    try:
-        shutil.copy(filePath, bakPath)
-    except IOError as e:
-        logger.error("Could not create backup file!")
-        logger.error(e)
-        return False
-    else:
-        logger.info("Created Backup file")
-
-    # transfering file content, line by line
-    try:
-        with open(bakPath, "r") as srcFile:
-            with open(filePath, "w") as trgFile:
-                for line in srcFile:
-                    if 'fileInfo "license" "student";' in line:
-                        logger.info("Student License String found")
-                    else:
-                        trgFile.write(line)
-    except IOError as e:
-        logger.error("An Error occurred while reading/writing the scene file")
-        logger.error(e)
-        return False
-
-    # Reopening current scene
-    try:
-        pmc.openFile(filePath)
-    except IOError as e:
-        logger.error("Could not reopen current scene!")
-        logger.error(e)
-        return False
-    except RuntimeError as e:
-        logger.error(e)
-        return False
-
-    return True
+    return scene_control.get_instance().del_maya_lic_string()
 
 
 def open_last_increment():
     logger.debug("Open last increment")
 
     try:
-        return core.scene_controller.load_latest_incr()
+        return scene_control.get_instance().load_latest_incr()
     except RuntimeError as e:
         logger.error("Could not open scene!")
         logger.error(e)
