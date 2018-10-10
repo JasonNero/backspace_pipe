@@ -13,6 +13,7 @@ pipeline_re = re.compile(r"((\w+)_)+(\d+|REF)+")
 
 
 class MetaData():
+
     def __init__(self, fromFile=False):
         if fromFile is False:
             self.asset = self.parse_asset_name()
@@ -70,6 +71,7 @@ class MetaData():
         except IOError as e:
             logger.error(e)
             logger.error("No MetaData found!")
+            self.__init__(fromFile=False)
         else:
             self.asset = json_dict["Asset"]
             self.user = json_dict["User"]
