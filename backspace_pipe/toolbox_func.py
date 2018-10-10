@@ -344,7 +344,7 @@ def publish():
     logger.debug("PUBLISH")
 
     try:
-        return scene_control.get_instance().publish(comment="PUBLISH")
+        return scene_control.get_instance().publish()
     except RuntimeError as e:
         logger.error("Could not save file!")
         logger.error(e)
@@ -381,7 +381,7 @@ def slack_publish_notification():
     user = getpass.getuser()
     date_str = time.strftime("%Y_%m_%d")
 
-    initial_comment = "*{asset}* has been published by _{user}_".format(asset=curr_asset, user=user)
+    initial_comment = "*{asset}* has been published by _{user}_ with the comment _'{comment}'_".format(asset=curr_asset, user=user, comment=scene_control.get_instance().meta.comment)
     file_name = "{date}_{asset}".format(date=date_str, asset=curr_asset)
 
     slack_tools.send_file(channels="publish", file_path=file_path, file_name=file_name, file_type="png", title=file_name, initial_comment=initial_comment)

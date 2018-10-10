@@ -207,6 +207,14 @@ class SceneControl():
 
     def publish(self, comment=None):
         ''' Publish scene with comment. '''
+
+        if not comment:
+            result = pmc.promptDialog(
+                title="Comment", message="Enter Comment:", button=["OK", "Cancel"],
+                defaultButton="OK", cancelButton="Cancel", dismissString="Cancel")
+            if result == "OK":
+                comment = pmc.promptDialog(query=True, text=True)
+
         curr_path = pmc.sceneName()
         curr_name, curr_ext = curr_path.name.splitext()
 
@@ -277,7 +285,7 @@ class SceneControl():
 
         return True
 
-    def close_scene():
+    def close_scene(self):
         ''' Closes the scene, without changing any meta '''
         logger.debug("Closing Scene")
         try:
