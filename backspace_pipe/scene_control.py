@@ -205,9 +205,7 @@ class SceneControl():
                 return False
 
         else:
-            self.save_as(incr_file, comment)
-
-        return True
+            return self.save_as(incr_file, comment)
 
     def publish(self, comment=None):
         ''' Publish scene with comment. '''
