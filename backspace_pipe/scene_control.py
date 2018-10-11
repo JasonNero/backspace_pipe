@@ -32,7 +32,7 @@ def get_instance():
 
 class SceneControl():
     meta = None
-    incr_padding = 2
+    incr_padding = 3
 
     def __init__(self):
         self.meta = MetaData()
@@ -116,14 +116,6 @@ class SceneControl():
         # self.meta.dump_to_log()
         return True
 
-    # # BIG TODO: Wie gehe ich mit neuen Assets um?
-    # def setup_save(self, asset_name, comment=None):
-    #     ''' First Save of an Asset Setup.'''
-    #     self.meta = MetaData()
-    #     self.meta.asset = asset_name
-    #     workspace_dir = pmc.workspace.getPath()
-    #     pmc.saveAs()
-
     def save_dialogue(self):
         selected_file = pmc.fileDialog2(
             fileMode=0, fileFilter="*.ma *.mb", dialogStyle=2,
@@ -145,7 +137,7 @@ class SceneControl():
         except RuntimeError as e:
             logger.error(e)
             return False
-        
+
         if "Student" in get_maya_window().windowTitle():
             self.del_maya_lic_string()
         return True
@@ -202,7 +194,19 @@ class SceneControl():
 
         incr_file = pmc.Path(curr_path.parent + "/" + curr_asset + new_incr_str + curr_ext)
 
-        self.save_as(incr_file, comment)
+        if os.path.exists(incr_file):
+            logger.error("FILE ALREADY EXITS!")
+            confirmation = pmc.confirmDialog(
+                title='Confirm', message="{}Force Save?".format(e), button=['Yes', 'No'],
+                defaultButton='Yes', cancelButton='No', dismissString='No')
+            if confirmation == 'Yes':
+                self.save_as(incr_file, comment)
+            else:
+                return False
+
+        else:
+            self.save_as(incr_file, comment)
+
         return True
 
     def publish(self, comment=None):

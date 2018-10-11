@@ -4,7 +4,6 @@ import maya.OpenMaya as om
 import maya.OpenMayaUI as omui
 import getpass
 import time
-import shutil
 from sets import Set
 
 from backspace_pipe import slack_tools, logging_control, scene_control
@@ -33,6 +32,7 @@ def save_on_setup():
         result = scene_control.get_instance().save()
         return result
     except RuntimeError as e:
+        logger.error(e)
         logger.error("Could not save file!")
         return False
 
@@ -209,6 +209,7 @@ def mesh_check():
 
 def fit_view():
     logger.debug("Fit View")
+    pmc.select(clear=True)
     pmc.viewFit(all=True)
     return True
 
