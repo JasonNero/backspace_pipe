@@ -87,14 +87,6 @@ class MetaGUI(QtWidgets.QWidget):
 
         grid_layout.addWidget(refresh_btn, 7, 1, 1, 2)
 
-        # # Execute All Button
-        # execute_all_btn = QtWidgets.QPushButton("Execute all")
-        # self.connect(execute_all_btn, QtCore.SIGNAL("clicked()"), self.execute_all)
-
-        # # Fix Cursor Button
-        # fix_cursor_btn = QtWidgets.QPushButton("CursorFix")
-        # self.connect(fix_cursor_btn, QtCore.SIGNAL("clicked()"), toolbox_func.toggle_wait_cursor)
-
         # Some Layouting (Spacing between elements, row/column resize when window resized)
         grid_layout.setColumnStretch(1, 1)
         grid_layout.setRowStretch(0, 10)

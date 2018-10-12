@@ -9,7 +9,7 @@ from sets import Set
 from backspace_pipe import slack_tools, logging_control, scene_control
 
 
-# ### ### ### ### ### # GLOABL VARS # ### ### ### ### ### ###
+# ### ### ### ### ### GLOABL VARS ### ### ### ### ### ###
 
 last_incremental_save = ""
 logger = logging_control.get_logger()
@@ -24,7 +24,7 @@ def toggle_wait_cursor():
     return True
 
 
-# ### ### ### ### ### ### SETUP ### ### ### ### ### ###
+# ### ### ### ### ### ### MOD SETUP ### ### ### ### ### ###
 
 def save_on_setup():
     logger.debug("Save on Setup")
@@ -205,7 +205,7 @@ def mesh_check():
     return True
 
 
-# ### ### ### ### ### ### PUBLISH ### ### ### ### ### ###
+# ### ### ### ### ### ### MOD PUBLISH ### ### ### ### ### ###
 
 def fit_view():
     logger.debug("Fit View")
@@ -329,9 +329,6 @@ def assure_lambert1():
     logger.debug("Assure lambert1")
     shapes = pmc.ls(geometry=True)
     pmc.sets("initialShadingGroup", forceElement=shapes)
-
-    # materials_with_sg = pmc.ls(type="shadingEngine", materials=True)
-    # pmc.delete(materials_with_sg)
     return True
 
 
@@ -387,26 +384,19 @@ def slack_publish_notification():
 
     slack_tools.send_file(channels="publish", file_path=file_path, file_name=file_name, file_type="png", title=file_name, initial_comment=initial_comment)
 
-    # Maybe just keep the screenshot?
-    # os.remove(file_path)
-
     return True
 
 
 def close_scene():
+    logger.debug("Close Scene")
     return scene_control.get_instance().close_scene()
 
 
 def del_maya_lic_string():
+    logger.debug("Delete Maya Lic String")
     return scene_control.get_instance().del_maya_lic_string()
 
 
 def open_last_increment():
     logger.debug("Open last increment")
-
-    try:
-        return scene_control.get_instance().load_latest_incr()
-    except RuntimeError as e:
-        logger.error("Could not open scene!")
-        logger.error(e)
-        return False
+    return scene_control.get_instance().load_latest_incr()

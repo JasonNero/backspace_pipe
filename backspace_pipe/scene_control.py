@@ -112,6 +112,9 @@ class SceneControl():
                 defaultButton='Yes', cancelButton='No', dismissString='No')
             if confirmation == 'Yes':
                 pmc.openFile(file, force=True)
+            else:
+                return False
+
         self.meta = MetaData(fromFile=True)
         # self.meta.dump_to_log()
         return True
@@ -151,6 +154,8 @@ class SceneControl():
                 defaultButton="OK", cancelButton="Cancel", dismissString="Cancel")
             if result == "OK":
                 comment = pmc.promptDialog(query=True, text=True)
+            else:
+                return False
 
         recent_file = pmc.sceneName()
         logger.info("Saving as {} ...".format(file))
@@ -177,11 +182,13 @@ class SceneControl():
         curr_name, curr_ext = curr_path.name.splitext()
 
         re_incr = re.compile(r"_\d+")
-        match = re_incr.search(curr_name)
+        matches = re_incr.findall(curr_name)
 
-        if match is None:
+        if len(matches) == 0:
             logger.warning("Please check filename format: 'your_asset_name_XX_optional_comment.ma'!")
             return False
+        else:
+            match = matches[-1]
 
         curr_asset = re_incr.split(curr_name)[0]
 
@@ -216,6 +223,8 @@ class SceneControl():
                 defaultButton="OK", cancelButton="Cancel", dismissString="Cancel")
             if result == "OK":
                 comment = pmc.promptDialog(query=True, text=True)
+            else:
+                return False
 
         curr_path = pmc.sceneName()
         curr_name, curr_ext = curr_path.name.splitext()

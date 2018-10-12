@@ -1,6 +1,5 @@
 # from enum import Enum
 
-
 # class Log_Mode(Enum):
 class LogMode():
     MAYA_WINDOW = 1

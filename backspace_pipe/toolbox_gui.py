@@ -4,7 +4,6 @@ from functools import partial
 import getpass
 
 from shiboken2 import wrapInstance
-import maya.OpenMayaUI as omui
 
 from backspace_pipe import toolbox_func, logging_control, constants
 
@@ -18,10 +17,8 @@ Current User:    {user}
 
 class GUI(QtWidgets.QWidget):
 
-    # [checkbox_enabled, label_text, button_function, checkbox_obj, button_obj]
-    # Maybe use a dict instead?
-
-    # toolbox_dict_test = {'checked': True, 'text': 'this is an example', 'func': toolbox_func.toggle_wait_cursor, 'checkbox': None, 'button': None}
+    # [initial_checkbox_checked, label_text, button_function, checkbox_obj, button_obj]
+    # Maybe use a dict or classes even custom widgets instead?
 
     toolbox_array_mod_setup = [
         [True, "Save on setup", toolbox_func.save_on_setup, None, None],
@@ -56,7 +53,6 @@ class GUI(QtWidgets.QWidget):
     ]
 
 
-
     def __init__(self, toolbox="mod_setup"):
         self.toolbox_str = toolbox.lower()
 
@@ -87,19 +83,12 @@ class GUI(QtWidgets.QWidget):
         # Create Top Level Layout
         top_level_layout = QtWidgets.QVBoxLayout(self)
 
-        # # Create Menu Bar
-        # self.main_menu = QtWidgets.QMenuBar()
-        # test_menu = self.main_menu.addMenu("Test")
-        # asdf_menu = self.main_menu.addMenu("asdf")
-
-        # top_level_layout.addWidget(self.main_menu)
-
         # Create Grid Layout
         grid_layout = QtWidgets.QGridLayout(self)
 
         # Header Button
         header_btn = QtWidgets.QPushButton("{} TOOLBOX".format(self.toolbox_str.upper()))
-        header_btn.setStyleSheet("background-color: rgb(60, 200, 80)")
+        header_btn.setStyleSheet("background-color: rgb(50, 115, 35)")
         grid_layout.addWidget(header_btn, 0, 0, 1, 2)
 
         # Create Checkbox Button Rows from array
@@ -177,11 +166,11 @@ class GUI(QtWidgets.QWidget):
 
     def execute_all(self):
         for i, row in enumerate(self.toolbox_array):
-            # print("Row {} checked: {}".format(i, row[3].isChecked()))
-            if not row[3].isChecked():
-                continue
-            else:
+            # check Checkbox for current row
+            if row[3].isChecked():
                 rowSuccessful = self.attach_signal_emitter(row[2])
+            else:
+                continue
 
             if rowSuccessful:
                 continue
