@@ -46,6 +46,7 @@ class GUI(QtWidgets.QWidget):
         [True, "Delete ALL history", toolbox_func.del_all_history, None, None],
         [True, "Assure lambert1 on all geo", toolbox_func.assure_lambert1, None, None],
         [True, "Delete unused Nodes", toolbox_func.delete_unused_nodes, None, None],
+        [True, "Reset Viewport Subdiv", toolbox_func.unsmooth_all, None, None],
         [True, "PUBLISH", toolbox_func.publish, None, None],
         [True, "Send Slack Publish Notification", toolbox_func.slack_publish_notification, None, None],
         [True, "Close Scene", toolbox_func.close_scene, None, None],

@@ -192,7 +192,7 @@ class SceneControl():
 
         curr_asset = re_incr.split(curr_name)[0]
 
-        curr_incr_str = match.group(0).replace("_", "")
+        curr_incr_str = match.replace("_", "")
 
         new_incr_int = int(curr_incr_str) + 1
 

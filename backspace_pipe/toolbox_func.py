@@ -338,6 +338,13 @@ def delete_unused_nodes():
     return True
 
 
+def unsmooth_all():
+    logger.debug("Unsmooth")
+    all_geo = pmc.ls(type='mesh')
+    pmc.displaySmoothness(all_geo, du=0, dv=0, pw=4, ps=1, po=1)
+    return True
+
+
 def publish():
     logger.debug("PUBLISH")
 
