@@ -3,6 +3,10 @@ import pymel.core as pmc
 hotkeys_setup = False
 port_setup = False
 pipe_path = pmc.Path(__file__).parent.parent
+maya_project_path = pmc.Path(__file__).splitdrive()[0] / "/04_workflow"
+
+# Set Project
+pmc.mel.eval('setProject "' + maya_project_path + '"')
 
 # Port Setup
 if not port_setup:
