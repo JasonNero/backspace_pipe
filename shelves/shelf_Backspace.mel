@@ -63,7 +63,7 @@ global proc shelf_Backspace () {
         -font "plainLabelFont" 
         -imageOverlayLabel "MOD_PUBLISH" 
         -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0.2 0.2 0.2 0.2 
+        -overlayLabelBackColor 0.2 0.2 0.2 0.5 
         -image "posAir.png" 
         -image1 "posAir.png" 
         -style "iconOnly" 
@@ -111,7 +111,7 @@ global proc shelf_Backspace () {
         -font "plainLabelFont" 
         -imageOverlayLabel "META" 
         -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
+        -overlayLabelBackColor 0.2 0.2 0.2 0.5 
         -image "annotation.png" 
         -image1 "annotation.png" 
         -style "iconOnly" 
@@ -146,7 +146,7 @@ global proc shelf_Backspace () {
         -font "plainLabelFont" 
         -imageOverlayLabel "RELOAD" 
         -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
+        -overlayLabelBackColor 0.2 0.2 0.2 0.5 
         -image "clockwise.png" 
         -image1 "clockwise.png" 
         -style "iconOnly" 
@@ -194,7 +194,7 @@ global proc shelf_Backspace () {
         -font "plainLabelFont" 
         -imageOverlayLabel "LIC" 
         -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
+        -overlayLabelBackColor 0.2 0.2 0.2 0.5 
         -image "menuIconKeys.png" 
         -image1 "menuIconKeys.png" 
         -style "iconOnly" 
@@ -229,7 +229,7 @@ global proc shelf_Backspace () {
         -font "plainLabelFont" 
         -imageOverlayLabel "EXPORT" 
         -overlayLabelColor 0.8 0.8 0.8 
-        -overlayLabelBackColor 0 0 0 0.5 
+        -overlayLabelBackColor 0.2 0.2 0.2 0.5 
         -image "greasePencilExport.png" 
         -image1 "greasePencilExport.png" 
         -style "iconOnly" 
@@ -240,4 +240,5 @@ global proc shelf_Backspace () {
         -commandRepeatable 1
         -flat 1
     ;
+
 } 

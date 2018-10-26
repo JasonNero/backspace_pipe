@@ -190,7 +190,7 @@ class SceneControl():
         else:
             match = matches[-1]
 
-        curr_asset = re_incr.split(curr_name)[0]
+        curr_asset = curr_name.split(match)[0]
 
         curr_incr_str = match.replace("_", "")
 

@@ -338,6 +338,13 @@ def delete_unused_nodes():
     return True
 
 
+def delete_sets():
+    logger.debug("Deleting Pipeline Sets")
+    pmc.delete(pmc.ls("deleteOnPublish"))
+    pmc.delete(pmc.ls("refsToImport"))
+    return True
+
+
 def unsmooth_all():
     logger.debug("Unsmooth")
     all_geo = pmc.ls(type='mesh')
