@@ -419,6 +419,7 @@ def open_last_increment():
 # ### ### ### ### ### ### SHD SETUP ### ### ### ### ### ###
 
 def is_mdl_referenced():
+    logger.debug("Check for MDL Reference")
     asset_base = pmc.sceneName().parent.parent
     asset_name = scene_control.get_instance().meta.asset.replace("_SHD", "")
     mdl_ref_path = asset_base + "/" + asset_name + "_MDL_REF.ma"
@@ -439,9 +440,14 @@ def is_mdl_referenced():
 
 # ### ### ### ### ### ### SHD PUBLISH ### ### ### ### ### ###
 
+
 def close_ai_view():
     logger.debug("Closing Arnold IPR")
-    pmc.mel.eval('workspaceControl -edit -cl "ArnoldRenderView";')
+    try:
+        pmc.mel.eval('workspaceControl -edit -cl "ArnoldRenderView";')
+    except RuntimeError as e:
+        logger.info(e)
+
     return True
 
 
@@ -467,16 +473,16 @@ def check_input_paths():
     file_dirs = pmc.filePathEditor(query=True, listDirectories="")
 
     non_relative_dirs = []
+    if file_dirs:
+        for directory in file_dirs:
+            if base_path not in directory:
+                non_relative_dirs.append(directory)
 
-    for directory in file_dirs:
-        if base_path not in directory:
-            non_relative_dirs.append(directory)
-
-    if len(non_relative_dirs) != 0:
-        success = False
-        logger.warning("Files outside the project found:")
-        for directory in non_relative_dirs:
-            logger.warning(".. {}".format(directory))
+        if len(non_relative_dirs) != 0:
+            success = False
+            logger.warning("Files outside the project found:")
+            for directory in non_relative_dirs:
+                logger.warning(".. {}".format(directory))
 
     return success
 
@@ -501,6 +507,8 @@ def rem_ref_edits():
     logger.debug("Removing Reference Edits")
     parameters = ('.translate', '.rotate', '.scale')
 
+    success = True
+
     for ref in pmc.iterReferences():
         was_loaded = ref.isLoaded()
         if was_loaded:
@@ -508,10 +516,17 @@ def rem_ref_edits():
 
         for edit in ref.getReferenceEdits():
             if any(s in edit for s in parameters):
-                pmc.ReferenceEdit(edit, fileReference=ref).remove(force=True)
+                try:
+                    pmc.ReferenceEdit(edit, fileReference=ref).remove(force=True)
+                except RuntimeError as e:
+                    logger.error("Could not remove edit: {}".format(edit))
+                    logger.error(e)
+                    success = False
 
         if was_loaded:
             ref.load()
+
+    return success
 
 
 def import_refs():
@@ -530,6 +545,7 @@ def import_refs():
 
 
 def create_tx():
+    logger.debug("Update Tx Files")
     import mtoa.ui.arnoldmenu as arnoldmenu
     arnoldmenu.arnoldUpdateTx()
     return True
