@@ -62,9 +62,10 @@ class SceneControl():
             self.load(incr_file)
             return True
 
+    # FIX OPENING WRONG DEPARTMENT INCREMENTALS
     def load_latest_incr(self):
         ''' Load latest increment of current Asset. '''
-        re_incr = re.compile(r"_(\d+)(_\w+)?(.ma$)")
+        re_incr = re.compile(r"{asset_name}_(\d+)(_\w+)?(.ma$)".format(asset_name = self.meta.asset))
 
         asset_path = pmc.Path(self.meta.current_file).parent
 
