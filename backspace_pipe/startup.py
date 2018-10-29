@@ -9,10 +9,13 @@ project_setup = False
 def startup():
     import backspace_pipe.logging_control as logging_control
     logger = logging_control.get_logger()
-    logger.info("Backspace Pipe Loaded!")
+    logger.info("Backspace Logger Loaded!")
 
     if not cmds.about(batch=True):
+        logger.info("Backspace Pipe not in Batch Mode")
         cmds.evalDeferred("import backspace_pipe.startup as startup; startup.startup_deferred()")
+    else:
+        logger.info("Backspace Pipe in Batch Mode")
 
 
 # This method is being called deferred, because pymel is not loaded yet
@@ -22,10 +25,14 @@ def startup_deferred():
     pipe_path = pmc.Path(__file__).parent.parent
     maya_project_path = pmc.Path(__file__).splitdrive()[0] / "/04_workflow"
 
+    # DragnDrop Feature
+    dragndrop_script_path = pipe_path / "backspace_pipe" / "mel" / "performFileDropAction.mel"
+    pmc.mel.evalDeferred('source "{}"'.format(dragndrop_script_path.replace("\\", "/")))
+
     # Set Project
     global project_setup
     if not project_setup:
-        pmc.mel.eval('setProject "' + maya_project_path + '"')
+        pmc.mel.eval('setProject "{}"'.format(maya_project_path))
 
     # Port Setup
     global port_setup

@@ -414,3 +414,122 @@ def del_maya_lic_string():
 def open_last_increment():
     logger.debug("Open last increment")
     return scene_control.get_instance().load_latest_incr()
+
+
+# ### ### ### ### ### ### SHD SETUP ### ### ### ### ### ###
+
+def is_mdl_referenced():
+    asset_base = pmc.sceneName().parent.parent
+    asset_name = scene_control.get_instance().meta.asset.replace("_SHD", "")
+    mdl_ref_path = asset_base + "/" + asset_name + "_MDL_REF.ma"
+
+    print(mdl_ref_path)
+    print("\n")
+
+    mdl_ref_found = False
+
+    for ref in pmc.iterReferences():
+        print(ref.path)
+        if ref.path == mdl_ref_path:
+            mdl_ref_found = True
+            break
+
+    return mdl_ref_found
+
+
+# ### ### ### ### ### ### SHD PUBLISH ### ### ### ### ### ###
+
+def close_ai_view():
+    logger.debug("Closing Arnold IPR")
+    pmc.mel.eval('workspaceControl -edit -cl "ArnoldRenderView";')
+    return True
+
+
+def check_input_paths():
+    ''' Checking for absolute or unresolved paths '''
+    logger.debug("Checking for invalid File Paths")
+
+    success = True
+
+    # Update FilePathEditor
+    pmc.filePathEditor(refresh=True)
+
+    # Unresolved Files
+    unresolved_list = pmc.filePathEditor(query=True, listFiles="", unresolved=True)
+    if unresolved_list:
+        logger.warning("Unresolved Files Found:")
+        success = False
+        for f in unresolved_list:
+            logger.warning(".. {}".format(f))
+
+    # Non relative paths
+    base_path = pmc.workspace.path
+    file_dirs = pmc.filePathEditor(query=True, listDirectories="")
+
+    non_relative_dirs = []
+
+    for directory in file_dirs:
+        if base_path not in directory:
+            non_relative_dirs.append(directory)
+
+    if len(non_relative_dirs) != 0:
+        success = False
+        logger.warning("Files outside the project found:")
+        for directory in non_relative_dirs:
+            logger.warning(".. {}".format(directory))
+
+    return success
+
+
+def rem_unloaded_refs():
+    logger.debug("Removing unloaded References")
+
+    success = True
+    for ref in pmc.iterReferences():
+        if not ref.isLoaded():
+            try:
+                ref.remove()
+            except RuntimeError as e:
+                logger.error("Could not remove ref: {}".format(ref.namespace))
+                logger.error(e)
+                success = False
+
+    return success
+
+
+def rem_ref_edits():
+    logger.debug("Removing Reference Edits")
+    parameters = ('.translate', '.rotate', '.scale')
+
+    for ref in pmc.iterReferences():
+        was_loaded = ref.isLoaded()
+        if was_loaded:
+            ref.unload()
+
+        for edit in ref.getReferenceEdits():
+            if any(s in edit for s in parameters):
+                pmc.ReferenceEdit(edit, fileReference=ref).remove(force=True)
+
+        if was_loaded:
+            ref.load()
+
+
+def import_refs():
+    logger.debug("Importing all References")
+    success = True
+
+    for ref in pmc.iterReferences():
+        try:
+            ref.importContents()
+        except RuntimeError as e:
+            logger.error("Could not import ref: {}".format(ref.namespace))
+            logger.error(e)
+            success = False
+
+    return success
+
+
+def create_tx():
+    import mtoa.ui.arnoldmenu as arnoldmenu
+    arnoldmenu.arnoldUpdateTx()
+    return True

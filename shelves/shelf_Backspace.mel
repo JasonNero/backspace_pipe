@@ -97,6 +97,89 @@ global proc shelf_Backspace () {
         -manage 1
         -visible 1
         -preventOverride 0
+        -annotation "SHD_SETUP" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "SHD_SETUP" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "SHD_SETUP" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0.2 0.2 0.2 0.5 
+        -image "posAir.png" 
+        -image1 "posAir.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "from backspace_pipe import toolbox_gui\nreload(toolbox_gui)\ntoolbox_gui.GUI(toolbox=\"shd_setup\")" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "SHD_PUBLISH" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "SHD_PUBLISH" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "SHD_PUBLISH" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0.2 0.2 0.2 0.5 
+        -image "posAir.png" 
+        -image1 "posAir.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "from backspace_pipe import toolbox_gui\nreload(toolbox_gui)\ntoolbox_gui.GUI(toolbox=\"shd_publish\")" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    separator
+        -enable 1
+        -width 12
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "shelf" 
+        -horizontal 0
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
         -annotation "META" 
         -enableBackground 0
         -backgroundColor 0 0 0 

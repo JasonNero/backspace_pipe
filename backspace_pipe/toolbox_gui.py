@@ -54,6 +54,31 @@ class GUI(QtWidgets.QWidget):
         [True, "Open last incremental save", toolbox_func.open_last_increment, None, None]
     ]
 
+    toolbox_array_shd_setup = [
+        [True, "Create deleteOnPublish set", toolbox_func.create_delOnPub_set, None, None],
+        [True, "Make sure model is referenced", toolbox_func.is_mdl_referenced, None, None],
+        [True, "Delete unknown DAG Nodes", toolbox_func.del_unknown_dag, None, None]
+    ]
+
+    toolbox_array_shd_publish = [
+        [True, "Fit view to all elements", toolbox_func.fit_view, None, None],
+        [True, "Delete unknown DAG Nodes", toolbox_func.del_unknown_dag, None, None],
+        [True, "Close Arnold Renderview to prevent crash", toolbox_func.close_ai_view, None, None],
+        [True, "Check input file paths", toolbox_func.check_input_paths, None, None],
+        [True, "Incremental Save", toolbox_func.incremental_save, None, None],
+        [True, "Remove unloaded References", toolbox_func.rem_unloaded_refs, None, None],
+        [True, "Remove Ref Edits (translate, rotate, scale)", toolbox_func.rem_ref_edits, None, None],
+        [True, "Import all References", toolbox_func.import_refs, None, None],
+        [True, "Delete deleteOnPublish set", toolbox_func.del_delOnPub_set, None, None],
+        [True, "Update *.tx files", toolbox_func.create_tx, None, None],
+        [True, "Delete ALL history", toolbox_func.del_all_history, None, None],
+        [True, "Delete display layers", toolbox_func.del_displaylayers, None, None],
+        [True, "PUBLISH", toolbox_func.publish, None, None],
+        [True, "Send Slack Publish Notification", toolbox_func.slack_publish_notification, None, None],
+        [True, "Close Scene", toolbox_func.close_scene, None, None],
+        [True, "Open last incremental save", toolbox_func.open_last_increment, None, None]
+    ]
+
 
     def __init__(self, toolbox="mod_setup"):
         self.toolbox_str = toolbox.lower()
@@ -73,6 +98,10 @@ class GUI(QtWidgets.QWidget):
             self.toolbox_array = self.toolbox_array_mod_setup
         elif self.toolbox_str == "mod_publish":
             self.toolbox_array = self.toolbox_array_mod_publish
+        elif self.toolbox_str == "shd_setup":
+            self.toolbox_array = self.toolbox_array_shd_setup
+        elif self.toolbox_str == "shd_publish":
+            self.toolbox_array = self.toolbox_array_shd_publish
         else:
             self.toolbox_array = ""
 
