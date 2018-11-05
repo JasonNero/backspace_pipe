@@ -1,4 +1,7 @@
 import maya.cmds as cmds
+import backspace_pipe.logging_control as logging_control
+
+logger = logging_control.get_logger()
 
 hotkeys_setup = False
 port_setup = False
@@ -7,9 +10,7 @@ project_setup = False
 
 # This method is being called by __init__.py on Maya Startup
 def startup():
-    import backspace_pipe.logging_control as logging_control
-    logger = logging_control.get_logger()
-    logger.info("Backspace Logger Loaded!")
+    logger.info("Backspace Startup Procedure")
 
     if not cmds.about(batch=True):
         logger.info("Backspace Pipe not in Batch Mode")
@@ -20,6 +21,7 @@ def startup():
 
 # This method is being called deferred, because pymel is not loaded yet
 def startup_deferred():
+    logger.info("Backspace Deferred Startup Procedure")
     import pymel.core as pmc
 
     pipe_path = pmc.Path(__file__).parent.parent
@@ -32,7 +34,10 @@ def startup_deferred():
     # Set Project
     global project_setup
     if not project_setup:
-        pmc.mel.eval('setProject "{}"'.format(maya_project_path))
+        try:
+            pmc.mel.eval('setProject "{}"'.format(maya_project_path))
+        except RuntimeError as e:
+            logger.warning("Could not set project at {}".format(maya_project_path))
 
     # Port Setup
     global port_setup

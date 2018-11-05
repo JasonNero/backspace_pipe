@@ -62,14 +62,14 @@ class SceneControl():
             self.load(incr_file)
             return True
 
-    # FIX OPENING WRONG DEPARTMENT INCREMENTALS
     def load_latest_incr(self):
         ''' Load latest increment of current Asset. '''
-        re_incr = re.compile(r"{asset_name}_(\d+)(_\w+)?(.ma$)".format(asset_name = self.meta.asset))
+        re_incr = re.compile(r"{asset_name}_{department}_(\d+)(_\w+)?(.ma$)".format(asset_name=self.meta.asset, department=self.meta.department))
 
         asset_path = pmc.Path(self.meta.current_file).parent
 
         logger.info("Asset Path: {}".format(asset_path))
+        logger.info("RegEx: {}".format(re_incr.pattern))
 
         latest_incr_int = 0
         latest_incr_file = None
@@ -167,6 +167,8 @@ class SceneControl():
             logger.error(e)
             return False
 
+        self.add_to_recent_files()
+
         if "Student" in get_maya_window().windowTitle():
             self.del_maya_lic_string()
 
@@ -230,10 +232,7 @@ class SceneControl():
         curr_path = pmc.sceneName()
         curr_name, curr_ext = curr_path.name.splitext()
 
-        re_incr = re.compile(r"_\d+")
-        curr_asset = re_incr.split(curr_name)[0]
-
-        new_path = pmc.Path(curr_path.parent.parent + "/" + curr_asset + "_REF" + curr_ext)
+        new_path = pmc.Path(curr_path.parent.parent + "/" + self.meta.asset + "_" + self.meta.department + "_REF" + curr_ext)
 
         self.save_as(new_path, comment)
         return True
@@ -307,3 +306,13 @@ class SceneControl():
             logger.error("Could not close scene!")
             logger.error(e)
             return False
+
+    def add_to_recent_files(self):
+        ''' Adds recent scene to Mayas recent file list '''
+        logger.debug("Adding scene to recent files list")
+
+        scene_path = pmc.sceneName()
+        recent_files_list = pmc.optionVar["RecentFilesList"]
+
+        if scene_path not in recent_files_list:
+            recent_files_list.appendVar(pmc.sceneName())

@@ -79,7 +79,6 @@ class GUI(QtWidgets.QWidget):
         [True, "Open last incremental save", toolbox_func.open_last_increment, None, None]
     ]
 
-
     def __init__(self, toolbox="mod_setup"):
         self.toolbox_str = toolbox.lower()
 

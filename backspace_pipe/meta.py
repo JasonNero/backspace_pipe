@@ -9,7 +9,17 @@ import subprocess
 
 logger = logging_control.get_logger()
 time_format = "%Y.%m.%d %H:%M:%S"
-pipeline_re = re.compile(r"((\w+)_)+(\d+|REF)+")
+
+'''
+pipeline_re groups:
+0       -> whole match
+1       -> asset name
+3       -> department
+11      -> increment
+12      -> comment
+'''
+
+pipeline_re = re.compile(r"((\w+))_((MDL)|(SHD)|(RIG)|(ANIM)|(LGT))_(((\d+)(_\w+)?)|REF)(.ma$)")
 
 
 class MetaData():
@@ -17,6 +27,7 @@ class MetaData():
     def __init__(self, fromFile=False):
         if fromFile is False:
             self.asset = self.parse_asset_name()
+            self.department = self.parse_department()
             self.user = getpass.getuser()
             self.time = datetime.datetime.now().strftime(time_format)
             self.comment = None
@@ -26,16 +37,25 @@ class MetaData():
             self.load_metafile()
 
     def parse_asset_name(self):
-        match = pipeline_re.search(pmc.sceneName())
+        match = pipeline_re.search(pmc.sceneName().split("/")[-1])
         if match is not None:
-            return match.group(2)
+            return match.group(1)
+        else:
+            return ""
+
+    def parse_department(self):
+        match = pipeline_re.search(pmc.sceneName().split("/")[-1])
+        if match is not None:
+            return match.group(3)
         else:
             return ""
 
     def update(self):
         self.asset = self.parse_asset_name()
+        self.department = self.parse_department()
         self.user = getpass.getuser()
         self.time = datetime.datetime.now().strftime(time_format)
+        self.current_file = pmc.sceneName()
 
     def save_metafile(self, filepath=None):
         ''' Save metadata as json file.
@@ -44,6 +64,7 @@ class MetaData():
 
         json_dict = {
             'Asset': self.asset,
+            'Department': self.department,
             'User': self.user,
             'Time': self.time,
             'Comment': self.comment,
@@ -60,6 +81,7 @@ class MetaData():
         # Hide File, "prettier" for artist/user
         subprocess.check_call(["attrib", "+H", json_path], creationflags=0x08000000)
 
+    # TODO: CLean this ugly mess.. maybe use dict for the whole metadata and @property for getter/setter
     def load_metafile(self, filepath=None):
         ''' Load metadata from json file.
         if no filepath is given, load metadata next to current scene file.'''
@@ -73,16 +95,45 @@ class MetaData():
             logger.error("No MetaData found!")
             self.__init__(fromFile=False)
         else:
-            self.asset = json_dict["Asset"]
-            self.user = json_dict["User"]
-            self.time = json_dict["Time"]
-            self.comment = json_dict["Comment"]
-            self.recent_file = json_dict["Recent File"]
-            self.current_file = json_dict["Current File"]
+            try:
+                self.asset = json_dict["Asset"]
+            except KeyError:
+                pass
+
+            try:
+                self.department = json_dict["Department"]
+            except KeyError:
+                pass
+
+            try:
+                self.user = json_dict["User"]
+            except KeyError:
+                pass
+
+            try:
+                self.time = json_dict["Time"]
+            except KeyError:
+                pass
+
+            try:
+                self.comment = json_dict["Comment"]
+            except KeyError:
+                pass
+
+            try:
+                self.recent_file = json_dict["Recent File"]
+            except KeyError:
+                pass
+
+            try:
+                self.current_file = json_dict["Current File"]
+            except KeyError:
+                pass
 
     def dump_to_log(self):
         logger.info("Dumping MetaData...")
         logger.info(self.asset)
+        logger.info(self.department)
         logger.info(self.user)
         logger.info(self.time)
         logger.info(self.comment)

@@ -44,6 +44,7 @@ class MetaGUI(QtWidgets.QWidget):
         grid_layout.addWidget(header_btn, 0, 0, 1, 3)
 
         asset_label = QtWidgets.QLabel("Asset:")
+        dep_label = QtWidgets.QLabel("Department:")
         user_label = QtWidgets.QLabel("User:")
         time_label = QtWidgets.QLabel("Time:")
         comment_label = QtWidgets.QLabel("Comment:")
@@ -51,6 +52,7 @@ class MetaGUI(QtWidgets.QWidget):
         current_label = QtWidgets.QLabel("Current:")
 
         asset_qtext = QtWidgets.QLineEdit(scene_control.get_instance().meta.asset)
+        dep_qtext = QtWidgets.QLineEdit(scene_control.get_instance().meta.department)
         user_qtext = QtWidgets.QLineEdit(scene_control.get_instance().meta.user)
         time_qtext = QtWidgets.QLineEdit(scene_control.get_instance().meta.time)
         comment_qtext = QtWidgets.QLineEdit(scene_control.get_instance().meta.comment)
@@ -58,6 +60,7 @@ class MetaGUI(QtWidgets.QWidget):
         current_qtext = QtWidgets.QLineEdit(scene_control.get_instance().meta.current_file)
 
         asset_qtext.setReadOnly(True)
+        dep_qtext.setReadOnly(True)
         user_qtext.setReadOnly(True)
         time_qtext.setReadOnly(True)
         comment_qtext.setReadOnly(True)
@@ -67,25 +70,28 @@ class MetaGUI(QtWidgets.QWidget):
         grid_layout.addWidget(asset_label, 1, 0)
         grid_layout.addWidget(asset_qtext, 1, 1, 1, 2)
 
-        grid_layout.addWidget(user_label, 2, 0)
-        grid_layout.addWidget(user_qtext, 2, 1, 1, 2)
+        grid_layout.addWidget(dep_label, 2, 0)
+        grid_layout.addWidget(dep_qtext, 2, 1, 1, 2)
 
-        grid_layout.addWidget(time_label, 3, 0)
-        grid_layout.addWidget(time_qtext, 3, 1, 1, 2)
+        grid_layout.addWidget(user_label, 3, 0)
+        grid_layout.addWidget(user_qtext, 3, 1, 1, 2)
 
-        grid_layout.addWidget(comment_label, 4, 0)
-        grid_layout.addWidget(comment_qtext, 4, 1, 1, 2)
+        grid_layout.addWidget(time_label, 4, 0)
+        grid_layout.addWidget(time_qtext, 4, 1, 1, 2)
 
-        grid_layout.addWidget(recent_label, 5, 0)
-        grid_layout.addWidget(recent_qtext, 5, 1, 1, 2)
+        grid_layout.addWidget(comment_label, 5, 0)
+        grid_layout.addWidget(comment_qtext, 5, 1, 1, 2)
 
-        grid_layout.addWidget(current_label, 6, 0)
-        grid_layout.addWidget(current_qtext, 6, 1, 1, 2)
+        grid_layout.addWidget(recent_label, 6, 0)
+        grid_layout.addWidget(recent_qtext, 6, 1, 1, 2)
+
+        grid_layout.addWidget(current_label, 7, 0)
+        grid_layout.addWidget(current_qtext, 7, 1, 1, 2)
 
         refresh_btn = QtWidgets.QPushButton("Refresh")
         refresh_btn.clicked.connect(scene_control.get_instance().meta.load_metafile)
 
-        grid_layout.addWidget(refresh_btn, 7, 1, 1, 2)
+        grid_layout.addWidget(refresh_btn, 8, 1, 1, 2)
 
         # Some Layouting (Spacing between elements, row/column resize when window resized)
         grid_layout.setColumnStretch(1, 1)
