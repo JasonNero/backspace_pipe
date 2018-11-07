@@ -255,6 +255,41 @@ global proc shelf_Backspace () {
     ;
     shelfButton
         -enableCommandRepeat 1
+        -flexibleWidthType 1
+        -flexibleWidthValue 32
+        -enable 1
+        -width 34
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "EXPORT" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "EXPORT" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "EXPORT" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0.2 0.2 0.2 0.5 
+        -image "greasePencilExport.png" 
+        -image1 "greasePencilExport.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import backspace_pipe.exporter_gui as exporter_gui\nreload(exporter_gui)\n\nexporter_gui.ExporterGUI()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
         -flexibleWidthType 3
         -flexibleWidthValue 32
         -enable 1
@@ -290,35 +325,35 @@ global proc shelf_Backspace () {
     ;
     shelfButton
         -enableCommandRepeat 1
-        -flexibleWidthType 1
+        -flexibleWidthType 3
         -flexibleWidthValue 32
         -enable 1
-        -width 34
+        -width 35
         -height 34
         -manage 1
         -visible 1
         -preventOverride 0
-        -annotation "EXPORT" 
+        -annotation "DRESS" 
         -enableBackground 0
         -backgroundColor 0 0 0 
         -highlightColor 0.321569 0.521569 0.65098 
         -align "center" 
-        -label "EXPORT" 
+        -label "DRESS" 
         -labelOffset 0
         -rotation 0
         -flipX 0
         -flipY 0
         -useAlpha 1
         -font "plainLabelFont" 
-        -imageOverlayLabel "EXPORT" 
+        -imageOverlayLabel "DRESS" 
         -overlayLabelColor 0.8 0.8 0.8 
         -overlayLabelBackColor 0.2 0.2 0.2 0.5 
-        -image "greasePencilExport.png" 
-        -image1 "greasePencilExport.png" 
+        -image "greasePencilImport.png" 
+        -image1 "greasePencilImport.png" 
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import backspace_pipe.exporter_gui as exporter_gui\nreload(exporter_gui)\n\nexporter_gui.ExporterGUI()" 
+        -command "from backspace_pipe import dresser_gui\nreload(dresser_gui)\ndresser_gui.DresserGUI()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1

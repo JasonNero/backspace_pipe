@@ -98,37 +98,37 @@ class MetaData():
             try:
                 self.asset = json_dict["Asset"]
             except KeyError:
-                pass
+                self.asset = ""
 
             try:
                 self.department = json_dict["Department"]
             except KeyError:
-                pass
+                self.department = ""
 
             try:
                 self.user = json_dict["User"]
             except KeyError:
-                pass
+                self.user = ""
 
             try:
                 self.time = json_dict["Time"]
             except KeyError:
-                pass
+                self.time = ""
 
             try:
                 self.comment = json_dict["Comment"]
             except KeyError:
-                pass
+                self.comment = ""
 
             try:
                 self.recent_file = json_dict["Recent File"]
             except KeyError:
-                pass
+                self.recent_file = ""
 
             try:
                 self.current_file = json_dict["Current File"]
             except KeyError:
-                pass
+                self.current_file = ""
 
     def dump_to_log(self):
         logger.info("Dumping MetaData...")
