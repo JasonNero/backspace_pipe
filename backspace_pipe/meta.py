@@ -19,7 +19,7 @@ pipeline_re groups:
 12      -> comment
 '''
 
-pipeline_re = re.compile(r"((\w+))_((MDL)|(SHD)|(RIG)|(ANIM)|(LGT))_(((\d+)(_\w+)?)|REF)(.ma$)")
+pipeline_re = re.compile(r"((\w+))_((MDL)|(SHD)|(RIG)|(ANIM)|(LGT)|(SET))_(((\d+)(_\w+)?)|REF)(.ma$)")
 
 
 class MetaData():

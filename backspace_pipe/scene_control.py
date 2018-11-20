@@ -64,35 +64,15 @@ class SceneControl():
 
     def load_latest_incr(self):
         ''' Load latest increment of current Asset. '''
-        re_incr = re.compile(r"{asset_name}_{department}_(\d+)(_\w+)?(.ma$)".format(asset_name=self.meta.asset, department=self.meta.department))
+        
+        asset_dev_folder = pmc.Path(self.meta.current_file).parent
 
-        asset_path = pmc.Path(self.meta.current_file).parent
+        latest_incr_file = get_latest_incr_path(asset_name=self.meta.asset, department=self.meta.department, folder=asset_dev_folder)
 
-        logger.info("Asset Path: {}".format(asset_path))
-        logger.info("RegEx: {}".format(re_incr.pattern))
-
-        latest_incr_int = 0
-        latest_incr_file = None
-
-        for root, subdirs, files in os.walk(asset_path):
-            for file in files:
-                match = re_incr.search(file)
-
-                if match is None:
-                    continue
-
-                curr_incr_int = int(match.group(1).replace("_", ""))
-
-                if curr_incr_int > latest_incr_int:
-                    latest_incr_int = curr_incr_int
-                    latest_incr_file = os.path.join(root, file)
-
-        if latest_incr_file is None:
-            logger.error("Could not find latest increment of asset {asset}!".format(asset=self.meta.asset))
-            return False
-        else:
+        try:
             self.load(latest_incr_file)
-            return True
+        except RuntimeError:
+            logger.error("Could not open file!")
 
     def load_dialogue(self):
         selected_file = pmc.fileDialog2(
@@ -316,3 +296,32 @@ class SceneControl():
 
         if scene_path not in recent_files_list:
             recent_files_list.appendVar(pmc.sceneName())
+
+
+def get_latest_incr_path(asset_name=None, department=None, folder=None):
+
+    re_incr = re.compile(r"{asset_name}_{department}_(\d+)(_\w+)?(.ma$)".format(asset_name=asset_name, department=department))
+
+    logger.info("Asset Path: {}".format(folder))
+    logger.info("RegEx: {}".format(re_incr.pattern))
+
+    latest_incr_int = 0
+    latest_incr_file = None
+
+    for root, subdirs, files in os.walk(folder):
+        for file in files:
+            match = re_incr.search(file)
+
+            if match is None:
+                continue
+
+            curr_incr_int = int(match.group(1).replace("_", ""))
+
+            if curr_incr_int > latest_incr_int:
+                latest_incr_int = curr_incr_int
+                latest_incr_file = os.path.join(root, file)
+
+    if latest_incr_file is None:
+        logger.error("Could not find latest increment of asset {asset}!".format(asset=asset_name))
+    else:
+        return latest_incr_file
