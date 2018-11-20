@@ -7,12 +7,22 @@ from backspace_pipe import logging_control
 logger = logging_control.get_logger()
 
 
-def export_obj(force, transf, triangulate):
+def export_obj(force, transf, triangulate, smooth):
     initial_selection = pmc.ls(sl=True)
 
     # Duplicate and triangulate if wanted
     dup = None
-    if triangulate:
+
+    if smooth and triangulate:
+        dup = pmc.duplicate(transf)
+        pmc.polySmooth(dup, mth=0, sdt=2, ovb=1, ofb=1, ofc=0, ost=0, ocr=0, dv=2, bnr=1, c=1, kb=1, ksb=1, khe=0, kt=1, kmb=1, suv=1, peh=0, sl=1, dpe=1, ps=0.1, ro=1, ch=1)
+        pmc.polyTriangulate(dup)
+        pmc.select(dup)
+    elif smooth:
+        dup = pmc.duplicate(transf)
+        pmc.polySmooth(dup, mth=0, sdt=2, ovb=1, ofb=1, ofc=0, ost=0, ocr=0, dv=2, bnr=1, c=1, kb=1, ksb=1, khe=0, kt=1, kmb=1, suv=1, peh=0, sl=1, dpe=1, ps=0.1, ro=1, ch=1)
+        pmc.select(dup)
+    elif triangulate:
         dup = pmc.duplicate(transf)
         pmc.polyTriangulate(dup)
         pmc.select(dup)
@@ -44,12 +54,22 @@ def export_obj(force, transf, triangulate):
     return success
 
 
-def export_fbx(force, transf, triangulate):
+def export_fbx(force, transf, triangulate, smooth):
     initial_selection = pmc.ls(sl=True)
 
     # Duplicate and triangulate if wanted
     dup = None
-    if triangulate:
+
+    if smooth and triangulate:
+        dup = pmc.duplicate(transf)
+        pmc.polySmooth(dup, mth=0, sdt=2, ovb=1, ofb=1, ofc=0, ost=0, ocr=0, dv=2, bnr=1, c=1, kb=1, ksb=1, khe=0, kt=1, kmb=1, suv=1, peh=0, sl=1, dpe=1, ps=0.1, ro=1, ch=1)
+        pmc.polyTriangulate(dup)
+        pmc.select(dup)
+    elif smooth:
+        dup = pmc.duplicate(transf)
+        pmc.polySmooth(dup, mth=0, sdt=2, ovb=1, ofb=1, ofc=0, ost=0, ocr=0, dv=2, bnr=1, c=1, kb=1, ksb=1, khe=0, kt=1, kmb=1, suv=1, peh=0, sl=1, dpe=1, ps=0.1, ro=1, ch=1)
+        pmc.select(dup)
+    elif triangulate:
         dup = pmc.duplicate(transf)
         pmc.polyTriangulate(dup)
         pmc.select(dup)
@@ -75,18 +95,18 @@ def export_fbx(force, transf, triangulate):
     return success
 
 
-def export_selected_obj(force, triangulate):
+def export_selected_obj(force, triangulate, smooth):
     selected = pmc.ls(sl=True, transforms=True)
 
     for transf in selected:
-        export_obj(force=force, transf=transf, triangulate=triangulate)
+        export_obj(force=force, transf=transf, triangulate=triangulate, smooth=smooth)
 
 
-def export_selected_fbx(force, triangulate):
+def export_selected_fbx(force, triangulate, smooth):
     selected = pmc.ls(sl=True, transforms=True)
 
     for transf in selected:
-        export_fbx(force=force, transf=transf, triangulate=triangulate)
+        export_fbx(force=force, transf=transf, triangulate=triangulate, smooth=smooth)
 
 
 def build_export_path(transf, extension):

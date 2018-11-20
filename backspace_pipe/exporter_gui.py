@@ -35,11 +35,13 @@ class ExporterGUI(QtWidgets.QWidget):
         obj_box = QtWidgets.QGroupBox(self, title="OBJ Export")
         obj_box_layout = QtWidgets.QVBoxLayout(self)
         obj_box_layout.setMargin(5)
+        self.obj_smooth_check = QtWidgets.QCheckBox(checked=True, text="Smooth")
         self.obj_tri_check = QtWidgets.QCheckBox(checked=True, text="Triangulate")
         obj_exec_btn = QtWidgets.QPushButton("Export")
 
         obj_exec_btn.clicked.connect(self.execute_obj)
 
+        obj_box_layout.addWidget(self.obj_smooth_check)
         obj_box_layout.addWidget(self.obj_tri_check)
         obj_box_layout.addWidget(obj_exec_btn)
         obj_box.setLayout(obj_box_layout)
@@ -48,11 +50,13 @@ class ExporterGUI(QtWidgets.QWidget):
         fbx_box = QtWidgets.QGroupBox(self, title="FBX Export")
         fbx_box_layout = QtWidgets.QVBoxLayout(self)
         fbx_box_layout.setMargin(5)
+        self.fbx_smooth_check = QtWidgets.QCheckBox(checked=True, text="Smooth")
         self.fbx_tri_check = QtWidgets.QCheckBox(checked=True, text="Triangulate")
         fbx_exec_btn = QtWidgets.QPushButton("Export")
 
         fbx_exec_btn.clicked.connect(self.execute_fbx)
 
+        fbx_box_layout.addWidget(self.fbx_smooth_check)
         fbx_box_layout.addWidget(self.fbx_tri_check)
         fbx_box_layout.addWidget(fbx_exec_btn)
         fbx_box.setLayout(fbx_box_layout)
@@ -65,7 +69,7 @@ class ExporterGUI(QtWidgets.QWidget):
         self.setLayout(top_level_layout)
 
     def execute_obj(self):
-    	exporter.export_selected_obj(force=True, triangulate=self.obj_tri_check.isChecked())
+    	exporter.export_selected_obj(force=True, triangulate=self.obj_tri_check.isChecked(), smooth=self.obj_smooth_check.isChecked())
 
     def execute_fbx(self):
-    	exporter.export_selected_fbx(force=True, triangulate=self.fbx_tri_check.isChecked())
+    	exporter.export_selected_fbx(force=True, triangulate=self.fbx_tri_check.isChecked(), smooth=self.fbx_smooth_check.isChecked())
