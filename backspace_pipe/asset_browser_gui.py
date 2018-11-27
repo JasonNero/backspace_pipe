@@ -15,6 +15,8 @@ TODO LIST:
 - Asset Path Builder ueberarbeiten und zusammenfuehren
   (scene_control.py und asset_parser.py)
 '''
+
+
 class BrowserGUI(QtWidgets.QWidget):
 
     def __init__(self):

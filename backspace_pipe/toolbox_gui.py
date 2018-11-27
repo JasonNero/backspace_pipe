@@ -38,6 +38,7 @@ class GUI(QtWidgets.QWidget):
         [True, "Assure unique naming", toolbox_func.assure_unique_naming, None, None],
         [True, "Assure matching shape <-> transf names", toolbox_func.assure_shape_names, None, None],
         [True, "Mesh cleanup check", toolbox_func.mesh_check, None, None],
+        [True, "Check for non-uniform shape scaling", toolbox_func.check_nonuniform_scale, None, None],
         [True, "Incremental Save", toolbox_func.incremental_save, None, None],
         [True, "Import refsToImport set", toolbox_func.import_refs_set, None, None],
         [False, "Remove all References", toolbox_func.rem_all_refs, None, None],
@@ -45,6 +46,7 @@ class GUI(QtWidgets.QWidget):
         [True, "Delete display layers", toolbox_func.del_displaylayers, None, None],
         [True, "Delete ALL history", toolbox_func.del_all_history, None, None],
         [True, "Assure lambert1 on all geo", toolbox_func.assure_lambert1, None, None],
+        [True, "Delete Non-Default Cameras", toolbox_func.delete_nondefault_cameras, None, None],
         [True, "Delete unused Nodes", toolbox_func.delete_unused_nodes, None, None],
         [True, "Delete Pipeline Sets", toolbox_func.delete_sets, None, None],
         [True, "Reset Viewport Subdiv", toolbox_func.unsmooth_all, None, None],
@@ -57,6 +59,7 @@ class GUI(QtWidgets.QWidget):
     toolbox_array_shd_setup = [
         [True, "Create deleteOnPublish set", toolbox_func.create_delOnPub_set, None, None],
         [True, "Make sure model is referenced", toolbox_func.is_mdl_referenced, None, None],
+        [True, "Set default aiSubdiv for all Shapes", toolbox_func.set_default_aiSubdiv, None, None],
         [True, "Delete unknown DAG Nodes", toolbox_func.del_unknown_dag, None, None]
     ]
 
@@ -68,12 +71,13 @@ class GUI(QtWidgets.QWidget):
         [True, "Incremental Save", toolbox_func.incremental_save, None, None],
         [True, "Remove unloaded References", toolbox_func.rem_unloaded_refs, None, None],
         [True, "Remove Ref Edits (translate, rotate, scale)", toolbox_func.rem_ref_edits, None, None],
-        [True, "Import all References", toolbox_func.import_refs, None, None],
         [True, "Delete deleteOnPublish set", toolbox_func.del_delOnPub_set, None, None],
         [True, "Update *.tx files", toolbox_func.create_tx, None, None],
-        [True, "Delete ALL history", toolbox_func.del_all_history, None, None],
         [True, "Delete display layers", toolbox_func.del_displaylayers, None, None],
-        [True, "PUBLISH", toolbox_func.publish, None, None],
+        [True, "Delete ALL history", toolbox_func.del_all_history, None, None],
+        [True, "Delete Non-Default Cameras", toolbox_func.delete_nondefault_cameras, None, None],
+        [True, "PUBLISH [ASS]", toolbox_func.publish_ass, None, None],
+        [True, "PUBLISH [MA]", toolbox_func.publish, None, None],
         [True, "Send Slack Publish Notification", toolbox_func.slack_publish_notification, None, None],
         [True, "Close Scene", toolbox_func.close_scene, None, None],
         [True, "Open last incremental save", toolbox_func.open_last_increment, None, None]

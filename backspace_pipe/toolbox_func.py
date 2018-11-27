@@ -325,6 +325,36 @@ def del_delOnPub_set():
         return False
 
 
+def check_nonuniform_scale():
+    logger.debug("Checking for Non-Uniformly Scaled Shapes")
+    nonuniform_scale = []
+
+    for shape in pmc.ls(geometry=True):
+        scale_values = shape.getTransform().scale.get()
+        if not scale_values.count(scale_values[0]) == 3:
+            nonuniform_scale.append(shape)
+
+    if len(nonuniform_scale) != 0:
+        logger.error("Found non-uniform scale on following shapes:")
+        for item in nonuniform_scale:
+            logger.error(item)
+
+        return False
+    else:
+        return True
+
+
+def delete_nondefault_cameras():
+    default_cams = ["frontShape", "sideShape", "topShape", "perspShape"]
+
+    for cam in pmc.ls(cameras=True):
+        if cam not in default_cams:
+            cam_transf = cam.getTransform()
+            pmc.delete(cam_transf)
+
+    return True
+
+
 def assure_lambert1():
     logger.debug("Assure lambert1")
     shapes = pmc.ls(geometry=True)
@@ -430,12 +460,22 @@ def is_mdl_referenced():
     mdl_ref_found = False
 
     for ref in pmc.iterReferences():
-        print(ref.path)
         if ref.path == mdl_ref_path:
             mdl_ref_found = True
             break
 
     return mdl_ref_found
+
+
+def set_default_aiSubdiv():
+    logger.debug("Setting Default aiSubdiv Settings")
+
+    for shape in pmc.ls(geometry=True):
+        shape.setAttr("aiSubdivType", 1)
+        shape.setAttr("aiSubdivIterations", 2)
+        shape.setAttr("aiSubdivUvSmoothing", 1)
+
+    return True
 
 
 # ### ### ### ### ### ### SHD PUBLISH ### ### ### ### ### ###
@@ -549,3 +589,14 @@ def create_tx():
     import mtoa.ui.arnoldmenu as arnoldmenu
     arnoldmenu.arnoldUpdateTx()
     return True
+
+
+def publish_ass():
+    logger.debug("ASS PUBLISH EXPORT")
+
+    try:
+        return scene_control.get_instance().publish_ass()
+    except RuntimeError as e:
+        logger.error("Could not export ass!")
+        logger.error(e)
+        return False

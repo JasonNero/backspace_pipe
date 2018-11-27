@@ -1,7 +1,7 @@
 import os
 import pymel.core as pmc
 
-#setpieces_path = pmc.Path(__file__).splitdrive()[0] / "04_workflow" / "scenes" / "assets" / "setpieces" / ""
+# setpieces_path = pmc.Path(__file__).splitdrive()[0] / "04_workflow" / "scenes" / "assets" / "setpieces" / ""
 setpieces_path = pmc.Path("M:/04_workflow/scenes/assets/setpieces")
 
 

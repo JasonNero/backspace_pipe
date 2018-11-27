@@ -6,7 +6,7 @@ from backspace_pipe import logging_control
 
 logger = logging_control.get_logger()
 
-
+# EXPORTER
 def export_obj(force, transf, triangulate, smooth):
     initial_selection = pmc.ls(sl=True)
 
@@ -95,6 +95,7 @@ def export_fbx(force, transf, triangulate, smooth):
     return success
 
 
+# MULTIPLE EXPORTS
 def export_selected_obj(force, triangulate, smooth):
     selected = pmc.ls(sl=True, transforms=True)
 
@@ -109,6 +110,7 @@ def export_selected_fbx(force, triangulate, smooth):
         export_fbx(force=force, transf=transf, triangulate=triangulate, smooth=smooth)
 
 
+# UTILITY
 def build_export_path(transf, extension):
     scene_path = pmc.sceneName()
     scene_name = scene_path.splitext()[0].split("/")[-1]

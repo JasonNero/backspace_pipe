@@ -2,6 +2,8 @@ import pymel.core as pmc
 import re
 import os
 import shutil
+import datetime
+import subprocess
 
 from shiboken2 import wrapInstance
 import maya.OpenMayaUI as omui
@@ -64,13 +66,13 @@ class SceneControl():
 
     def load_latest_incr(self):
         ''' Load latest increment of current Asset. '''
-        
+
         asset_dev_folder = pmc.Path(self.meta.current_file).parent
 
         latest_incr_file = get_latest_incr_path(asset_name=self.meta.asset, department=self.meta.department, folder=asset_dev_folder)
 
         try:
-            self.load(latest_incr_file)
+            return self.load(latest_incr_file)
         except RuntimeError:
             logger.error("Could not open file!")
 
@@ -187,7 +189,7 @@ class SceneControl():
         if os.path.exists(incr_file):
             logger.error("FILE ALREADY EXITS!")
             confirmation = pmc.confirmDialog(
-                title='Confirm', message="{}Force Save?".format(e), button=['Yes', 'No'],
+                title='Confirm', message="Force Save?", button=['Yes', 'No'],
                 defaultButton='Yes', cancelButton='No', dismissString='No')
             if confirmation == 'Yes':
                 self.save_as(incr_file, comment)
@@ -215,6 +217,25 @@ class SceneControl():
         new_path = pmc.Path(curr_path.parent.parent + "/" + self.meta.asset + "_" + self.meta.department + "_REF" + curr_ext)
 
         self.save_as(new_path, comment)
+        return True
+
+    def publish_ass(self):
+        ''' Export Refernce ASS File for StandIn Usage '''
+
+        curr_path = pmc.sceneName()
+        curr_name, curr_ext = curr_path.name.splitext()
+
+        new_path = pmc.Path(curr_path.parent.parent + "/" + self.meta.asset + "_" + self.meta.department + "_REF.ass")
+
+        # Backup Procedure
+        if os.path.exists(new_path):
+            backup_path = new_path + datetime.datetime.now().strftime("%Y%m%d_%H%M%S") + ".bak"
+            shutil.copyfile(new_path, backup_path)
+            subprocess.check_call(["attrib", "+H", backup_path], creationflags=0x08000000)
+
+        pmc.select(allDagObjects=True)
+        pmc.exportSelected(new_path, force=True, type="ASS Export", options="-shadowLinks 1;-mask 6399;-lightLinks 1;-exportAllShadingGroups;-boundingBox")
+        pmc.select(clear=True)
         return True
 
     def del_maya_lic_string(self):

@@ -6,6 +6,7 @@ from backspace_pipe import asset_parser
 
 import pymel.core as pmc
 
+
 class DresserGUI(QtWidgets.QWidget):
 
     def __init__(self):
