@@ -4,6 +4,8 @@ import pymel.core as pmc
 # setpieces_path = pmc.Path(__file__).splitdrive()[0] / "04_workflow" / "scenes" / "assets" / "setpieces" / ""
 setpieces_path = pmc.Path("M:/04_workflow/scenes/assets/setpieces")
 
+_norm = os.path.normpath
+
 
 def parse():
     asset_list = []
@@ -26,11 +28,11 @@ def parse():
 
             # asset_status_dict[department] = os.path.isfile(asset_maya_dir / "Development" / "{asset_name}_{dep}_REF.ma".format(asset_name=asset_dir, dep=department))
 
-            asset_list.append([asset_dir, os.path.normpath(setpieces_path / asset_dir), asset_status_dict])
+            asset_list.append([asset_dir, _norm(setpieces_path / asset_dir), asset_status_dict])
 
     return asset_list
 
 
 def build_asset_path(asset_name, department):
-    asset_path = os.path.normpath(setpieces_path / asset_name / "Maya" / "{asset_name}_{dep}_REF.ma".format(asset_name=asset_name, dep=department))
+    asset_path = _norm(setpieces_path / asset_name / "Maya" / "{asset_name}_{dep}_REF.ma".format(asset_name=asset_name, dep=department))
     return asset_path

@@ -112,6 +112,10 @@ class SceneControl():
     def save(self, comment=None):
         ''' Wraps pymel save scene according to pipeline definitions. '''
 
+        if "REF" in pmc.sceneName():
+            logger.error("Access Denied! Please work in Development")
+            return False
+
         self.meta.update()
         # self.meta.comment = comment
         self.meta.save_metafile()

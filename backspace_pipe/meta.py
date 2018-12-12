@@ -22,9 +22,9 @@ pipeline_re groups:
 pipeline_re = re.compile(r"((\w+))_((MDL)|(SHD)|(RIG)|(ANI)|(LGT)|(SET))_(((\d+)(_\w+)?)|REF)(.ma$)")
 
 
-class MetaData():
+class MetaData(object):
 
-    def __init__(self, fromFile=False):
+    def __init__(self, fromFile=False, *args, **kwargs):
         if fromFile is False:
             self.asset = self.parse_asset_name()
             self.department = self.parse_department()

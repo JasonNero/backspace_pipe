@@ -12,7 +12,6 @@ class MetaGUI(QtWidgets.QWidget):
         parent = wrapInstance(long(pointer), QtWidgets.QWidget)
         QtWidgets.QWidget.__init__(self, parent=parent)
 
-
         # Set Maya as parent for our widget (which is flagged as window)
         self.setWindowFlags(QtCore.Qt.Window)
         self.setWindowTitle("Backspace - MetaData")

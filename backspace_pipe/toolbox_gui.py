@@ -15,6 +15,110 @@ Current User:    {user}
 '''
 
 
+class ScrollAreaWidget(QtWidgets.QScrollArea):
+    fileDropped = QtCore.Signal(list)
+
+    def __init__(self, enable_drop_files=False, only_local_files=False, *args, **kwargs):
+        super(ScrollAreaWidget, self).__init__(*args, **kwargs)
+        self._enable_drop_files = enable_drop_files
+        self._only_local_files = only_local_files
+
+        self.setupWidget()
+
+    def setupWidget(self):
+        self.setAutoFillBackground(True)
+        if not self._enable_drop_files:
+            self.scrollarea_widget = QtWidgets.QWidget()
+        # else:
+        #     self.scrollarea_widget = DropFileWidget(only_local_files=self._only_local_files)
+        #     self.scrollarea_widget.fileDropped.connect(self.emit_drop_file)
+
+        self.scrollarea_widget.setAutoFillBackground(True)
+        self.setWidgetResizable(True)
+        self.setWidget(self.scrollarea_widget)
+        self.scrollarea_widget.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
+
+    def emit_drop_file(self, links):
+        self.fileDropped.emit(links)
+
+    def setLayout(self, *args, **kwargs):
+        self.scrollarea_widget.setLayout(*args, **kwargs)
+
+    def layout(self, *args, **kwargs):
+        self.scrollarea_widget.layout(self, *args, **kwargs)
+
+    def update(self, *args, **kwargs):
+        try:
+            self.updateLayout()
+        except Exception:
+            pass
+        QtWidgets.QScrollArea.update(self, *args, **kwargs)
+
+    def repaint(self, *args, **kwargs):
+        try:
+            self.updateLayout()
+        except Exception:
+            pass
+        self.scrollarea_widget.repaint()
+        QtWidgets.QScrollArea.repaint(self, *args, **kwargs)
+
+    def updateLayout(self):
+        if self.layout():
+            self.scrollarea_widget.setMinimumSize(self.layout().totalSizeHint())
+            # logger.debug(self.layout().totalSizeHint().height())
+            self.scrollarea_widget.repaint()
+
+
+# class DropFileWidget(QtWidgets.QWidget):
+#     fileDropped = QtCore.Signal(list)
+
+#     def __init__(self, only_local_files=False, *args, **kwargs):
+#         super(DropFileWidget, self).__init__(*args, **kwargs)
+#         self._onlyLocalFiles = only_local_files
+#         self.setAcceptDrops(True)
+#         self._lastDroppedFiles = []
+
+#     def lastDroppedFileList(self):
+#         return self._lastDroppedFiles
+
+#     def dragEnterEvent(self, event, *args, **kwargs):
+#         if event.mimeData().hasUrls:
+#             event.accept()
+#         else:
+#             event.ignore()
+
+#     def dragMoveEvent(self, event, *args, **kwargs):
+#         if event.mimeData().hasUrls():
+#             event.setDropAction(QtCore.Qt.CopyAction)
+#             event.accept()
+#         else:
+#             event.ignore()
+
+#     def dropEvent(self, event, *args, **kwargs):
+#         if event.mimeData().hasUrls():
+#             event.setDropAction(QtCore.Qt.CopyAction)
+#             event.accept()
+#             links = []
+#             for url in event.mimeData().urls():
+#                 if url.toLocalFile():
+#                     links.append(str(url.toLocalFile()))
+#                 elif not self._onlyLocalFiles:
+#                     temp_file = urllib.urlretrieve(str(url.toString()))
+#                     temp_rename_file = os.path.normpath(os.path.join(str(os.path.split(temp_file[0])[0]), str(os.path.split(url.toString())[1])))
+#                     try:
+#                         os.rename(temp_file[0], temp_rename_file)
+#                     except Exception:
+#                         links.append(str(temp_file[0]))
+#                     else:
+#                         links.append(str(temp_rename_file))
+#                 else:
+#                     pass
+#             self._lastDroppedFiles = links
+#             self.fileDropped.emit(links)
+#         else:
+#             event.ignore()
+
+
 class GUI(QtWidgets.QWidget):
 
     # [initial_checkbox_checked, label_text, button_function, checkbox_obj, button_obj]
@@ -50,7 +154,7 @@ class GUI(QtWidgets.QWidget):
         [True, "Delete unused Nodes", toolbox_func.delete_unused_nodes, None, None],
         [True, "Delete Pipeline Sets", toolbox_func.delete_sets, None, None],
         [True, "Reset Viewport Subdiv", toolbox_func.unsmooth_all, None, None],
-        [True, "PUBLISH", toolbox_func.publish, None, None],
+        [True, "PUBLISH [MA]", toolbox_func.publish, None, None],
         [True, "Send Slack Publish Notification", toolbox_func.slack_publish_notification, None, None],
         [True, "Close Scene", toolbox_func.close_scene, None, None],
         [True, "Open last incremental save", toolbox_func.open_last_increment, None, None]
@@ -58,9 +162,11 @@ class GUI(QtWidgets.QWidget):
 
     toolbox_array_shd_setup = [
         [True, "Create deleteOnPublish set", toolbox_func.create_delOnPub_set, None, None],
+        [True, "Delete unknown DAG Nodes", toolbox_func.del_unknown_dag, None, None],
         [True, "Make sure model is referenced", toolbox_func.is_mdl_referenced, None, None],
         [True, "Set default aiSubdiv for all Shapes", toolbox_func.set_default_aiSubdiv, None, None],
-        [True, "Delete unknown DAG Nodes", toolbox_func.del_unknown_dag, None, None]
+        [True, "Set default aiVisibility for all Shapes", toolbox_func.set_default_aiVisibility, None, None],
+        [True, "Reference Shading Lightset", toolbox_func.ref_shading_lightset, None, None]
     ]
 
     toolbox_array_shd_publish = [
@@ -70,6 +176,7 @@ class GUI(QtWidgets.QWidget):
         [True, "Check input file paths", toolbox_func.check_input_paths, None, None],
         [True, "Incremental Save", toolbox_func.incremental_save, None, None],
         [True, "Remove unloaded References", toolbox_func.rem_unloaded_refs, None, None],
+        [True, "Remove Shading Lightset", toolbox_func.deref_shading_lightset, None, None],
         [True, "Remove Ref Edits (translate, rotate, scale)", toolbox_func.rem_ref_edits, None, None],
         [True, "Delete deleteOnPublish set", toolbox_func.del_delOnPub_set, None, None],
         [True, "Update *.tx files", toolbox_func.create_tx, None, None],
@@ -96,6 +203,8 @@ class GUI(QtWidgets.QWidget):
         self.setMinimumWidth(400)
         self.setMinimumHeight(200)
 
+        self._qsettings = QtCore.QSettings("CA", "Backspace")
+
         # Set current Toolbox
         if self.toolbox_str == "mod_setup":
             self.toolbox_array = self.toolbox_array_mod_setup
@@ -109,16 +218,32 @@ class GUI(QtWidgets.QWidget):
             self.toolbox_array = ""
 
         self.gui()
+        self._load_settings()
         self.show()
+
+    def _load_settings(self):
+        state = self._qsettings.value('%s/mainsplitter' % self.toolbox_str)
+        if state:
+            self.v_splitter.restoreState(state)
+
+    def _save_settings(self):
+        self._qsettings.setValue('%s/mainsplitter' % self.toolbox_str, self.v_splitter.saveState())
+
+    def closeEvent(self, event):
+        self._save_settings()
+        return QtWidgets.QWidget.closeEvent(self, event)
 
     def gui(self):
         self.connect(self, QtCore.SIGNAL("sendValue(PyObject)"), self.handleReturn)
 
         # Create Top Level Layout
         top_level_layout = QtWidgets.QVBoxLayout(self)
+        top_level_layout.setContentsMargins(0, 0, 0, 0)
+
+        checklist_wdg = QtWidgets.QWidget()
 
         # Create Grid Layout
-        grid_layout = QtWidgets.QGridLayout(self)
+        grid_layout = QtWidgets.QGridLayout(checklist_wdg)
 
         # Header Button
         header_btn = QtWidgets.QPushButton("{} TOOLBOX".format(self.toolbox_str.upper()))
@@ -172,7 +297,7 @@ class GUI(QtWidgets.QWidget):
 
         # Create and layout Text Widget
         textedit = QtWidgets.QPlainTextEdit(self, readOnly=True)
-        textedit.setMaximumHeight(100)
+        # textedit.setMaximumHeight(100)
 
         # Create and Apply monospaced font
         textedit_font = QtGui.QFont("Consolas")
@@ -190,13 +315,23 @@ class GUI(QtWidgets.QWidget):
         loggerbox.setLayout(loggerbox_layout)
 
         # ===== LOGGING GUI END =====
+        self.v_splitter = QtWidgets.QSplitter(orientation=QtCore.Qt.Vertical)
+        top_level_layout.addWidget(self.v_splitter)
+
+        scrollarea = ScrollAreaWidget(enable_drop_files=False)
+        scrollarea_vlay = QtWidgets.QVBoxLayout()
+        scrollarea.setLayout(scrollarea_vlay)
+        scrollarea_vlay.addWidget(checklist_wdg)
+
+        self.v_splitter.addWidget(scrollarea)
+        self.v_splitter.addWidget(loggerbox)
 
         # Add Layouts to Window
-        top_level_layout.addLayout(grid_layout)
-        top_level_layout.addWidget(loggerbox)
+        # top_level_layout.addLayout(grid_layout)
+        # top_level_layout.addWidget(loggerbox)
 
         # Add Layout to window
-        self.setLayout(top_level_layout)
+        # self.setLayout(top_level_layout)
 
     def execute_all(self):
         for i, row in enumerate(self.toolbox_array):

@@ -467,6 +467,18 @@ def is_mdl_referenced():
     return mdl_ref_found
 
 
+def ref_shading_lightset():
+    logger.debug("Create Reference for Lightset")
+
+    try:
+        pmc.createReference("M:/04_workflow/scenes/assets/locations/shadingSetup/Maya/shadingSetup_REF.ma", ns="shadingSetup")
+    except RuntimeError as e:
+        logger.error(e)
+        return False
+
+    return True
+
+
 def set_default_aiSubdiv():
     logger.debug("Setting Default aiSubdiv Settings")
 
@@ -474,6 +486,22 @@ def set_default_aiSubdiv():
         shape.setAttr("aiSubdivType", 1)
         shape.setAttr("aiSubdivIterations", 2)
         shape.setAttr("aiSubdivUvSmoothing", 1)
+
+    return True
+
+
+def set_default_aiVisibility():
+    logger.debug("Setting Default aiVisibility Settings")
+
+    for shape in pmc.ls(geometry=True):
+        shape.setAttr("primaryVisibility", 1)
+        shape.setAttr("castsShadows", 1)
+        shape.setAttr("aiVisibleInDiffuseReflection", 1)
+        shape.setAttr("aiVisibleInSpecularReflection", 1)
+        shape.setAttr("aiVisibleInDiffuseTransmission", 1)
+        shape.setAttr("aiVisibleInSpecularTransmission", 1)
+        shape.setAttr("aiVisibleInVolume", 1)
+        shape.setAttr("aiSelfShadows", 1)
 
     return True
 
@@ -541,6 +569,22 @@ def rem_unloaded_refs():
                 success = False
 
     return success
+
+
+def deref_shading_lightset():
+    logger.debug("Removing Shading Lightset")
+
+    for ref in pmc.iterReferences():
+        if "shadingSetup" in ref.namespace:
+            try:
+                ref.remove()
+                return True
+            except RuntimeError as e:
+                logger.error(e)
+                return False
+
+    # If the loop runs trough and no lightset is found, consider it an error
+    return False
 
 
 def rem_ref_edits():
