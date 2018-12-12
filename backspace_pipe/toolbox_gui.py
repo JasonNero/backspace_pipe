@@ -170,19 +170,19 @@ class GUI(QtWidgets.QWidget):
     ]
 
     toolbox_array_shd_publish = [
-        [True, "Fit view to all elements", toolbox_func.fit_view, None, None],
         [True, "Delete unknown DAG Nodes", toolbox_func.del_unknown_dag, None, None],
         [True, "Close Arnold Renderview to prevent crash", toolbox_func.close_ai_view, None, None],
         [True, "Check input file paths", toolbox_func.check_input_paths, None, None],
         [True, "Incremental Save", toolbox_func.incremental_save, None, None],
-        [True, "Remove unloaded References", toolbox_func.rem_unloaded_refs, None, None],
         [True, "Remove Shading Lightset", toolbox_func.deref_shading_lightset, None, None],
+        [True, "Remove unloaded References", toolbox_func.rem_unloaded_refs, None, None],
         [True, "Remove Ref Edits (translate, rotate, scale)", toolbox_func.rem_ref_edits, None, None],
         [True, "Delete deleteOnPublish set", toolbox_func.del_delOnPub_set, None, None],
         [True, "Update *.tx files", toolbox_func.create_tx, None, None],
         [True, "Delete display layers", toolbox_func.del_displaylayers, None, None],
         [True, "Delete ALL history", toolbox_func.del_all_history, None, None],
         [True, "Delete Non-Default Cameras", toolbox_func.delete_nondefault_cameras, None, None],
+        [True, "Fit view to all elements", toolbox_func.fit_view, None, None],
         [True, "PUBLISH [ASS]", toolbox_func.publish_ass, None, None],
         [True, "PUBLISH [MA]", toolbox_func.publish, None, None],
         [True, "Send Slack Publish Notification", toolbox_func.slack_publish_notification, None, None],
