@@ -142,7 +142,7 @@ class GUI(QtWidgets.QWidget):
         [True, "Assure unique naming", toolbox_func.assure_unique_naming, None, None],
         [True, "Assure matching shape <-> transf names", toolbox_func.assure_shape_names, None, None],
         [True, "Mesh cleanup check", toolbox_func.mesh_check, None, None],
-        [True, "Check for non-uniform shape scaling", toolbox_func.check_nonuniform_scale, None, None],
+        [True, "Check for non-uniform scaling", toolbox_func.check_nonuniform_scale, None, None],
         [True, "Incremental Save", toolbox_func.incremental_save, None, None],
         [True, "Import refsToImport set", toolbox_func.import_refs_set, None, None],
         [False, "Remove all References", toolbox_func.rem_all_refs, None, None],

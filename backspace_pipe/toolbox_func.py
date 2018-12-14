@@ -326,13 +326,13 @@ def del_delOnPub_set():
 
 
 def check_nonuniform_scale():
-    logger.debug("Checking for Non-Uniformly Scaled Shapes")
+    logger.debug("Checking for Non-Uniformly Scaled Shapes and Transforms")
     nonuniform_scale = []
 
-    for shape in pmc.ls(geometry=True):
-        scale_values = shape.getTransform().scale.get()
+    for node in pmc.ls(geometry=True, transforms=True):
+        scale_values = node.getTransform().scale.get()
         if not scale_values.count(scale_values[0]) == 3:
-            nonuniform_scale.append(shape)
+            nonuniform_scale.append(node)
 
     if len(nonuniform_scale) != 0:
         logger.error("Found non-uniform scale on following shapes:")

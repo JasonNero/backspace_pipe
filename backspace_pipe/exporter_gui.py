@@ -5,6 +5,12 @@ from PySide2 import QtCore, QtWidgets
 import backspace_pipe.exporter as exporter
 
 
+''' TODO: 
+- Add Custom Comment
+- Advanced Tab -> Overwrite Existing, Optional Comment
+'''
+
+
 class ExporterGUI(QtWidgets.QWidget):
 
     def __init__(self):
@@ -35,12 +41,15 @@ class ExporterGUI(QtWidgets.QWidget):
         obj_box = QtWidgets.QGroupBox(self, title="OBJ Export")
         obj_box_layout = QtWidgets.QVBoxLayout(self)
         obj_box_layout.setMargin(5)
+        self.obj_info_label = QtWidgets.QLabel("Packages: Painter/Designer")
+        self.obj_info_label.setMinimumWidth(150)
         self.obj_smooth_check = QtWidgets.QCheckBox(checked=True, text="Smooth")
         self.obj_tri_check = QtWidgets.QCheckBox(checked=True, text="Triangulate")
         obj_exec_btn = QtWidgets.QPushButton("Export")
 
         obj_exec_btn.clicked.connect(self.execute_obj)
 
+        obj_box_layout.addWidget(self.obj_info_label)
         obj_box_layout.addWidget(self.obj_smooth_check)
         obj_box_layout.addWidget(self.obj_tri_check)
         obj_box_layout.addWidget(obj_exec_btn)
@@ -50,12 +59,15 @@ class ExporterGUI(QtWidgets.QWidget):
         fbx_box = QtWidgets.QGroupBox(self, title="FBX Export")
         fbx_box_layout = QtWidgets.QVBoxLayout(self)
         fbx_box_layout.setMargin(5)
-        self.fbx_smooth_check = QtWidgets.QCheckBox(checked=True, text="Smooth")
-        self.fbx_tri_check = QtWidgets.QCheckBox(checked=True, text="Triangulate")
+        self.fbx_info_label = QtWidgets.QLabel("Packages: Mari")
+        self.fbx_info_label.setMinimumWidth(150)
+        self.fbx_smooth_check = QtWidgets.QCheckBox(checked=False, text="Smooth")
+        self.fbx_tri_check = QtWidgets.QCheckBox(checked=False, text="Triangulate")
         fbx_exec_btn = QtWidgets.QPushButton("Export")
 
         fbx_exec_btn.clicked.connect(self.execute_fbx)
 
+        fbx_box_layout.addWidget(self.fbx_info_label)
         fbx_box_layout.addWidget(self.fbx_smooth_check)
         fbx_box_layout.addWidget(self.fbx_tri_check)
         fbx_box_layout.addWidget(fbx_exec_btn)
