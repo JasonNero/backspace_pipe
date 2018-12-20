@@ -6,7 +6,7 @@ import getpass
 import time
 from sets import Set
 
-from backspace_pipe import slack_tools, logging_control, scene_control
+from backspace_pipe import slack_tools, logging_control, scene_control, dep_switcher
 
 
 # ### ### ### ### ### GLOABL VARS ### ### ### ### ### ###
@@ -329,8 +329,8 @@ def check_nonuniform_scale():
     logger.debug("Checking for Non-Uniformly Scaled Shapes and Transforms")
     nonuniform_scale = []
 
-    for node in pmc.ls(geometry=True, transforms=True):
-        scale_values = node.getTransform().scale.get()
+    for node in pmc.ls(transforms=True):
+        scale_values = node.scale.get()
         if not scale_values.count(scale_values[0]) == 3:
             nonuniform_scale.append(node)
 
@@ -380,6 +380,12 @@ def unsmooth_all():
     all_geo = pmc.ls(type='mesh')
     pmc.displaySmoothness(all_geo, du=0, dv=0, pw=4, ps=1, po=1)
     return True
+
+
+def update_dep():
+    logger.debug("Updating all MDL References to SHD")
+
+    return dep_switcher.switch(curr_dep="MDL", new_dep="ASS", replace=False, grouped=True)
 
 
 def publish():
@@ -507,6 +513,31 @@ def set_default_aiVisibility():
 
 
 # ### ### ### ### ### ### SHD PUBLISH ### ### ### ### ### ###
+
+def check_subref_dep():
+    logger.debug("Checking if all SubReferences are SHD files")
+
+    faulty_refs = []
+
+    for ref in pmc.iterReferences():
+        # # Check top nodes aswell
+        # ref_name_trimmed = str(ref.refNode)
+        # if "MDL" in ref_name_trimmed:
+        #     faulty_refs.append(ref.refNode)
+
+        for subref in ref.subReferences():
+            subref_name_trimmed = "".join(subref.split(":")[1:])
+            if "MDL" in subref_name_trimmed:
+                faulty_refs.append(subref)
+
+    if len(faulty_refs) == 0:
+        return True
+    else:
+        logger.error("The following Refs seems to be faulty:")
+        for ref in faulty_refs:
+            print(ref)
+        return False
+
 
 def check_lambert():
     logger.debug("Checking for meshes with lamber1 assigned")

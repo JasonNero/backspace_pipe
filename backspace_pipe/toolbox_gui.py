@@ -154,6 +154,7 @@ class GUI(QtWidgets.QWidget):
         [True, "Delete unused Nodes", toolbox_func.delete_unused_nodes, None, None],
         [True, "Delete Pipeline Sets", toolbox_func.delete_sets, None, None],
         [True, "Reset Viewport Subdiv", toolbox_func.unsmooth_all, None, None],
+        [True, "Update References to SHD [ASS]", toolbox_func.update_dep, None, None],
         [True, "PUBLISH [MA]", toolbox_func.publish, None, None],
         [True, "Send Slack Publish Notification", toolbox_func.slack_publish_notification, None, None],
         [True, "Close Scene", toolbox_func.close_scene, None, None],
@@ -170,6 +171,7 @@ class GUI(QtWidgets.QWidget):
     ]
 
     toolbox_array_shd_publish = [
+        [True, "Check if SubReferences are SHD", toolbox_func.check_subref_dep, None, None],
         [True, "Check if lambert1 is assigned to any geo", toolbox_func.check_lambert, None, None],
         [True, "Delete unknown DAG Nodes", toolbox_func.del_unknown_dag, None, None],
         [True, "Close Arnold Renderview to prevent crash", toolbox_func.close_ai_view, None, None],
