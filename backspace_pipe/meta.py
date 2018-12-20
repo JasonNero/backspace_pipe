@@ -75,8 +75,12 @@ class MetaData(object):
         # Unhide File, otherwise we get an IOError
         subprocess.check_call(["attrib", "-H", json_path], creationflags=0x08000000)
 
-        with open(json_path, 'w') as file:
-            json.dump(json_dict, file, ensure_ascii=False, indent=4, sort_keys=True)
+        try:
+            with open(json_path, 'w') as file:
+                json.dump(json_dict, file, ensure_ascii=False, indent=4, sort_keys=True)
+        except IOError as e:
+            logger.error("Could not save JSON File!")
+            logger.error(e)
 
         # Hide File, "prettier" for artist/user
         subprocess.check_call(["attrib", "+H", json_path], creationflags=0x08000000)

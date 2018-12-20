@@ -508,6 +508,16 @@ def set_default_aiVisibility():
 
 # ### ### ### ### ### ### SHD PUBLISH ### ### ### ### ### ###
 
+def check_lambert():
+    logger.debug("Checking for meshes with lamber1 assigned")
+
+    init_SG = pmc.ls("initialShadingGroup")[0]
+
+    if len(init_SG) == 0:
+        return True
+    else:
+        return False
+
 
 def close_ai_view():
     logger.debug("Closing Arnold IPR")

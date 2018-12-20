@@ -170,8 +170,10 @@ class GUI(QtWidgets.QWidget):
     ]
 
     toolbox_array_shd_publish = [
+        [True, "Check if lambert1 is assigned to any geo", toolbox_func.check_lambert, None, None],
         [True, "Delete unknown DAG Nodes", toolbox_func.del_unknown_dag, None, None],
         [True, "Close Arnold Renderview to prevent crash", toolbox_func.close_ai_view, None, None],
+        [True, "Delete unused Nodes", toolbox_func.delete_unused_nodes, None, None],
         [True, "Check input file paths", toolbox_func.check_input_paths, None, None],
         [True, "Incremental Save", toolbox_func.incremental_save, None, None],
         [True, "Remove Shading Lightset", toolbox_func.deref_shading_lightset, None, None],

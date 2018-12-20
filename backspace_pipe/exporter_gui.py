@@ -46,6 +46,7 @@ class ExporterGUI(QtWidgets.QWidget):
         self.obj_smooth_check = QtWidgets.QCheckBox(checked=True, text="Smooth")
         self.obj_tri_check = QtWidgets.QCheckBox(checked=True, text="Triangulate")
         obj_exec_btn = QtWidgets.QPushButton("Export")
+        obj_exec_btn.setEnabled(False)
 
         obj_exec_btn.clicked.connect(self.execute_obj)
 

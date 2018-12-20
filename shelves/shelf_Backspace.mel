@@ -34,7 +34,7 @@ global proc shelf_Backspace () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "from backspace_pipe import toolbox_gui\nreload(toolbox_gui)\ntoolbox_gui.GUI(toolbox=\"mod_setup\")" 
+        -command "from backspace_pipe import toolbox_gui\ntoolbox_gui.GUI(toolbox=\"mod_setup\")" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -69,7 +69,7 @@ global proc shelf_Backspace () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "from backspace_pipe import toolbox_gui\nreload(toolbox_gui)\ntoolbox_gui.GUI(toolbox=\"mod_publish\")" 
+        -command "from backspace_pipe import toolbox_gui\ntoolbox_gui.GUI(toolbox=\"mod_publish\")" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -117,7 +117,7 @@ global proc shelf_Backspace () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "from backspace_pipe import toolbox_gui\nreload(toolbox_gui)\ntoolbox_gui.GUI(toolbox=\"shd_setup\")" 
+        -command "from backspace_pipe import toolbox_gui\ntoolbox_gui.GUI(toolbox=\"shd_setup\")" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -152,7 +152,7 @@ global proc shelf_Backspace () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "from backspace_pipe import toolbox_gui\nreload(toolbox_gui)\ntoolbox_gui.GUI(toolbox=\"shd_publish\")" 
+        -command "from backspace_pipe import toolbox_gui\ntoolbox_gui.GUI(toolbox=\"shd_publish\")" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -200,7 +200,7 @@ global proc shelf_Backspace () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "from backspace_pipe import meta_gui\nreload(meta_gui)\nmeta_gui.MetaGUI()" 
+        -command "from backspace_pipe import meta_gui\nmeta_gui.MetaGUI()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -283,7 +283,7 @@ global proc shelf_Backspace () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import backspace_pipe.exporter_gui as exporter_gui\nreload(exporter_gui)\n\nexporter_gui.ExporterGUI()" 
+        -command "import backspace_pipe.exporter_gui as exporter_gui\nexporter_gui.ExporterGUI()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -353,7 +353,55 @@ global proc shelf_Backspace () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "from backspace_pipe import dresser_gui\nreload(dresser_gui)\ndresser_gui.DresserGUI()" 
+        -command "from backspace_pipe import dresser_gui\ndresser_gui.DresserGUI()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    separator
+        -enable 1
+        -width 12
+        -height 35
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -style "shelf" 
+        -horizontal 0
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Department REF Switcher" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "DEP_SWITCHER" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "DEP" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0.2 0.2 0.2 0.5 
+        -image "autoload.png" 
+        -image1 "autoload.png" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import backspace_pipe.dep_switcher_gui as dep_switcher_gui\ndep_switcher_gui.SwitcherGUI()" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
