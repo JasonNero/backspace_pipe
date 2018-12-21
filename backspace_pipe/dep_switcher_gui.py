@@ -41,7 +41,7 @@ class SwitcherGUI(QtWidgets.QWidget):
         self.new_dep_text = QtWidgets.QLineEdit("ASS")
         self.new_dep_text.setFixedWidth(50)
 
-        self.replace_check = QtWidgets.QCheckBox(checked=True, text="Replace")
+        self.replace_check = QtWidgets.QCheckBox(checked=False, text="Replace")
         self.grouped_check = QtWidgets.QCheckBox(checked=True, text="Grouped")
         self.exec_btn = QtWidgets.QPushButton("Execute")
 
