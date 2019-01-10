@@ -275,8 +275,8 @@ class GUI(QtWidgets.QWidget):
             grid_layout.addWidget(button, next_row, 1)
 
         # Execute All Button
-        execute_all_btn = QtWidgets.QPushButton("Execute all")
-        self.connect(execute_all_btn, QtCore.SIGNAL("clicked()"), self.execute_all)
+        self.execute_all_btn = QtWidgets.QPushButton("Execute all")
+        self.connect(self.execute_all_btn, QtCore.SIGNAL("clicked()"), self.execute_all)
 
         # Fix Cursor Button
         fix_cursor_btn = QtWidgets.QPushButton("CursorFix")
@@ -285,7 +285,7 @@ class GUI(QtWidgets.QWidget):
         # Add Execute and Cursor Button to layout
         next_row = grid_layout.rowCount() + 1
         grid_layout.addWidget(fix_cursor_btn, next_row, 1)
-        grid_layout.addWidget(execute_all_btn, next_row, 0, 1, 1)
+        grid_layout.addWidget(self.execute_all_btn, next_row, 0, 1, 1)
 
         # Some Layouting (Spacing between elements, row/column resize when window resized)
         grid_layout.setColumnStretch(0, 1)
@@ -338,6 +338,7 @@ class GUI(QtWidgets.QWidget):
         # self.setLayout(top_level_layout)
 
     def execute_all(self):
+        allSuccessful = True
         for i, row in enumerate(self.toolbox_array):
             # check Checkbox for current row
             if row[3].isChecked():
@@ -348,7 +349,13 @@ class GUI(QtWidgets.QWidget):
             if rowSuccessful:
                 continue
             else:
+                allSuccessful = False
                 break
+
+        if allSuccessful:
+            self.execute_all_btn.setStyleSheet("background-color: rgb(60, 200, 80)")
+        else:
+            self.execute_all_btn.setStyleSheet("background-color: rgb(200, 40, 10)")
 
     # Emit Signal Function
     def attach_signal_emitter(self, orig_func):

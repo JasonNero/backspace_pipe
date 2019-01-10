@@ -488,7 +488,7 @@ def ref_shading_lightset():
 def set_default_aiSubdiv():
     logger.debug("Setting Default aiSubdiv Settings")
 
-    for shape in pmc.ls(geometry=True):
+    for shape in pmc.ls(type="mesh"):
         shape.setAttr("aiSubdivType", 1)
         shape.setAttr("aiSubdivIterations", 2)
         shape.setAttr("aiSubdivUvSmoothing", 1)
@@ -499,7 +499,7 @@ def set_default_aiSubdiv():
 def set_default_aiVisibility():
     logger.debug("Setting Default aiVisibility Settings")
 
-    for shape in pmc.ls(geometry=True):
+    for shape in pmc.ls(type="mesh"):
         shape.setAttr("primaryVisibility", 1)
         shape.setAttr("castsShadows", 1)
         shape.setAttr("aiVisibleInDiffuseReflection", 1)
@@ -535,18 +535,22 @@ def check_subref_dep():
     else:
         logger.error("The following Refs seems to be faulty:")
         for ref in faulty_refs:
-            print(ref)
+            logger.error(ref)
         return False
 
 
 def check_lambert():
-    logger.debug("Checking for meshes with lamber1 assigned")
+    logger.debug("Checking for meshes with lambert1 assigned")
 
     init_SG = pmc.ls("initialShadingGroup")[0]
 
     if len(init_SG) == 0:
         return True
     else:
+        logger.error("Following Shapes have lambert1 assigned!")
+        for shape in pmc.sets(init_SG, query=True):
+            logger.error(shape)
+
         return False
 
 
