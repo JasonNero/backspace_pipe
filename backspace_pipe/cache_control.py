@@ -36,6 +36,10 @@ def transfer_shading(hide=True):
                     try:
                         if str(trgTop) in trgShape.fullPath():
 
+                            # Transfer Opaque and Matte
+                            trgShape.setAttr("aiOpaque", srcShape.getAttr("aiOpaque"))
+                            trgShape.setAttr("aiMatte", srcShape.getAttr("aiMatte"))
+
                             # Transfer Arnold Subdiv Settings
                             trgShape.setAttr("aiSubdivType", srcShape.getAttr("aiSubdivType"))
                             trgShape.setAttr("aiSubdivIterations", srcShape.getAttr("aiSubdivIterations"))
@@ -53,7 +57,7 @@ def transfer_shading(hide=True):
 
                             # Transfer Shader Connection
                             print("Forcing {} into {}".format(str(trgShape), sg))
-                            sg.forceElement(trgShape)
+                            sg.forcEelement(trgShape)
                             if hide:
                                 pmc.hide(srcShape.getTransform().fullPath())
                         else:
