@@ -57,7 +57,7 @@ def transfer_shading(hide=True):
 
                             # Transfer Shader Connection
                             print("Forcing {} into {}".format(str(trgShape), sg))
-                            sg.forcEelement(trgShape)
+                            sg.forceElement(trgShape)
                             if hide:
                                 pmc.hide(srcShape.getTransform().fullPath())
                         else:

@@ -25,7 +25,8 @@ def startup_deferred():
     import pymel.core as pmc
 
     pipe_path = pmc.Path(__file__).parent.parent
-    maya_project_path = pmc.Path(__file__).splitdrive()[0] / "/04_workflow"
+    maya_project_path = "//am-ca-fs02/cg2/04_workflow"
+    #maya_project_path = pmc.Path(__file__).splitdrive()[0] / "/04_workflow"
 
     # DragnDrop Feature
     dragndrop_script_path = pipe_path / "backspace_pipe" / "mel" / "performFileDropAction.mel"

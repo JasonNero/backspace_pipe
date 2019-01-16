@@ -484,7 +484,7 @@ global proc shelf_Backspace () {
         -style "iconOnly" 
         -marginWidth 1
         -marginHeight 1
-        -command "import backspace_pipe.cache_control as cache_control\n\nif \"adventurer\" in pmc.ls(sl=True)[0]:\n\tcache_control.transfer_shading(hide=False)\nelse:\n\tcache_control.transfer_shading(hide=True)" 
+        -command "import backspace_pipe.cache_control as cache_control\nimport pymel.core as pmc\n\nif \"adventurer\" in str(pmc.ls(sl=True)[0]):\n\tcache_control.transfer_shading(hide=False)\nelse:\n\tcache_control.transfer_shading(hide=True)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1
@@ -520,6 +520,41 @@ global proc shelf_Backspace () {
         -marginWidth 1
         -marginHeight 1
         -command "import backspace_pipe.cache_control as cache_control\n\ncache_control.export_abc()" 
+        -sourceType "python" 
+        -commandRepeatable 1
+        -flat 1
+    ;
+    shelfButton
+        -enableCommandRepeat 1
+        -flexibleWidthType 3
+        -flexibleWidthValue 32
+        -enable 1
+        -width 35
+        -height 34
+        -manage 1
+        -visible 1
+        -preventOverride 0
+        -annotation "Disables AOVs from subreferences" 
+        -enableBackground 0
+        -backgroundColor 0 0 0 
+        -highlightColor 0.321569 0.521569 0.65098 
+        -align "center" 
+        -label "AOV" 
+        -labelOffset 0
+        -rotation 0
+        -flipX 0
+        -flipY 0
+        -useAlpha 1
+        -font "plainLabelFont" 
+        -imageOverlayLabel "AOV" 
+        -overlayLabelColor 0.8 0.8 0.8 
+        -overlayLabelBackColor 0.2 0.2 0.2 0.5 
+        -image "layeredTexture.svg" 
+        -image1 "layeredTexture.svg" 
+        -style "iconOnly" 
+        -marginWidth 1
+        -marginHeight 1
+        -command "import pymel.core as pmc\n\nfor aov in pmc.ls(type=\"aiAOV\"):\n   if aov.isReferenced():\n       aov.enabled.set(False)" 
         -sourceType "python" 
         -commandRepeatable 1
         -flat 1

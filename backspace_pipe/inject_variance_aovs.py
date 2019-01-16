@@ -1,6 +1,7 @@
 import glob
 import re
 import shutil
+import sys
 
 outputs_re = re.compile(r" outputs (\d+) \d+")
 
@@ -8,8 +9,10 @@ outputs_re = re.compile(r" outputs (\d+) \d+")
 def inject_aovs(file_list, aov_list):
     successful_injects = []
 
-    for file_path in file_list:
-        print("\nNow processing: {}".format(file_path))
+    file_list.sort()
+
+    for number, file_path in enumerate(file_list):
+        print("\nNow processing {}/{}: {}".format(number + 1, len(file_list), file_path))
         with open(file_path) as f_old, open(file_path + ".tmp", "w") as f_new:
             aovs_written = 0
             for line in f_old:
@@ -54,15 +57,23 @@ def inject_aovs(file_list, aov_list):
 
 
 def rename_tmp_files(file_list):
-    for file_path in file_list:
+    for number, file_path in enumerate(file_list):
+        print("\nNow replacing {}/{}: {}".format(number + 1, len(file_list), file_path))
         shutil.copy(file_path + ".tmp", file_path)
 
 
 if __name__ == "__main__":
-    # file_list = glob.glob('M:/04_workflow/scenes/shots/000/Lighting/Shot_00_LGT_007_ASSES/*.ass')
 
-    file_list = glob.glob("*.ass")
-    file_list = ["add_aov_in_ass_maybe.ass"]
+    try:
+        drop_file = sys.argv[1]
+        file_prefix = drop_file.split(".")[-3]
+        print("Using dropped file for file list creation")
+        glob_path = file_prefix + ".*.ass"
+        file_list = glob.glob(glob_path)
+    except IndexError:
+        print("Using current folder for file list creation")
+        file_list = glob.glob("*.ass")
+
     aov_list = ["diffuse_direct", "specular_direct"]
 
     print("\n\n\n####### VARIANCE AOV INJECTOR #######\n")
@@ -74,3 +85,5 @@ if __name__ == "__main__":
     input("Press any key to start the injection...")
 
     inject_aovs(file_list=file_list, aov_list=aov_list)
+
+    input("Finished!")

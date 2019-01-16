@@ -12,9 +12,10 @@ MODE_POINTCLOUD = 4
 MODE_SHADED_POLYWIRE = 5
 MODE_SHADED = 6
 
-def set_all_draw_mode(draw_mode):
-	standins = pmc.ls(type="aiStandIn")
 
-	for standin in standins:
-		logger.debug("Now processing: {}".format(standin))
-		standin.mode.set(draw_mode)
+def set_all_draw_mode(draw_mode):
+    standins = pmc.ls(type="aiStandIn")
+
+    for standin in standins:
+        logger.debug("Now processing: {}".format(standin))
+        standin.mode.set(draw_mode)
