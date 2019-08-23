@@ -6,10 +6,21 @@ import sys
 outputs_re = re.compile(r" outputs (\d+) \d+")
 
 
+# aov_list = [
+#     "diffuse_direct",
+#     "diffuse_indirect",
+#     "specular_direct",
+#     "specular_indirect"
+# ]
+
+aov_list = [
+    "diffuse_indirect",
+    "specular_indirect"
+]
+
+
 def inject_aovs(file_list, aov_list):
     successful_injects = []
-
-    file_list.sort()
 
     for number, file_path in enumerate(file_list):
         print("\nNow processing {}/{}: {}".format(number + 1, len(file_list), file_path))
@@ -63,6 +74,12 @@ def rename_tmp_files(file_list):
 
 
 if __name__ == "__main__":
+    print("\n####### VARIANCE AOV INJECTOR #######\n")
+    print("You specified the following AOVs:")
+    for aov in aov_list:
+        print("....{aov}".format(aov=aov))
+
+    print("\n")
 
     try:
         drop_file = sys.argv[1]
@@ -74,16 +91,13 @@ if __name__ == "__main__":
         print("Using current folder for file list creation")
         file_list = glob.glob("*.ass")
 
-    aov_list = ["diffuse_direct", "specular_direct"]
-
-    print("\n\n\n####### VARIANCE AOV INJECTOR #######\n")
-    print("You specified the following AOVs:")
-    for aov in aov_list:
-        print("....{aov}".format(aov=aov))
 
     print("\n#####################################\n")
     input("Press any key to start the injection...")
 
+    file_list.sort()
+
     inject_aovs(file_list=file_list, aov_list=aov_list)
 
+    print("\n#####################################\n")
     input("Finished!")

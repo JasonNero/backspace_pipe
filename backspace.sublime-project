@@ -12,6 +12,12 @@
 			"name": "HdM PC Python",
 			"selector": "source.python",
 			"shell_cmd": "\"py\" -u \"$file\""
+		},
+		{
+			"file_regex": "^[ ]*File \"(...*?)\", line ([0-9]*)",
+			"name": "Nuke Python",
+			"selector": "source.python",
+			"shell_cmd": "\"C:\\Program Files\\Nuke11.1v6\\Nuke11.1.exe\" -t \"$file\""
 		}
 	],
 	"folders":

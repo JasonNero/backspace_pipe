@@ -6,6 +6,9 @@ import sys
 # student_string = 'fileInfo "license" "education";'
 dev_included = False
 
+lic_fix = True
+fps_fix = False
+
 
 def bulk_check(root_path):
     non_unified = []
@@ -35,12 +38,15 @@ def is_unified(file_path):
         # Checking if scene doesnt fit
         with open(file_path, "r+") as maFile:
             newMaText = maFile.read(1024)
-            if 'fileInfo "license" "student";' in newMaText or 'currentUnit -l centimeter -a degree -t pal;' in newMaText:
-                print("Scene Not Unify!\n")
-                return False
-            else:
-                print("Scene OK!\n")
-                return True
+            unify = True
+
+            if 'fileInfo "license" "student";' in newMaText and lic_fix:
+                unify = False
+
+            elif 'currentUnit -l centimeter -a degree -t pal;' in newMaText and fps_fix:
+                unify = False
+
+            return unify
     else:
         raise Exception("Not an Maya Ascii file!")
 
@@ -66,15 +72,17 @@ def unify(file_path):
             except Exception as e:
                 raise e
 
-            newMaText = newMaText.replace(
-                'fileInfo "license" "student";',
-                'fileInfo "license" "education";'
-            )
+            if lic_fix:
+                newMaText = newMaText.replace(
+                    'fileInfo "license" "student";',
+                    'fileInfo "license" "education";'
+                )
 
-            newMaText = newMaText.replace(
-                'currentUnit -l centimeter -a degree -t pal;',
-                'currentUnit -l centimeter -a degree -t film;'
-            )
+            if fps_fix:
+                newMaText = newMaText.replace(
+                    'currentUnit -l centimeter -a degree -t pal;',
+                    'currentUnit -l centimeter -a degree -t film;'
+                )
 
             # Writing unified file
             print("Writing to file...\n")

@@ -16,6 +16,9 @@ logger = logging_control.get_logger()
 
 instance = None
 
+# Added for convenience when working at home
+ignoreStudent = True
+
 
 def get_maya_window():
     # Get Maya Window Pointer (py2: long(pointer), py3: pointer)
@@ -127,9 +130,9 @@ class SceneControl():
         except RuntimeError as e:
             logger.error(e)
             return False
-
-        if "Student" in get_maya_window().windowTitle():
-            self.del_maya_lic_string()
+        if not ignoreStudent:
+            if "Student" in get_maya_window().windowTitle():
+                self.del_maya_lic_string()
         return True
 
     def save_as(self, file, comment=None):
@@ -155,8 +158,9 @@ class SceneControl():
 
         self.add_to_recent_files()
 
-        if "Student" in get_maya_window().windowTitle():
-            self.del_maya_lic_string()
+        if not ignoreStudent:
+            if "Student" in get_maya_window().windowTitle():
+                self.del_maya_lic_string()
 
         # Create and save MetaData for new file
         self.meta = MetaData()

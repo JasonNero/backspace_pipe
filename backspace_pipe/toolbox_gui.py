@@ -154,9 +154,9 @@ class GUI(QtWidgets.QWidget):
         [True, "Delete unused Nodes", toolbox_func.delete_unused_nodes, None, None],
         [True, "Delete Pipeline Sets", toolbox_func.delete_sets, None, None],
         [True, "Reset Viewport Subdiv", toolbox_func.unsmooth_all, None, None],
-        [True, "Update References to SHD [ASS]", toolbox_func.update_dep, None, None],
+        [False, "Update References to SHD [ASS]", toolbox_func.update_dep, None, None],
         [True, "PUBLISH [MA]", toolbox_func.publish, None, None],
-        [True, "Send Slack Publish Notification", toolbox_func.slack_publish_notification, None, None],
+        [False, "Send Slack Publish Notification", toolbox_func.slack_publish_notification, None, None],
         [True, "Close Scene", toolbox_func.close_scene, None, None],
         [True, "Open last incremental save", toolbox_func.open_last_increment, None, None]
     ]

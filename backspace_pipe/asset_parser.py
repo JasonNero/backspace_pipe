@@ -2,7 +2,9 @@ import os
 import pymel.core as pmc
 
 # setpieces_path = pmc.Path(__file__).splitdrive()[0] / "04_workflow" / "scenes" / "assets" / "setpieces" / ""
-setpieces_path = pmc.Path("M:/04_workflow/scenes/assets/setpieces")
+# setpieces_path = pmc.Path("M:/04_workflow/scenes/assets/setpieces")
+setpieces_path = pmc.Path(pmc.workspace.getPath() + "/scenes/assets/setpieces")
+
 
 _norm = os.path.normpath
 
