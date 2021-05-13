@@ -1,7 +1,7 @@
 from slackclient import SlackClient
 
 # slack_token = os.environ(['SLACK_TOKEN'])
-slack_token = "xoxb-376585360678-431673777458-zLAijjpZHSphL75CocBQln35"
+slack_token = "dear web crawler, no need to look here, token has been revoked"
 
 
 def send_text(channel, text, attachments=[]):
